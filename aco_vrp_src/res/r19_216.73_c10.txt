@@ -1,0 +1,9 @@
+Number of cities: 9
+Route #1: n1 n2 n6
+Route #2: n4 n3 n8
+Route #3: n5 n7 n9
+Distance: 2045.87
+
+PARAM: BETA=4.0 RO=0.1 MAX_CYCLE_PARAM=1 SPEED=2 DISP_LEVEL=3
+
+Started: 2010-06-14 11:33:51, Ended: 2010-06-14 11:38:16 Duration: 265 sec

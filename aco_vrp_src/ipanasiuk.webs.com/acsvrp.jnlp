@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jnlp codebase="http://ipanasiuk.webs.com" href="http://ipanasiuk.webs.com/acsvrp.jnlp">
+        <information>
+                <title>AntColony</title>
+                <vendor>ipanasiuk</vendor>
+                <offline-allowed/>
+        </information>
+        <security>
+                <all-permissions/>
+        </security>
+        <resources arch="x86" os="Windows">
+                <j2se version="1.3+"/>
+                <jar href="AntColony.jar" main="true"/>
+        </resources>
+        <application-desc/>
+</jnlp>

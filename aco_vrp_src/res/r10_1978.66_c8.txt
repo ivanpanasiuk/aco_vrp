@@ -1,0 +1,17 @@
+Number of cities: 10
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Distance: 1978.659428357047
+
+PARAM: BETA=4.0 RO=0.10000000149011612 | MAX_CYCLE_PARAM=1 SPEED=5 DISP_LEVEL=3
+
+Started: 2014-01-06 21:55:56, Ended: 2014-01-06 21:59:59 Duration: 243 sec

@@ -1,0 +1,17 @@
+what,kind,bundleId,bundleVersion,description,time
+java.specification.name,sysinfo,,,"Java Platform API Specification",1327530598312
+java.specification.vendor,sysinfo,,,"Sun Microsystems Inc.",1327530598312
+java.specification.version,sysinfo,,,"1.6",1327530598312
+java.vendor,sysinfo,,,"Sun Microsystems Inc.",1327530598312
+java.version,sysinfo,,,"1.6.0_24",1327530598312
+java.vm.info,sysinfo,,,"mixed mode",1327530598312
+java.vm.name,sysinfo,,,"Java HotSpot(TM) Client VM",1327530598312
+java.vm.specification.name,sysinfo,,,"Java Virtual Machine Specification",1327530598312
+java.vm.specification.vendor,sysinfo,,,"Sun Microsystems Inc.",1327530598312
+java.vm.specification.version,sysinfo,,,"1.0",1327530598312
+java.vm.vendor,sysinfo,,,"Sun Microsystems Inc.",1327530598312
+java.vm.version,sysinfo,,,"19.1-b02",1327530598312
+started,bundle,org.eclipse.dltk.core.index.sql,2.0.1.v20100909-1720,"org.eclipse.dltk.core.index.sql",1327530598625
+started,bundle,org.eclipse.epp.usagedata.ui,1.3.1.R201102081640,"org.eclipse.epp.usagedata.ui",1327530599421
+started,bundle,org.eclipse.dltk.core.index.sql.h2,2.0.1.v20100909-1720,"org.eclipse.dltk.core.index.sql.h2",1327530600031
+deactivated,workbench,org.eclipse.ui.workbench,3.6.2.M20110210-1200,"",1327530601312

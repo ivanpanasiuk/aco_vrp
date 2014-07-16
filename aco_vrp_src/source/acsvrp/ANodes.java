@@ -52,7 +52,9 @@ public class ANodes {
 				portT.setParent(n);
 				aedge.setTarget (n.getChildAt(0));
 				//aedge.setTarget (portT);
+                                
 				aedge.len = anode.dist(n);
+                                aedge.time = anode.getTimeOfTimeConnectionByDestination(n);
 				anode.edges.add(aedge); 
 			}
 		}
@@ -188,4 +190,17 @@ public class ANodes {
 	public boolean isEmpty() {
 		return anodes.isEmpty();
 	}
+        
+        public ANode getNodeByName(String name)
+        {
+            for(ANode node : anodes)
+            {
+                if(node.getName().equals(name))
+                {
+                    return node;
+                }
+            }
+            
+            return null;
+        }
 }

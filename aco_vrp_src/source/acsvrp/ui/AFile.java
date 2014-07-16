@@ -132,7 +132,9 @@ public class AFile {
                             ANode source = anodes.getNodeByName(sourceNode);
                             ANode dest = anodes.getNodeByName(destNode);
                             
+                            // n0 - n1 isto putovanje kao n1 - n0
                             source.addTimeConnection(dest, Integer.parseInt(time));
+                            dest.addTimeConnection(source, Integer.parseInt(time));
                         }
                         
                     }

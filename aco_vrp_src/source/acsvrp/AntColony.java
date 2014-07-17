@@ -27,6 +27,7 @@ public class AntColony {
 	// Math
 	public static int PREC = 4;
 	public static String NUM_FORMAT = "0.";
+	public static String FORMAT_DOUBLE_2 = "0.00";
 	// Display parameters
 	static public int NODE_DIM = 14;
 	static public int FIT_X = 620;	// fit 640 x 480

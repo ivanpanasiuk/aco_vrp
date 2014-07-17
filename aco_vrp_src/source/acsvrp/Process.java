@@ -42,7 +42,7 @@ public class Process {
 		aG.anodes.resetPheromon();
 				
 		// Starting cycles
-		for (int cycle = 0; cycle < aG.anodes.size() * AntColony.MAX_CYCLES_PARAM; cycle++) {
+		for (int cycle = 0; cycle < (aG.anodes.size()-1) * AntColony.MAX_CYCLES_PARAM; cycle++) {
 		
 			if (AntColony.DIPSLAY_LEVEL > 0) {
 				String cycleText = "Cycle: " + (cycle+1) + " of " + Def.df0(aG.anodes.size() * AntColony.MAX_CYCLES_PARAM);
@@ -105,13 +105,13 @@ public class Process {
 							//Dbg.prn(" "+anodes.get(nextNodeIndx).isVisited()+" Go on.");
 						}
 						
-						logger.trace(" Vis: "+aG.anodes.numOfVisited()+" Cap: "+capacity+" Dist:"+ants[antCount].getDist());
+						logger.trace(" Vis: "+aG.anodes.numOfVisited()+" Cap: "+capacity+" Cost:"+ants[antCount].getDist());
 						if (AntColony.DIPSLAY_LEVEL > 2) {
 							ShowPheromon.setLcurrentNode("Node: "+currentNodeIndx+" ("+nextNodeIndx+")");
 //							Dbg.prnl("Node: "+capacity);
 							ShowPheromon.setLPathCapacity("Capacity left: "+capacity);
 //							Dbg.prnl("Capacity left: "+capacity);
-							ShowPheromon.setLCurrentPathDist("Path distance: "+Def.df2(ants[antCount].getDist()));
+							ShowPheromon.setLCurrentPathDist("Path cost: "+Def.df2(ants[antCount].getDist()));
 //							Dbg.prnl("Path distance: "+Def.df2(ants[antCount].getDist()));
 							ShowPheromon.setLNodesVisited("Cities Visited: "+(aG.anodes.numOfVisited()-1)+" of "+(aG.anodes.size()-1));
 							logger.trace("Cities Visited: "+(aG.anodes.numOfVisited()-1)+" of "+(aG.anodes.size()-1));
@@ -126,7 +126,7 @@ public class Process {
 						showEdge(currentNodeIndx, 0);
 						ShowPheromon.setLcurrentNode("Node: "+currentNodeIndx+" (0)");
 						ShowPheromon.setLPathCapacity("Capacity left: "+capacity);
-						ShowPheromon.setLCurrentPathDist("Path distance: "+Def.df2(ants[antCount].getDist()));
+						ShowPheromon.setLCurrentPathDist("Path cost: "+Def.df2(ants[antCount].getDist()));
 						ShowPheromon.setLNodesVisited("Cities Visited: "+(aG.anodes.numOfVisited()-1)+" of "+(aG.anodes.size()-1));
 						//Dbg.delay(30);
 					}
@@ -147,8 +147,8 @@ public class Process {
 				if ( (ants[antBestIndx].getDist() > ants[antCount].getDist()) || (antCount==0)) {
 					antBestIndx = antCount;
 					if (AntColony.DIPSLAY_LEVEL > 0) {
-						logger.trace("Showing best ant distance");
-						ShowPheromon.setLBestDistAnt("Best (Ant) distance: "+Def.df2(ants[antBestIndx].getDist())+" ("+antBestIndx+")");
+						logger.trace("Showing best ant cost");
+						ShowPheromon.setLBestDistAnt("Best cost (Ant): "+Def.df2(ants[antBestIndx].getDist())+" ("+antBestIndx+")");
 						Dbg.delay(10);
 					}
 				}
@@ -271,6 +271,7 @@ public class Process {
 			Dbg.prn("; " + Def.df2(bestAnt.getDist()) + "; "+Def.df0(bestCycle)+"; "+Def.df0(aG.anodes.size()*AntColony.MAX_CYCLES_PARAM)+"; "+getDuration(startTime));
 		} else {
 			MainFrame.statusBar.setText(" Calculation finished.");
+			MainFrame.jButtonStart.setText("Start");
 			//Dbg.prn("ending. ");
 			Dbg.delay(50);
 		}
@@ -314,22 +315,6 @@ public class Process {
 		return best;
 	}
 	
-//	private double tau_ni(int i, int j) {
-//		double ni = 1000.0;
-//		double dist = anodes.get(i).dist(anodes.get(j));
-//		if (dist>0) {
-//			ni = 1000 / dist;
-//		} else { 
-//			Dbg.prnl("i:"+i+" j:"+j+" dist:"+dist);
-//		}
-//		double tau = anodes.getEdge(i, j).getPheromon();
-//		double res = Math.pow(tau, AntColony.ALFA) * Math.pow(ni, AntColony.BETA);
-//		return anodes.getEdge(i,j).getPh() * Math.pow(1.0/anodes.get(i).dist(anodes.get(j)),AntColony.BETA);
-//		Dbg.prnl("     res: "+res);
-//		Dbg.delay(1000);
-//		return res;
-//	}
-
 	/**
 	 * @return Returns the finished.
 	 */

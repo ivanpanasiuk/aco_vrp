@@ -120,7 +120,7 @@ public class AFile {
 	            	i++;
 	            }
                     
-                    // load time section
+                    // Load time section
                     while ((str = in.readLine()) != null) {
                         if(!str.contains("TIME_SECTION"))
                         {
@@ -128,13 +128,8 @@ public class AFile {
                             String sourceNode = st.nextToken();
                             String destNode = st.nextToken();
                             String time = st.nextToken();
-                            
-                            ANode source = anodes.getNodeByName(sourceNode);
-                            ANode dest = anodes.getNodeByName(destNode);
-                            
-                            // n0 - n1 isto putovanje kao n1 - n0
-                            source.addTimeConnection(dest, Double.parseDouble(time));
-                            dest.addTimeConnection(source, Double.parseDouble(time));
+                                                        
+                            anodes.getEdge(sourceNode, destNode).time = Double.parseDouble(time);
                         }
                         
                     }

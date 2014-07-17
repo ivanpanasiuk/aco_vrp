@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 import org.jgraph.graph.DefaultPort;
+
 import acsvrp.tools.Dbg;
 
 public class ANodes {
@@ -81,6 +82,30 @@ public class ANodes {
 			Dbg.delay(2000);
 			return anodes.get(i).edges.get(j);
 		}			
+	}
+	
+	//TODO NOW
+	public AEdge getEdge(String startPar, String endPar) {
+		AEdge r = null;
+		int control = 0;
+		for (ANode n: anodes) {
+			String currentNode = n.getName();
+			if ((currentNode.equals(startPar)) || (currentNode.equals(endPar))) {
+				for (AEdge e: n.edges) {
+					if ((e.endIndx.equals(startPar)) || (e.endIndx.equals(endPar))) {
+						r = e;
+						control++;
+					}
+				}
+			}
+		}
+		if (control>1) {
+			Dbg.prnl("Something go wrong ...."+control);
+		}
+		if (r!=null) {
+			Dbg.prnl("Edge found."+startPar+" -> "+endPar+" d:"+r.len);
+		}
+		return r;
 	}
 		
 	// resetuje stanje svih nodova - svi postaju neposeceni

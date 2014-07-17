@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 
 
 /**
- * @author ipanasiuk
+ * @author ivan.panasiuk
  *
  */
 public class Dbg {

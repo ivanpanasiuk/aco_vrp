@@ -71,7 +71,7 @@ public class MainFrame extends JFrame {
 	private JMenuBar jMenuBar1;
 	private JScrollPane jScrollPane;
 	private JButton jButtonOpen;
-	private JButton jButtonStart;
+	static public 	JButton jButtonStart;
 	private JButton jButtonAdd;
 	private JButton jButtonSave;
 	private JMenuItem jMenuItemLoadUrl;
@@ -176,6 +176,7 @@ public class MainFrame extends JFrame {
 				BorderLayout jButtonStartLayout = new BorderLayout();
 				jButtonStart.setLayout(jButtonStartLayout);
 				jToolBar1.add(jButtonStart);
+				jButtonStart.setText("Start");
 				jButtonStart.setToolTipText("Start process");
 				jButtonStart.setIcon(new ImageIcon(getClass().getClassLoader().getResource("acsvrp/resources/objects_017.gif")));
 				jButtonStart.setPreferredSize(new java.awt.Dimension(28, 28));

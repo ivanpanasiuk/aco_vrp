@@ -13,9 +13,9 @@ package acsvrp;
 public class TimeConnection {
 
     private ANode destination;
-    private int time;
+    private double time;
     
-    public TimeConnection(ANode dest, int time)
+    public TimeConnection(ANode dest, double time)
     {
         this.destination = dest;
         this.time = time;
@@ -26,7 +26,7 @@ public class TimeConnection {
         return destination;
     }
     
-    public int getTime()
+    public double getTime()
     {
         return time;
     }

@@ -120,7 +120,7 @@ public class AFile {
 	            	i++;
 	            }
                     
-                    // ucitanje vremenskih deonica
+                    // load time section
                     while ((str = in.readLine()) != null) {
                         if(!str.contains("TIME_SECTION"))
                         {
@@ -133,8 +133,8 @@ public class AFile {
                             ANode dest = anodes.getNodeByName(destNode);
                             
                             // n0 - n1 isto putovanje kao n1 - n0
-                            source.addTimeConnection(dest, Integer.parseInt(time));
-                            dest.addTimeConnection(source, Integer.parseInt(time));
+                            source.addTimeConnection(dest, Double.parseDouble(time));
+                            dest.addTimeConnection(source, Double.parseDouble(time));
                         }
                         
                     }

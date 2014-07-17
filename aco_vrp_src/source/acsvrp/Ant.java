@@ -13,6 +13,9 @@ public class Ant {
 	
 	//  Ukupni put koji je mrav presao
 	double dist;
+        
+        int time;
+        
 	// Ukupni broj gradova koji je mrav posetio
 	int num_nodes;
 	ArrayList<AEdge> path = new ArrayList<AEdge>();
@@ -24,6 +27,9 @@ public class Ant {
 	
 	public int addPath (ANodes anodes, int i, int j) {
 		this.dist = this.dist + anodes.get(i).dist(anodes.get(j));
+                
+                this.time += this.time + anodes.get(i).getTimeOfTimeConnectionByDestination(anodes.get(j));
+                
 		this.path.add(anodes.getEdge(i, j));
 		num_nodes++;
 		if (AntColony.LOCAL_UPDATE) {
@@ -48,6 +54,14 @@ public class Ant {
 	public double getDist() {
 		return dist;
 	}
+        
+        /**
+         * @return Returns the time.
+         */
+        public double getTime()
+        {
+            return time;
+        }
 
 	/**
 	 * @return Returns the path.

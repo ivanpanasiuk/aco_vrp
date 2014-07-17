@@ -88,7 +88,7 @@ public class MainFrame extends JFrame {
 		PropertyConfigurator.configure("log4j.properties");
 		
 		this.setSize(720, 575);
-		this.setTitle("Rešavanje problema rutiranja (Optimizacija sistemom mravljih kolonija)");
+		this.setTitle("Reï¿½avanje problema rutiranja (Optimizacija sistemom mravljih kolonija)");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		{
 			GraphModel model = new DefaultGraphModel();
@@ -373,6 +373,13 @@ public class MainFrame extends JFrame {
 			if (startACO) {
 				logger.info("Started!");
 				double best_found = Double.MAX_VALUE;
+                                
+                                /***********************************************************************
+                                ***************************** OVO MENJAO *******************************
+                                ************************************************************************/
+                                
+                                int best_found_time = Integer.MAX_VALUE;
+                                
 				// TESTING PURPOSE
 				double minRo = AntColony.RO; 		double maxRo = AntColony.RO;
 				double minBeta = AntColony.BETA; 	double maxBeta = AntColony.BETA;				
@@ -388,15 +395,26 @@ public class MainFrame extends JFrame {
 						for (int testCount = 0; testCount < AntColony.LOOPS; testCount++) {
 							Dbg.prn("#" + Def.df0(testCount+1));
 							Process pro = new Process(agraph);
-							logger.info("; (" + Def.df2(best_found) + ") ");
-							if (best_found > pro.bestAnt.dist) {
-								best_found = pro.bestAnt.dist;
-								logger.info("["+Def.df2(best_found)+"] New best found !!! ");
-							} else if (best_found / pro.bestAnt.dist > 1 / 1.05) {
-								for (int i=0; i < 100 * best_found / pro.bestAnt.dist - 95; i++) {
-									//Dbg.prn("*  ");
-								}
-							}
+                                                        
+                                                        /***********************************************************************
+                                                        * ************************** OVO MENJAO *******************************
+                                                        ************************************************/
+                                                        
+//							logger.info("; (" + Def.df2(best_found) + ") ");
+//                                                        if (best_found > pro.bestAnt.dist) {
+//								best_found = pro.bestAnt.dist;
+//								logger.info("["+Def.df2(best_found)+"] New best found !!! ");
+//							} else if (best_found / pro.bestAnt.dist > 1 / 1.05) {
+//								for (int i=0; i < 100 * best_found / pro.bestAnt.dist - 95; i++) {
+//									//Dbg.prn("*  ");
+//								}
+//							}
+                                                        
+                                                        logger.info("; (" + Def.df2(best_found_time) + ") ");
+                                                        if (best_found_time > pro.bestAnt.time) {
+								best_found_time = pro.bestAnt.time;
+								logger.info("["+Def.df2(best_found_time)+"] New best found !!! ");
+							} 
 						}
 					}  // beta
 				} // ro
@@ -453,10 +471,22 @@ public class MainFrame extends JFrame {
 	
 	private void jButtonAddActionPerformed(ActionEvent evt) {
 		logger.debug("jButtonAdd.actionPerformed, event=" + evt);
-		agraph.addNewNode(30, 30);
+                if(agraph.anodes != null)
+                {
+                    agraph.addNewNode(30 * (agraph.anodes.size() + 1), 30 * (agraph.anodes.size() + 1));
+                }
+                else
+                {
+                    agraph.addNewNode(30, 30);
+                }
+		
+                
+                // posle ubacivanja novih node-ova instanciranje prozora
+                showPheromon = new ShowPheromon(agraph.anodes);
+                parameters = new Parameters(MainFrame.this);
 	}
 	
-	private void StartActionPerformed(ActionEvent evt) {
+	private void StartActionPerformed(ActionEvent evt) {            
 		logger.info("jButtonStart.actionPerformed, event=" + evt);
 		startACO = (agraph.anodes.size()>0);
 		if (jButtonStart.getText().equals("Pause")) {

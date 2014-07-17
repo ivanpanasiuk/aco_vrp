@@ -10,6 +10,8 @@ import javax.swing.SwingConstants;
 import org.jgraph.graph.DefaultGraphCell;
 import org.jgraph.graph.GraphConstants;
 
+import acsvrp.tools.Dbg;
+
 /**
  * @author ivan.panasiuk
  *
@@ -24,7 +26,6 @@ public class ANode extends DefaultGraphCell {
 	private boolean visited;
 	private String name;
 	public ArrayList<AEdge> edges = new ArrayList<AEdge>();
-	private ArrayList<TimeConnection> timeDistances = new ArrayList<TimeConnection>();
 
 	public String getToolTipString() {
 		//		   return ("Demand: "+demand+" ("+GraphConstants.getBounds(getAttributes()).getCenterX()+","+GraphConstants.getBounds(getAttributes()).getCenterY()+")");
@@ -41,12 +42,37 @@ public class ANode extends DefaultGraphCell {
 	}
 
 	/**
-	 * Calculate Distance to given node
+	 * Calculate Distance to another node
 	 * @param node
-	 * @return int calculated distance to give node
+	 * @return int calculated distance to another node
 	 */
-	public double dist(ANode anode) {
+	public double getDistance2Node(ANode anode) {
+		double res = -1;
+		for (AEdge e : edges) {
+			if (e.endIndx.equals(anode.name)) {
+				res = e.cost.distance;
+			}
+		}
+		if (res!=Math.sqrt(Math.pow((x-anode.x),2)+Math.pow((y-anode.y),2))) {
+			Dbg.prnl("We got a problem.");
+		}
 		return Math.sqrt(Math.pow((x-anode.x),2)+Math.pow((y-anode.y),2));
+	}
+	
+	/**
+	 * Calculate Time to another node
+	 * @param node
+	 * @return int calculated time to another node
+	 */
+	public double getTime2Node(ANode anode) {
+		double res = -1;
+		for (AEdge e : edges) {
+			if (e.endIndx.equals(anode.name)) {
+				res = e.cost.time;
+			}
+		}
+		
+		return res;
 	}
 
 	public String toString() {
@@ -73,11 +99,6 @@ public class ANode extends DefaultGraphCell {
 	public String getName()
 	{
 		return name;
-	}
-
-	public ArrayList<TimeConnection> getTimeDistances()
-	{
-		return timeDistances;
 	}
 
 	/**
@@ -123,25 +144,6 @@ public class ANode extends DefaultGraphCell {
 	  */
 	 public void setDemand(int demand) {
 		 this.demand = demand;
-	 }
-
-	 public void addTimeConnection(ANode dest, double time)
-	 {
-		 TimeConnection td = new TimeConnection(dest, time);
-		 timeDistances.add(td);
-	 }
-
-	 public double getTimeOfTimeConnectionByDestination(ANode dest)
-	 {
-		 for(TimeConnection tm : timeDistances)
-		 {
-			 if(tm.getDestination().equals(dest))
-			 {
-				 return tm.getTime();
-			 }
-		 }
-
-		 return -1;
 	 }
 
 }

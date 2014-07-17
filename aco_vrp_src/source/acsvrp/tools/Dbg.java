@@ -1,6 +1,3 @@
-/**
- * 
- */
 package acsvrp.tools;
 
 import acsvrp.AntColony;

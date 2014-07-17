@@ -38,24 +38,21 @@ public class ANodes {
 //		Dbg.prn("adding n#"+anodes.indexOf(anode)+" ");
 		for (ANode n: anodes) {
 			if (anode != n) {
-				//AEdge aedge = new AEdge();
 				AEdge aedge = new AEdge(anode.toString(), n.toString());
-				//TODO KOMENTAR
-				//GraphConstants.setLabelAlongEdge(aedge.getAttributes(), true);
-				//GraphConstants.setSelectable(aedge.getAttributes(), false);
 				DefaultPort portS = new DefaultPort();
 				anode.add(portS);
 				portS.setParent(anode);
 				aedge.setSource (anode.getChildAt(0));
-				//aedge.setSource (portS);
 				DefaultPort portT = new DefaultPort();
 				n.add(portT);
 				portT.setParent(n);
 				aedge.setTarget (n.getChildAt(0));
-				//aedge.setTarget (portT);
                                 
-				aedge.len = anode.dist(n);
-                aedge.time = anode.getTimeOfTimeConnectionByDestination(n);
+				aedge.cost.distance = anode.getDistance2Node(n);
+				aedge.cost.time = anode.getTime2Node(n);
+				
+				aedge.cost.value = aedge.cost.distance;
+				
 				anode.edges.add(aedge); 
 			}
 		}
@@ -103,7 +100,7 @@ public class ANodes {
 			Dbg.prnl("Something go wrong ...."+control);
 		}
 		if (r!=null) {
-			Dbg.prnl("Edge found."+startPar+" -> "+endPar+" d:"+r.len);
+			Dbg.prnl("Edge found."+startPar+" -> "+endPar+" d:"+r.cost.distance);
 		}
 		return r;
 	}

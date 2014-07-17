@@ -18,17 +18,17 @@ import acsvrp.tools.*;
 
 
 /**
-* This code was edited or generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a corporation,
-* company or business for any purpose whatever) then you
-* should purchase a license for each developer using Jigloo.
-* Please visit www.cloudgarden.com for details.
-* Use of Jigloo implies acceptance of these licensing terms.
-* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
-* THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
-* LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
-*/
+ * This code was edited or generated using CloudGarden's Jigloo
+ * SWT/Swing GUI Builder, which is free for non-commercial
+ * use. If Jigloo is being used commercially (ie, by a corporation,
+ * company or business for any purpose whatever) then you
+ * should purchase a license for each developer using Jigloo.
+ * Please visit www.cloudgarden.com for details.
+ * Use of Jigloo implies acceptance of these licensing terms.
+ * A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
+ * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
+ * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
+ */
 public class MainFrame extends JFrame {
 
 	{
@@ -43,14 +43,14 @@ public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 2269971701250845501L;
 
 	static final Logger logger = Logger.getLogger(MainFrame.class);
-	
+
 	static public JLabel statusBar;
 
 	AGraph agraph;
 	ShowPheromon showPheromon;
 	Parameters parameters;
 	private boolean startACO = false;
-	
+
 	private String urlPrefix = " http://www.poredi.com/def/";
 
 	private JMenuItem jMenuItemOpen;
@@ -86,7 +86,7 @@ public class MainFrame extends JFrame {
 
 		//System.setProperty("sun.java2d.d3d", "false");
 		PropertyConfigurator.configure("log4j.properties");
-		
+
 		this.setSize(720, 575);
 		this.setTitle("Vechicle routing system using Ant Colony System optimization");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -122,7 +122,7 @@ public class MainFrame extends JFrame {
 				jButtonNew.setHorizontalAlignment(SwingConstants.LEFT);
 				jButtonNew.setIcon(new ImageIcon(getClass().getClassLoader().getResource("acsvrp/resources/Application-edit.gif")));
 				jButtonNew.addActionListener(new ActionListener() {
-					
+
 					public void actionPerformed(ActionEvent arg0) {
 						// TODO Auto-generated method stub
 						agraph.removeAll();
@@ -187,7 +187,7 @@ public class MainFrame extends JFrame {
 				});
 			}
 		}		
-		
+
 		this.setLocation(new java.awt.Point(40, 40));
 		{
 			jMenuBar1 = new JMenuBar();
@@ -301,17 +301,17 @@ public class MainFrame extends JFrame {
 					jCheckBoxMenuItemShowPheromon.setText("Show Pheromone");
 					jCheckBoxMenuItemShowPheromon.setAccelerator(KeyStroke.getKeyStroke("ctrl P"));
 					jCheckBoxMenuItemShowPheromon
-							.addActionListener(new ActionListener() {
-								public void actionPerformed(ActionEvent evt) {
-									if (AntColony.DIPSLAY_LEVEL > 0) {
-										if (!showPheromon.isVisible()) {
-										showPheromon.setVisible(true);
-									} else {
-										showPheromon.setVisible(false);
-									}
-										}
+					.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent evt) {
+							if (AntColony.DIPSLAY_LEVEL > 0) {
+								if (!showPheromon.isVisible()) {
+									showPheromon.setVisible(true);
+								} else {
+									showPheromon.setVisible(false);
 								}
-							});
+							}
+						}
+					});
 				}
 			}
 			{
@@ -362,7 +362,7 @@ public class MainFrame extends JFrame {
 		startACO = AntColony.AUTO_START;
 
 		this.setVisible(true);
-		
+
 		if (AntColony.FILE_NAME.replaceAll(" ", "") != "") { 
 			if (startACO) {
 				createAnodes(AntColony.FILE_NAME);	
@@ -376,19 +376,19 @@ public class MainFrame extends JFrame {
 				}
 			}
 		}
-		
-		
+
+
 		while (true) {
 			if (startACO) {
 				logger.info("Started!");
 				double best_found = Double.MAX_VALUE;
-                                
-                                /***********************************************************************
-                                ***************************** OVO MENJAO *******************************
-                                ************************************************************************/
-                                
-                                int best_found_time = Integer.MAX_VALUE;
-                                
+
+				/***********************************************************************
+				 ***************************** OVO MENJAO *******************************
+				 ************************************************************************/
+
+//				int best_found_time = Integer.MAX_VALUE;
+
 				// TESTING PURPOSE
 				double minRo = AntColony.RO; 		double maxRo = AntColony.RO;
 				double minBeta = AntColony.BETA; 	double maxBeta = AntColony.BETA;				
@@ -404,26 +404,27 @@ public class MainFrame extends JFrame {
 						for (int testCount = 0; testCount < AntColony.LOOPS; testCount++) {
 							Dbg.prn("#" + Def.df0(testCount+1));
 							Process pro = new Process(agraph);
-                                                        
-                                                        /***********************************************************************
-                                                        * ************************** OVO MENJAO *******************************
-                                                        ************************************************/
-                                                        
-//							logger.info("; (" + Def.df2(best_found) + ") ");
-//                                                        if (best_found > pro.bestAnt.dist) {
-//								best_found = pro.bestAnt.dist;
-//								logger.info("["+Def.df2(best_found)+"] New best found !!! ");
-//							} else if (best_found / pro.bestAnt.dist > 1 / 1.05) {
-//								for (int i=0; i < 100 * best_found / pro.bestAnt.dist - 95; i++) {
-//									//Dbg.prn("*  ");
-//								}
-//							}
-                                                        
-                                                        logger.info("; (" + Def.df2(best_found_time) + ") ");
-                                                        if (best_found_time > pro.bestAnt.time) {
+
+							/***********************************************************************
+							 * ************************** OVO MENJAO *******************************
+							 ************************************************/
+
+							logger.info("; (" + Def.df2(best_found) + ") ");
+							if (best_found > pro.bestAnt.cost.value) {
+								best_found = pro.bestAnt.cost.value;
+								logger.info("["+Def.df2(best_found)+"] New best found !!! ");
+							} else if (best_found / pro.bestAnt.cost.value > 1 / 1.05) {
+								for (int i=0; i < 100 * best_found / pro.bestAnt.cost.value - 95; i++) {
+									//Dbg.prn("*  ");
+								}
+							}
+							/*
+							logger.info("; (" + Def.df2(best_found_time) + ") ");
+							if (best_found_time > pro.bestAnt.time) {
 								best_found_time = pro.bestAnt.time;
 								logger.info("["+Def.df2(best_found_time)+"] New best found !!! ");
 							} 
+							 */
 						}
 					}  // beta
 				} // ro
@@ -437,7 +438,7 @@ public class MainFrame extends JFrame {
 			try {Thread.sleep(500); } catch (InterruptedException ie) {}
 		}
 	}
-	
+
 	private void createAnodes(String vrpFile) {
 		// Ucitaj sve gradove iz fajla FILE_NAME
 		agraph.anodes = AFile.loadNodes(vrpFile);
@@ -455,21 +456,21 @@ public class MainFrame extends JFrame {
 	public void start() {
 		startACO = true;
 	}
-	
-    /** Returns an ImageIcon, or null if the path was invalid. */
-    protected static ImageIcon createImageIcon(String path) {
-        java.net.URL imgURL = MainFrame.class.getResource(path);
-        if (imgURL != null) {
-            return new ImageIcon(imgURL);
-        } else {
-            logger.error("Couldn't find file: " + path);
-            logger.error(MainFrame.class.getResource(path));
-            return null;
-        }
-    }
-    
+
+	/** Returns an ImageIcon, or null if the path was invalid. */
+	protected static ImageIcon createImageIcon(String path) {
+		java.net.URL imgURL = MainFrame.class.getResource(path);
+		if (imgURL != null) {
+			return new ImageIcon(imgURL);
+		} else {
+			logger.error("Couldn't find file: " + path);
+			logger.error(MainFrame.class.getResource(path));
+			return null;
+		}
+	}
+
 	private void OpenActionPerformed(ActionEvent evt) {
-//		System.out.println("Open actionPerformed, event="+ evt);
+		//		System.out.println("Open actionPerformed, event="+ evt);
 		final JFileChooser fc = new JFileChooser("./def");
 		fc.addChoosableFileFilter(new VrpFilter());
 		int returnVal = fc.showOpenDialog(MainFrame.this);
@@ -477,24 +478,24 @@ public class MainFrame extends JFrame {
 			createAnodes(fc.getSelectedFile().getAbsoluteFile().toString());
 		}
 	}
-	
+
 	private void jButtonAddActionPerformed(ActionEvent evt) {
 		logger.debug("jButtonAdd.actionPerformed, event=" + evt);
-                if(agraph.anodes != null)
-                {
-                    agraph.addNewNode(30 * (agraph.anodes.size() + 1), 30 * (agraph.anodes.size() + 1));
-                }
-                else
-                {
-                    agraph.addNewNode(30, 30);
-                }
-		
-                
-                // posle ubacivanja novih node-ova instanciranje prozora
-                showPheromon = new ShowPheromon(agraph.anodes);
-                parameters = new Parameters(MainFrame.this);
+		if(agraph.anodes != null)
+		{
+			agraph.addNewNode(30 * (agraph.anodes.size() + 1), 30 * (agraph.anodes.size() + 1));
+		}
+		else
+		{
+			agraph.addNewNode(30, 30);
+		}
+
+
+		// posle ubacivanja novih node-ova instanciranje prozora
+		showPheromon = new ShowPheromon(agraph.anodes);
+		parameters = new Parameters(MainFrame.this);
 	}
-	
+
 	private void StartActionPerformed(ActionEvent evt) {            
 		logger.info("jButtonStart.actionPerformed, event=" + evt);
 		startACO = (agraph.anodes.size()>0);

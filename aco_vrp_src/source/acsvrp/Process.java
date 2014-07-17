@@ -20,7 +20,7 @@ import acsvrp.tools.Def;
 import acsvrp.ui.AFile;
 
 /**
- * @author ipanasiuk
+ * @author ivan.panasiuk
  *
  */
 public class Process {
@@ -32,19 +32,6 @@ public class Process {
 	public Ant bestAnt;
 	private boolean finished = false;
 	
-	/**
-	 * @param agraph
-	 * @param anodes
-	 */
-	/*
-	public Process(AGraph agraph) {
-		super();		
-		this.aG = agraph;
-		runAlgoritham();
-	}
-	*/
-
-	//public void runAlgoritham() {
 	public Process(AGraph agraph) {
 		String startTime = getNow();
 		aG = agraph;
@@ -54,7 +41,7 @@ public class Process {
 		int sameCyleces = 0;
 		aG.anodes.resetPheromon();
 				
-		// Pocetak obrade - ciklusi...
+		// Starting cycles
 		for (int cycle = 0; cycle < aG.anodes.size() * AntColony.MAX_CYCLES_PARAM; cycle++) {
 		
 			if (AntColony.DIPSLAY_LEVEL > 0) {
@@ -69,7 +56,7 @@ public class Process {
 			Ant[] ants = new Ant[antNum];
 			int antBestIndx = 0;
 			
-			// Svaki mrav bira putanju
+			// Single ant choose route
 			for (int antCount = 0; antCount < antNum; antCount++) {
 				
 				if (AntColony.DIPSLAY_LEVEL > 0) {
@@ -84,14 +71,14 @@ public class Process {
 				ants[antCount] = new Ant();
 				aG.anodes.get(0).setVisited(true);
 				
-				// Obilazi gradove dok ne obidje sve
+				// go over all cities
 				while (aG.anodes.numOfVisited() < aG.anodes.size()) {
 					
 					int currentNodeIndx = 0;
 					int nextNodeIndx;
 					int capacity = aG.anodes.capacity;
 				
-					// Mrav obilazi gradove dok ne popuni kapacitet vozila (ili obidje sve gradove)
+					// single ant route untill capacity reached
 					while ((capacity > 0) && (aG.anodes.numOfVisited() < aG.anodes.size())) {
 						// Bira sledeci grad
 						logger.trace("nextBestNode("+currentNodeIndx+", "+capacity+")");
@@ -157,7 +144,7 @@ public class Process {
                                  * ******************************* DODAO SAM JA **************************************
                                  ***********************************************************************************/
                                 
-                                if ( (ants[antBestIndx].getDist() > ants[antCount].getDist()) || (antCount==0)) {
+				if ( (ants[antBestIndx].getDist() > ants[antCount].getDist()) || (antCount==0)) {
 					antBestIndx = antCount;
 					if (AntColony.DIPSLAY_LEVEL > 0) {
 						logger.trace("Showing best ant distance");
@@ -166,7 +153,7 @@ public class Process {
 					}
 				}
                                 
-//                                if ( (ants[antBestIndx].getTime() > ants[antCount].getTime()) || (antCount==0)) {
+//              if ( (ants[antBestIndx].getTime() > ants[antCount].getTime()) || (antCount==0)) {
 //					antBestIndx = antCount;
 //					if (AntColony.DIPSLAY_LEVEL > 0) {
 //						logger.trace("Showing best ant time");
@@ -195,7 +182,7 @@ public class Process {
 			if (cycle == 0) { 
 				bestAnt = ants[antBestIndx];
 				if (AntColony.DIPSLAY_LEVEL > 0) {
-					ShowPheromon.setLBestDist("Best distance: "+Def.df2(bestAnt.getDist())+" ("+cycle+")");
+					ShowPheromon.setLBestDist("Best cost: "+Def.df2(bestAnt.getDist())+" ("+cycle+")");
 				}
 			}
                         /***********************************************************************
@@ -232,7 +219,7 @@ public class Process {
 				bestAnt = ants[antBestIndx];
 				bestCycle = cycle;
 				if (AntColony.DIPSLAY_LEVEL > 0) {
-					ShowPheromon.setLBestDist("Best distance: "+Def.df2(bestAnt.getDist())+" ("+cycle+")");
+					ShowPheromon.setLBestDist("Best cost: "+Def.df2(bestAnt.getDist())+" ("+cycle+")");
 				} 
 			}
                         
@@ -271,7 +258,7 @@ public class Process {
 			
 		} //cycle++
 
-		// Zavrsena optimizacija. Iscrtava se globalno najbolja putanja
+		// Optimization finished. Redraw the best solution in GREEN
 		if (AntColony.DIPSLAY_LEVEL > 0) {
 			for (AEdge e : bestAnt.path) {
 				showEdge(e, Color.GREEN);
@@ -311,7 +298,7 @@ public class Process {
                                 ***************************** OVO MENJAO *******************************
                                 ************************************************************************/
 				double new_score =  tauNi(aG.anodes.getEdge(crnt,i).getPheromon(),aG.anodes.get(crnt).dist(aN),rnd);
-//                                double new_score =  tauNi(aG.anodes.getEdge(crnt,i).getPheromon(),aG.anodes.get(crnt).getTimeOfTimeConnectionByDestination(aN),rnd);
+//              double new_score =  tauNi(aG.anodes.getEdge(crnt,i).getPheromon(),aG.anodes.get(crnt).getTimeOfTimeConnectionByDestination(aN),rnd);
                                 
 //				Dbg.prn(" ["+crnt+"]->["+i+"] rnd:"+rnd+" val:"+new_score);
 				if (new_score > best_score) {
@@ -431,10 +418,6 @@ public class Process {
 			return tau * Math.pow(1.0/distance,AntColony.BETA);
 		}
 	}
-	
-//	public static double tauNi (int i, int j, ANodes anodes) {
-//		return tauNi(anodes.getEdge(i,j).getPh(),anodes.get(i).dist(anodes.get(j)));
-//	}
 
 	public static double localUpdate(double oldPh) {
 		double newPh;

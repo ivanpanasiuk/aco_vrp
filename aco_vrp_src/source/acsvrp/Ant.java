@@ -28,7 +28,7 @@ public class Ant {
 	public int addPath (ANodes anodes, int i, int j) {
 		this.dist = this.dist + anodes.get(i).dist(anodes.get(j));
                 
-                this.time += this.time + anodes.get(i).getTimeOfTimeConnectionByDestination(anodes.get(j));
+        this.time += anodes.get(i).getTimeOfTimeConnectionByDestination(anodes.get(j));
                 
 		this.path.add(anodes.getEdge(i, j));
 		num_nodes++;
@@ -58,7 +58,7 @@ public class Ant {
         /**
          * @return Returns the time.
          */
-        public double getTime()
+	public double getTime()
         {
             return time;
         }

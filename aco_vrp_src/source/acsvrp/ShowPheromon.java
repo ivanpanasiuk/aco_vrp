@@ -1,6 +1,8 @@
 package acsvrp;
 
+import acsvrp.tools.Def;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -34,6 +36,8 @@ public class ShowPheromon extends javax.swing.JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	static final Logger logger = Logger.getLogger(ShowPheromon.class);
+        
+        private static JLabel lblPheromonValue;
 	
 	private JSplitPane jSplitPane1;
 	private static JLabel lPathCapacity;
@@ -60,6 +64,7 @@ public class ShowPheromon extends javax.swing.JFrame {
 			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			this.setTitle("Calculating details");
 			this.setLocationByPlatform(true);
+                        this.setPreferredSize(new Dimension(730, 500));
 			this.setLocation(new java.awt.Point(300, 400));
 			this.addKeyListener(new KeyAdapter() {
 				public void keyPressed(KeyEvent evt) {
@@ -73,12 +78,12 @@ public class ShowPheromon extends javax.swing.JFrame {
 			{
 				jSplitPane1 = new JSplitPane();
 				getContentPane().add(jSplitPane1, BorderLayout.CENTER);
-				jSplitPane1.setPreferredSize(new java.awt.Dimension(724, 334));
+				jSplitPane1.setPreferredSize(new java.awt.Dimension(724, 250));
 				jSplitPane1.setOrientation(JSplitPane.VERTICAL_SPLIT);
 				{
 					jScrollPane2 = new JScrollPane();
 					jSplitPane1.add(jScrollPane2, JSplitPane.BOTTOM);
-					jScrollPane2.setPreferredSize(new java.awt.Dimension(722, 122));
+					jScrollPane2.setPreferredSize(new java.awt.Dimension(722, 170));
 					{
 						TableModel tPheromonModel = new DefaultTableModel(
 							new String[][] { { "0.1", "0.1" },
@@ -148,6 +153,11 @@ public class ShowPheromon extends javax.swing.JFrame {
 						lNodesVisited.setText("Cities Visited:");
 						lNodesVisited.setBounds(476, 7, 140, 21);
 					}
+                                        
+                                        lblPheromonValue = new JLabel("Pheromon value format: [value] * 1000");
+                                        jDesktopPane1.add(lblPheromonValue);
+                                        lblPheromonValue.setBounds(150, 70, 400, 15);
+                                        
 					//);
 				}
 			}
@@ -220,11 +230,11 @@ public class ShowPheromon extends javax.swing.JFrame {
 			j = r;
 		}
 //		tPheromon.setValueAt(Double.toString(nodes.getEdge(i,j).getPh()),i,j);
-		double ph = nodes.getEdge(i,j).getPheromon();
+		double ph = nodes.getEdge(i,j).getPheromon() * 1000;
 		//float oldPh = (Float)tPheromon.getValueAt(i,j);
 		//if ( oldPh != ph) {
 			//logger.info(""+ i + "," + j + " " + ph);
-			tPheromon.setValueAt(ph,i,j+1);
+			tPheromon.setValueAt(Def.df4(ph),i,j+1);
 			//Dbg.delay(100);			
 		//}
 	}

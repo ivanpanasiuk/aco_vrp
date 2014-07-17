@@ -12,6 +12,7 @@ import java.text.DecimalFormat;
 public class Def {
 	
 	private static DecimalFormat df2 = new DecimalFormat("0.00");
+        private static DecimalFormat df4 = new DecimalFormat("0.0000");
 	
 	public static String df2(double param) {
 		return df2.format(param);
@@ -21,6 +22,10 @@ public class Def {
 		String res = Integer.toString(param);
 		return res;
 	}
+        
+        public static String df4(double param) {
+            return df4.format(param);
+        }
 
 
 }

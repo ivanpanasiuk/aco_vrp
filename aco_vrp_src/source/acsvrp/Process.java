@@ -151,8 +151,13 @@ public class Process {
 				} // All cities are visited. An Ant finished route.
 //				logger.debug("All cities are visited. Current dist:"+ants[antCount].getDist());
 //				Dbg.delay(500);
-
-				if ( (ants[antBestIndx].getDist() > ants[antCount].getDist()) || (antCount==0)) {
+		
+                                
+                                /*************************************************************************************
+                                 * ******************************* DODAO SAM JA **************************************
+                                 ***********************************************************************************/
+                                
+                                if ( (ants[antBestIndx].getDist() > ants[antCount].getDist()) || (antCount==0)) {
 					antBestIndx = antCount;
 					if (AntColony.DIPSLAY_LEVEL > 0) {
 						logger.trace("Showing best ant distance");
@@ -160,7 +165,18 @@ public class Process {
 						Dbg.delay(10);
 					}
 				}
-				logger.trace("Best dist: "+ants[antBestIndx].getDist());
+                                
+//                                if ( (ants[antBestIndx].getTime() > ants[antCount].getTime()) || (antCount==0)) {
+//					antBestIndx = antCount;
+//					if (AntColony.DIPSLAY_LEVEL > 0) {
+//						logger.trace("Showing best ant time");
+//						ShowPheromon.setLBestDistAnt("Best (Ant) time: "+ants[antBestIndx].getTime()+" ("+antBestIndx+")");
+//						Dbg.delay(10);
+//					}
+//				}
+                                    
+                                    
+				logger.trace("Best time: "+ants[antBestIndx].getTime());
 				
 //				agraph.getGraphLayoutCache().setVisible(ants[antCount].path, false);				
 				
@@ -182,6 +198,16 @@ public class Process {
 					ShowPheromon.setLBestDist("Best distance: "+Def.df2(bestAnt.getDist())+" ("+cycle+")");
 				}
 			}
+                        /***********************************************************************
+                         * ************************** OVO MENJAO *******************************
+                         ************************************************/
+//                       if (cycle == 0) { 
+//				bestAnt = ants[antBestIndx];
+//				if (AntColony.DIPSLAY_LEVEL > 0) {
+//					ShowPheromon.setLBestDist("Best time: "+bestAnt.getTime()+" ("+cycle+")");
+//				}
+//			}
+                        
 
 			// Isparavanje svih putanja
 			if (AntColony.DIPSLAY_LEVEL > 1) {
@@ -195,6 +221,10 @@ public class Process {
 					}
 				}
 			}
+                        
+                        /***********************************************************************
+                         * ************************** OVO MENJAO *******************************
+                         ************************************************/
 
 			// Da li je nadjeno globalno najbolje resenje
 			if (bestAnt.getDist() > ants[antBestIndx].getDist()) {
@@ -205,6 +235,16 @@ public class Process {
 					ShowPheromon.setLBestDist("Best distance: "+Def.df2(bestAnt.getDist())+" ("+cycle+")");
 				} 
 			}
+                        
+                        // Da li je nadjeno globalno najbolje resenje
+//			if (bestAnt.getTime() > ants[antBestIndx].getTime()) {
+//				sameCyleces = 0;
+//				bestAnt = ants[antBestIndx];
+//				bestCycle = cycle;
+//				if (AntColony.DIPSLAY_LEVEL > 0) {
+//					ShowPheromon.setLBestDist("Best time: "+bestAnt.getTime()+" ("+cycle+")");
+//				} 
+//			}
 						
 			// Pojacaj najbolju putanju
 			for (AEdge e : ants[antBestIndx].path) {
@@ -266,7 +306,13 @@ public class Process {
 //				}
 //				double tau_ni = anodes.getEdge(crnt,i).getPheromon() * Math.pow(1000.0/anodes.get(crnt).dist(anodes.get(i)), AntColony.BETA);
 //				double new_score =  Math.pow(generator.nextDouble(),1.0/2.0) * tau_ni(crnt,i);
+                                
+                                 /***********************************************************************
+                                ***************************** OVO MENJAO *******************************
+                                ************************************************************************/
 				double new_score =  tauNi(aG.anodes.getEdge(crnt,i).getPheromon(),aG.anodes.get(crnt).dist(aN),rnd);
+//                                double new_score =  tauNi(aG.anodes.getEdge(crnt,i).getPheromon(),aG.anodes.get(crnt).getTimeOfTimeConnectionByDestination(aN),rnd);
+                                
 //				Dbg.prn(" ["+crnt+"]->["+i+"] rnd:"+rnd+" val:"+new_score);
 				if (new_score > best_score) {
 					best = i;

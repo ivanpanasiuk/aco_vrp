@@ -1,3 +1,10 @@
 /aco_vrp_export
 /aco_vrp_src/classes
 /aco_vrp_ws
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml

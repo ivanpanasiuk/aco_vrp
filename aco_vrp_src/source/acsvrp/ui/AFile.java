@@ -93,6 +93,7 @@ public class AFile {
             	st = new StringTokenizer(str, " ");
             	String name = st.nextToken();
             	anodes.add(new ANode(Integer.parseInt(st.nextToken()),Integer.parseInt(st.nextToken()),name));
+                // TODO new aedge (n1,n2,,len, , time)
             	// klijenti (gradovi)
 	            while (!(str=in.readLine()).contains("DEMAND_SECTION")) {
 	            	st = new StringTokenizer(str, " ");
@@ -118,6 +119,26 @@ public class AFile {
 //	            	Dbg.delay(2000);
 	            	i++;
 	            }
+                    
+                    // ucitanje vremenskih deonica
+                    while ((str = in.readLine()) != null) {
+                        if(!str.contains("TIME_SECTION"))
+                        {
+                            st = new StringTokenizer(str, " ");
+                            String sourceNode = st.nextToken();
+                            String destNode = st.nextToken();
+                            String time = st.nextToken();
+                            
+                            ANode source = anodes.getNodeByName(sourceNode);
+                            ANode dest = anodes.getNodeByName(destNode);
+                            
+                            // n0 - n1 isto putovanje kao n1 - n0
+                            source.addTimeConnection(dest, Integer.parseInt(time));
+                            dest.addTimeConnection(source, Integer.parseInt(time));
+                        }
+                        
+                    }
+                    
 	            in.close();
 	            Dbg.prnl("OK.");
 	            //TODO AntColony.START_PHEROMON *= anodes.size();

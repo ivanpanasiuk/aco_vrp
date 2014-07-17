@@ -14,6 +14,7 @@ public class AEdge extends DefaultEdge {
 	double pheromon;
 	String startIndx, endIndx;
 	public double len;
+        public double time;
 	/*
 	public AEdge() {
 		super();

@@ -121,6 +121,14 @@ public class MainFrame extends JFrame {
 				jButtonNew.setToolTipText("Open new file");
 				jButtonNew.setHorizontalAlignment(SwingConstants.LEFT);
 				jButtonNew.setIcon(new ImageIcon(getClass().getClassLoader().getResource("acsvrp/resources/Application-edit.gif")));
+				jButtonNew.addActionListener(new ActionListener() {
+					
+					public void actionPerformed(ActionEvent arg0) {
+						// TODO Auto-generated method stub
+						agraph.removeAll();
+						agraph.validate();
+					}
+				});
 			}
 			{
 				jButtonOpen = new JButton();

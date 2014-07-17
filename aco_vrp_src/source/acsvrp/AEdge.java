@@ -14,14 +14,8 @@ public class AEdge extends DefaultEdge {
 	double pheromon;
 	String startIndx, endIndx;
 	public double len;
-        public double time;
-	/*
-	public AEdge() {
-		super();
-		pheromon = AntColony.START_PHEROMON;
-		setUserObject(Double.toString(pheromon));
-	}
-	*/
+    public double time;
+	
 	public AEdge(String startPar, String endPar) {
 		super();
 		pheromon = AntColony.START_PHEROMON;
@@ -42,33 +36,10 @@ public class AEdge extends DefaultEdge {
 	 */
 	public void setPheromon(double ph) {
 		DecimalFormat df = new DecimalFormat(AntColony.NUM_FORMAT);
-		/*
-		if (this.pheromon != pheromon) {
-			GraphConstants.setLineWidth(this.getAttributes(), pheromon/AntColony.START_PHEROMON);
-		}
-		*/
-		setUserObject(df.format(this.pheromon));
+		setUserObject("p:"+df.format(this.pheromon)+" / "+len+" / "+time);
 		pheromon = ph;
-		/*
-		if (this.pheromon > AntColony.START_PHEROMON) {
-			showAEdge(Color.RED);
-		} else {
-			hideAEdge();
-		}
-		*/
-			
-	}
-	/*
-	public void showAEdge (Color color) {
-		GraphConstants.setLineColor(this.getAttributes(), color);
-		
 	}
 	
-	public void hideAEdge () {
-		GraphConstants.setLineColor(this.getAttributes(), Color.ORANGE);
-		logger.info("HIDE");
-	}
-	*/
 	public String getToolTipString() {
 		   return (startIndx+"->"+endIndx+" Ph: "+pheromon + " Length: " + len + " ["+Process.tauNi(pheromon, len, AntColony.RO)+"]");
 		}

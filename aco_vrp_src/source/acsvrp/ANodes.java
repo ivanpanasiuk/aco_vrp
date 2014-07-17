@@ -54,7 +54,7 @@ public class ANodes {
 				//aedge.setTarget (portT);
                                 
 				aedge.len = anode.dist(n);
-                                aedge.time = anode.getTimeOfTimeConnectionByDestination(n);
+                aedge.time = anode.getTimeOfTimeConnectionByDestination(n);
 				anode.edges.add(aedge); 
 			}
 		}

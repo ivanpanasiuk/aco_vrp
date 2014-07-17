@@ -151,6 +151,7 @@ public class AGraph extends JGraph {
 		}
 		
 	}
+	
 	//TODO vratiti
 	/*
 	public String getToolTipText(MouseEvent event) {

@@ -1,12 +1,14 @@
 package acsvrp;
 
 import acsvrp.tools.Def;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import javax.swing.JDesktopPane;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -86,8 +88,8 @@ public class ShowPheromon extends javax.swing.JFrame {
 					jScrollPane2.setPreferredSize(new java.awt.Dimension(722, 170)); //was (722, 170)
 					{
 						TableModel tPheromonModel = new DefaultTableModel(
-								new String[][] { { "0.1", "0.1" },
-										{ "0.1", "0.1" } },
+								new Double[][] { { 0.1,  0.1 },
+										{  0.1,  0.1 } },
 										new String[] { "1", "2" });		
 						tPheromon = new JTable();
 						jScrollPane2.setViewportView(tPheromon);
@@ -227,6 +229,7 @@ public class ShowPheromon extends javax.swing.JFrame {
 		double ph = nodes.getEdge(i,j).getPheromon() * 1000;
 		//logger.info(""+ i + "," + j + " " + ph);
 		tPheromon.setValueAt(Def.df4(ph),i,j+1);
+//		tPheromon.setValueAt(Math.round(ph*1000d)/1000d,i,j+1);
 		//Dbg.delay(100);			
 	}
 

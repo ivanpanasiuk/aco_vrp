@@ -88,7 +88,7 @@ public class MainFrame extends JFrame {
 		PropertyConfigurator.configure("log4j.properties");
 		
 		this.setSize(720, 575);
-		this.setTitle("Re�avanje problema rutiranja (Optimizacija sistemom mravljih kolonija)");
+		this.setTitle("Vechicle routing system using Ant Colony System optimization");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		{
 			GraphModel model = new DefaultGraphModel();

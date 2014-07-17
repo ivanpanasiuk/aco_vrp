@@ -37,7 +37,7 @@ public class AEdge extends DefaultEdge {
 	public void setPheromon(double ph) {
 		DecimalFormat df = new DecimalFormat(AntColony.NUM_FORMAT);
 		DecimalFormat df2 = new DecimalFormat(AntColony.FORMAT_DOUBLE_2);
-		setUserObject("P: "+df.format(this.pheromon)+"   D "+df2.format(len)+"  T "+df2.format(time));
+		setUserObject("P "+df.format(1000*this.pheromon)+"   D "+df2.format(len)+"  T "+df2.format(time));
 		pheromon = ph;
 	}
 	

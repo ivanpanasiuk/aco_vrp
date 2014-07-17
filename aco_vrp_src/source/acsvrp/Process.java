@@ -40,12 +40,13 @@ public class Process {
 		int bestCycle = 0;
 		int sameCyleces = 0;
 		aG.anodes.resetPheromon();
+		int cyclesCount =  (aG.anodes.size()-1) * AntColony.MAX_CYCLES_PARAM;
 				
 		// Starting cycles
-		for (int cycle = 0; cycle < (aG.anodes.size()-1) * AntColony.MAX_CYCLES_PARAM; cycle++) {
+		for (int cycle = 0; cycle < cyclesCount; cycle++) {
 		
 			if (AntColony.DIPSLAY_LEVEL > 0) {
-				String cycleText = "Cycle: " + (cycle+1) + " of " + Def.df0(aG.anodes.size() * AntColony.MAX_CYCLES_PARAM);
+				String cycleText = "Cycle: " + (cycle+1) + " of " + Def.df0(cyclesCount);
 				ShowPheromon.setLCycle(cycleText);
 				MainFrame.statusBar.setText(cycleText);
 			} else {
@@ -223,7 +224,7 @@ public class Process {
 				} 
 			}
                         
-                        // Da li je nadjeno globalno najbolje resenje
+            // Da li je nadjeno globalno najbolje resenje
 //			if (bestAnt.getTime() > ants[antBestIndx].getTime()) {
 //				sameCyleces = 0;
 //				bestAnt = ants[antBestIndx];

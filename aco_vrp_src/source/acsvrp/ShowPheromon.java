@@ -19,26 +19,26 @@ import javax.swing.table.TableModel;
 import org.apache.log4j.Logger;
 
 /**
-* This code was edited or generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a corporation,
-* company or business for any purpose whatever) then you
-* should purchase a license for each developer using Jigloo.
-* Please visit www.cloudgarden.com for details.
-* Use of Jigloo implies acceptance of these licensing terms.
-* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
-* THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
-* LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
-*/
+ * This code was edited or generated using CloudGarden's Jigloo
+ * SWT/Swing GUI Builder, which is free for non-commercial
+ * use. If Jigloo is being used commercially (ie, by a corporation,
+ * company or business for any purpose whatever) then you
+ * should purchase a license for each developer using Jigloo.
+ * Please visit www.cloudgarden.com for details.
+ * Use of Jigloo implies acceptance of these licensing terms.
+ * A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
+ * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
+ * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
+ */
 public class ShowPheromon extends javax.swing.JFrame {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	static final Logger logger = Logger.getLogger(ShowPheromon.class);
-        
-        private static JLabel lblPheromonValue;
-	
+
+	private static JLabel lblPheromonValue;
+
 	private JSplitPane jSplitPane1;
 	private static JLabel lPathCapacity;
 	private static JTable tPheromon;
@@ -58,37 +58,37 @@ public class ShowPheromon extends javax.swing.JFrame {
 		ShowPheromon.nodes = nodes;
 		initGUI();
 	}
-	
+
 	private void initGUI() {
 		try {
 			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			this.setTitle("Calculating details");
 			this.setLocationByPlatform(true);
-                        this.setPreferredSize(new Dimension(730, 500));
-			this.setLocation(new java.awt.Point(300, 400));
+			this.setPreferredSize(new Dimension(730, 500));
+			this.setLocation(new java.awt.Point(500, 400));
 			this.addKeyListener(new KeyAdapter() {
 				public void keyPressed(KeyEvent evt) {
 					System.out.println("this.keyPressed, event=" + evt);
 					if (evt.getKeyCode() == 80) {
 						ShowPheromon.this.setVisible(false);
 					}
-					
+
 				}
 			});
 			{
 				jSplitPane1 = new JSplitPane();
 				getContentPane().add(jSplitPane1, BorderLayout.CENTER);
-				jSplitPane1.setPreferredSize(new java.awt.Dimension(724, 250));
+				jSplitPane1.setPreferredSize(new java.awt.Dimension(724, 320)); //was (724, 280)
 				jSplitPane1.setOrientation(JSplitPane.VERTICAL_SPLIT);
 				{
 					jScrollPane2 = new JScrollPane();
 					jSplitPane1.add(jScrollPane2, JSplitPane.BOTTOM);
-					jScrollPane2.setPreferredSize(new java.awt.Dimension(722, 170));
+					jScrollPane2.setPreferredSize(new java.awt.Dimension(722, 170)); //was (722, 170)
 					{
 						TableModel tPheromonModel = new DefaultTableModel(
-							new String[][] { { "0.1", "0.1" },
-									{ "0.1", "0.1" } },
-							new String[] { "1", "2" });		
+								new String[][] { { "0.1", "0.1" },
+										{ "0.1", "0.1" } },
+										new String[] { "1", "2" });		
 						tPheromon = new JTable();
 						jScrollPane2.setViewportView(tPheromon);
 						tPheromon.setModel(tPheromonModel);
@@ -97,7 +97,7 @@ public class ShowPheromon extends javax.swing.JFrame {
 				{
 					jDesktopPane1 = new JDesktopPane();
 					jSplitPane1.add(jDesktopPane1, JSplitPane.TOP);
-					jDesktopPane1.setPreferredSize(new java.awt.Dimension(602, 70));
+					jDesktopPane1.setPreferredSize(new java.awt.Dimension(602, 90)); //was (602, 70)
 					jDesktopPane1.addMouseListener(new MouseAdapter() {
 						public void mouseClicked(MouseEvent evt) {
 							System.out.println("jDesktopPane1.mouseClicked, event="+ evt);
@@ -153,11 +153,11 @@ public class ShowPheromon extends javax.swing.JFrame {
 						lNodesVisited.setText("Cities Visited:");
 						lNodesVisited.setBounds(476, 7, 140, 21);
 					}
-                                        
-                                        lblPheromonValue = new JLabel("Pheromon value format: [value] * 1000");
-                                        jDesktopPane1.add(lblPheromonValue);
-                                        lblPheromonValue.setBounds(150, 70, 400, 15);
-                                        
+
+					lblPheromonValue = new JLabel("Pheromon values x 1000 :");
+					jDesktopPane1.add(lblPheromonValue);
+					lblPheromonValue.setBounds(7, 75, 400, 15);
+
 					//);
 				}
 			}
@@ -189,7 +189,7 @@ public class ShowPheromon extends javax.swing.JFrame {
 	public static void setLPathCapacity(String pathCount) {
 		lPathCapacity.setText(pathCount);
 	}
-	
+
 	public static void setLBestDistAnt(String bestDistAnt) {
 		lBestDistAnt.setText(bestDistAnt);
 	}
@@ -197,19 +197,19 @@ public class ShowPheromon extends javax.swing.JFrame {
 	public static void setLCycle(String cycle) {
 		lCycle.setText(cycle);
 	}
-	
+
 	public static void setLCurrentAnt(String currentAnt) {
 		lCurrentAnt.setText(currentAnt);
 	}
-	
+
 	public static void setLBestDist(String bestDist) {
 		lBestDist.setText(bestDist);
 	}
-	
+
 	public static void setLNodesVisited(String nodesVisited) {
 		lNodesVisited.setText(nodesVisited);
 	}
-	
+
 	public static void setPheromon() {
 		String[][] data = new String[nodes.size()][(nodes.size()+1)];
 		String[] head = new String[(nodes.size()+1)];
@@ -222,23 +222,14 @@ public class ShowPheromon extends javax.swing.JFrame {
 		TableModel tPheromonModel = new DefaultTableModel(data, head);
 		tPheromon.setModel(tPheromonModel);
 	}
-	
+
 	public static void refreshTableValueAt(int i, int j) {
-		if (i > j) {
-			int r = i;
-			i = j;
-			j = r;
-		}
-//		tPheromon.setValueAt(Double.toString(nodes.getEdge(i,j).getPh()),i,j);
 		double ph = nodes.getEdge(i,j).getPheromon() * 1000;
-		//float oldPh = (Float)tPheromon.getValueAt(i,j);
-		//if ( oldPh != ph) {
-			//logger.info(""+ i + "," + j + " " + ph);
-			tPheromon.setValueAt(Def.df4(ph),i,j+1);
-			//Dbg.delay(100);			
-		//}
+		//logger.info(""+ i + "," + j + " " + ph);
+		tPheromon.setValueAt(Def.df4(ph),i,j+1);
+		//Dbg.delay(100);			
 	}
-	
+
 	public static void refreshTable() {
 		for (int i=0; i<nodes.size()-1; i++) {
 			for (int j=i+1; j<nodes.size(); j++) {
@@ -247,19 +238,19 @@ public class ShowPheromon extends javax.swing.JFrame {
 			}
 		}
 	}
-	
+
 	private static String[][] phValues(){
 		String[][] data = new String[nodes.size()][nodes.size()+1];
-//		Dbg.prnl();
+		//		Dbg.prnl();
 		for (int i=0; i<nodes.size()-1; i++) {
 			for (int j=i+1; j<nodes.size(); j++) {
-//				Dbg.prn(i+","+j+":"+nodes.getEdge(i,j).getPheromon()+" ")
-				data[i][j+1] = Double.toString(nodes.getEdge(i,j).getPheromon());
-//				data[i][j+1] = (i+","+j);
+				//				Dbg.prn(i+","+j+":"+nodes.getEdge(i,j).getPheromon()+" ")
+				data[i][j+1] = Def.df4(nodes.getEdge(i,j).getPheromon()*1000);
+				//				data[i][j+1] = (i+","+j);
 			}
-//			Dbg.prnl();
+			//			Dbg.prnl();
 		}
 		return data;
 	}
-	
+
 }

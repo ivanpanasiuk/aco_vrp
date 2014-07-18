@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+import javax.swing.plaf.metal.DefaultMetalTheme;
+import javax.swing.plaf.metal.MetalLookAndFeel;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -34,7 +36,9 @@ public class MainFrame extends JFrame {
 	{
 		//Set Look & Feel
 		try {
-			javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getCrossPlatformLookAndFeelClassName());
+//			javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getCrossPlatformLookAndFeelClassName());
+			MetalLookAndFeel.setCurrentTheme(new DefaultMetalTheme());
+			javax.swing.UIManager.setLookAndFeel(new MetalLookAndFeel());
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

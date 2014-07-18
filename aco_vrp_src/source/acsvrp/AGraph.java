@@ -31,6 +31,7 @@ public class AGraph extends JGraph {
 
 		setGridVisible(true);
 		setAntiAliased(true);
+		this.setBackground(new Color(245,245,245));
 		
 		//TODO vratiti ToolTipManager.sharedInstance().registerComponent(this);
 		//CellViewFactory cvf = new DefaultCellViewFactory();
@@ -62,11 +63,11 @@ public class AGraph extends JGraph {
 		this.removeAll();
 		
 		// Dodaj centralni magacin - node 0
-		getGraphLayoutCache().insert(anodes.get(0).createVertex(Color.GREEN, anodes.kCorr, anodes.xCorr, anodes.yCorr));
+		getGraphLayoutCache().insert(anodes.get(0).createVertex(Color.RED, anodes.kCorr, anodes.xCorr, anodes.yCorr));
 		// Dodaj ostale gradove
 		for (int i = 1; i < anodes.size(); i++) {	
 			logger.debug("AGraph.java: dodajem grad " + i + ":" + anodes.get(i) + " ");
-			getGraphLayoutCache().insert(anodes.get(i).createVertex(Color.ORANGE, anodes.kCorr, anodes.xCorr, anodes.yCorr));
+			getGraphLayoutCache().insert(anodes.get(i).createVertex(Color.YELLOW, anodes.kCorr, anodes.xCorr, anodes.yCorr));
 			Dbg.delay(30);
 			addAllEdges(i);
 			Dbg.delay(30);
@@ -134,7 +135,7 @@ public class AGraph extends JGraph {
 		if (e.getPheromon() > AntColony.START_PHEROMON) {
 			logger.trace("setVisible: "+e.getToolTipString());
 			try {
-				GraphConstants.setLineColor(e.getAttributes(), new Color(220,220,220));
+				GraphConstants.setLineColor(e.getAttributes(), new Color(200,200,200));
 				getGraphLayoutCache().setVisible(e, true);
 			} catch (NullPointerException obj) {
 				logger.error("Showing.NullPointerException: i="+e.getToolTipString());

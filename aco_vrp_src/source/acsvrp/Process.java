@@ -60,7 +60,7 @@ public class Process {
 			for (int antCount = 0; antCount < antNum; antCount++) {
 				
 				if (AntColony.DIPSLAY_LEVEL > 0) {
-					ShowPheromon.setLabelAnt("Ant: " + (antCount+1) + " of " + antNum);
+					ShowPheromon.setLabelCurrentAnt("Ant: " + (antCount+1) + " of " + antNum);
 					if (AntColony.DIPSLAY_LEVEL > 1) {
 						MainFrame.statusBar.setText(" Calculating ant "+antCount+" of "+antNum + ". Cycle " +(cycle+1)+" of "+cyclesCount);
 						Dbg.delay(10);
@@ -85,7 +85,7 @@ public class Process {
 						nextNodeIndx = nextBestNode(currentNodeIndx, capacity);
 						if (AntColony.DIPSLAY_LEVEL > 2) {
 							logger.trace("Capacity:" + capacity + " Curr#: "+currentNodeIndx+" Next#: "+nextNodeIndx+" ");
-							ShowPheromon.setLabelNode("Node: "+currentNodeIndx+" ("+nextNodeIndx+")");
+							ShowPheromon.setLabelCurrentNode("Node: "+currentNodeIndx+" ("+nextNodeIndx+")");
 						}						
 						if ((nextNodeIndx==0) || (aG.anodes.get(nextNodeIndx).getDemand()>capacity)) {
 							capacity = 0;
@@ -107,14 +107,14 @@ public class Process {
 						
 						logger.trace(" Vis: "+aG.anodes.numOfVisited()+" Cap: "+capacity+" Cost:"+ants[antCount].getCost());
 						if (AntColony.DIPSLAY_LEVEL > 2) {
-							ShowPheromon.setLabelNode("Node: "+currentNodeIndx+" ("+nextNodeIndx+")");
+							ShowPheromon.setLabelCurrentNode("Node: "+currentNodeIndx+" ("+nextNodeIndx+")");
 //							Dbg.prnl("Node: "+capacity);
-							ShowPheromon.setLabelCapacity("Capacity left: "+capacity);
+							ShowPheromon.setLabelCapacityLeft("Capacity left: "+capacity);
 //							Dbg.prnl("Capacity left: "+capacity);
                                                         
-							ShowPheromon.setLabelPathCost("Path cost: "+Def.df2(ants[antCount].getCost()));
+							ShowPheromon.setLabelCurrentPathCost("Path cost: "+Def.df2(ants[antCount].getCost()));
 //							Dbg.prnl("Path distance: "+Def.df2(ants[antCount].getDist()));
-							ShowPheromon.setLabelCities("Cities Visited: "+(aG.anodes.numOfVisited()-1)+" of "+(aG.anodes.size()-1));
+							ShowPheromon.setLabelNodesVisited("Cities Visited: "+(aG.anodes.numOfVisited()-1)+" of "+(aG.anodes.size()-1));
 							logger.trace("Cities Visited: "+(aG.anodes.numOfVisited()-1)+" of "+(aG.anodes.size()-1));
 							//Dbg.delay(20);							
 						}
@@ -127,10 +127,10 @@ public class Process {
 						showEdge(currentNodeIndx, 0);
                                                 
                                                 
-						ShowPheromon.setLabelNode("Node: "+currentNodeIndx+" (0)");
-						ShowPheromon.setLabelCapacity("Capacity left: "+capacity);
-						ShowPheromon.setLabelPathCost("Path cost: "+Def.df2(ants[antCount].getCost()));
-						ShowPheromon.setLabelCities("Cities Visited: "+(aG.anodes.numOfVisited()-1)+" of "+(aG.anodes.size()-1));
+						ShowPheromon.setLabelCurrentNode("Node: "+currentNodeIndx+" (0)");
+						ShowPheromon.setLabelCapacityLeft("Capacity left: "+capacity);
+						ShowPheromon.setLabelCurrentPathCost("Path cost: "+Def.df2(ants[antCount].getCost()));
+						ShowPheromon.setLabelNodesVisited("Cities Visited: "+(aG.anodes.numOfVisited()-1)+" of "+(aG.anodes.size()-1));
 						//Dbg.delay(30);
 					}
 //					for (int t=0; t<anodes.size(); t++) {
@@ -151,7 +151,7 @@ public class Process {
 					antBestIndx = antCount;
 					if (AntColony.DIPSLAY_LEVEL > 0) {
 						logger.trace("Showing best ant cost");
-						ShowPheromon.setLabelCostAnt("Best cost (Ant): "+Def.df2(ants[antBestIndx].getCost())+" ("+antBestIndx+")");
+						ShowPheromon.setLBestCostAnt("Best cost (Ant): "+Def.df2(ants[antBestIndx].getCost())+" ("+antBestIndx+")");
 
 						Dbg.delay(10);
 					}
@@ -184,7 +184,7 @@ public class Process {
 			if (cycle == 0) { 
 				bestAnt = ants[antBestIndx];
 				if (AntColony.DIPSLAY_LEVEL > 0) {
-					ShowPheromon.setLabelBestCost("Best cost: "+Def.df2(bestAnt.getCost())+" ("+cycle+")");
+					ShowPheromon.setLabelBestDist("Best cost: "+Def.df2(bestAnt.getCost())+" ("+cycle+")");
 				}
 			}
                         /***********************************************************************
@@ -221,7 +221,7 @@ public class Process {
 				bestAnt = ants[antBestIndx];
 				bestCycle = cycle;
 				if (AntColony.DIPSLAY_LEVEL > 0) {
-					ShowPheromon.setLabelBestCost("Best cost: "+Def.df2(bestAnt.getCost())+" ("+cycle+")");
+					ShowPheromon.setLabelBestDist("Best cost: "+Def.df2(bestAnt.getCost())+" ("+cycle+")");
 				} 
 			}
                         

@@ -129,7 +129,7 @@ public class AFile {
                             String destNode = st.nextToken();
                             String time = st.nextToken();
                                                         
-                            anodes.getEdge(sourceNode, destNode).time = Double.parseDouble(time);
+                            anodes.getEdge(sourceNode, destNode).cost.time = Double.parseDouble(time);
                         }
                         
                     }
@@ -172,7 +172,7 @@ public class AFile {
 	
 	static public boolean savePath(Ant bestAnt, int numCities, int bestCycle, String startTime, String endTime, long durationMin) {
         try {
-        	String fileName = "r" + numCities + "_" +  AMath.round(bestAnt.getDist(),2) + "_c" + bestCycle + ".txt";
+        	String fileName = "r" + numCities + "_" +  AMath.round(bestAnt.getCost(),2) + "_c" + bestCycle + ".txt";
         	BufferedWriter out = new BufferedWriter (new FileWriter("res/"+fileName));
         	// klijenti (gradovi)
         	String firstOne = "0";
@@ -198,7 +198,7 @@ public class AFile {
 					firstOne = e.getSource().toString();
 				}
 			}
-        	out.write("Distance: "+bestAnt.getDist());
+        	out.write("Distance: "+bestAnt.getCost());
         	out.newLine(); out.newLine();
         	out.write("PARAM:");
 //        	out.write(" ALFA="+AntColony.ALFA);

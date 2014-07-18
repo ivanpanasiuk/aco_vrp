@@ -13,8 +13,7 @@ public class AEdge extends DefaultEdge {
 	
 	double pheromon;
 	String startIndx, endIndx;
-	public double len;
-    public double time;
+	public Cost cost = new Cost();
 	
 	public AEdge(String startPar, String endPar) {
 		super();
@@ -37,12 +36,12 @@ public class AEdge extends DefaultEdge {
 	public void setPheromon(double ph) {
 		DecimalFormat df = new DecimalFormat(AntColony.NUM_FORMAT);
 		DecimalFormat df2 = new DecimalFormat(AntColony.FORMAT_DOUBLE_2);
-		setUserObject("P "+df.format(1000*this.pheromon)+"   D "+df2.format(len)+"  T "+df2.format(time));
+		setUserObject("P "+df.format(1000*this.pheromon)+"   D "+df2.format(cost.distance)+"  T "+df2.format(cost.time));
 		pheromon = ph;
 	}
 	
 	public String getToolTipString() {
-		   return (startIndx+"->"+endIndx+" Ph: "+pheromon + " Length: " + len + " ["+Process.tauNi(pheromon, len, AntColony.RO)+"]");
+		   return (startIndx+"->"+endIndx+" Ph: "+pheromon + " Length: " + cost.distance + " ["+Process.tauNi(pheromon, cost.value, AntColony.RO)+"]");
 		}
 
 }

@@ -6,29 +6,27 @@ package acsvrp;
 import java.util.ArrayList;
 
 /**
- * @author ipanasiuk
+ * @author ivan.panasiuk
  *
  */
 public class Ant {
 	
-	//  Ukupni put koji je mrav presao
-	double dist;
-        
-        int time;
+	//Total cost for ant
+	Cost cost = new Cost();
         
 	// Ukupni broj gradova koji je mrav posetio
 	int num_nodes;
 	ArrayList<AEdge> path = new ArrayList<AEdge>();
 
 	Ant() {
-		dist = 0;
+		cost.reset();
 		num_nodes = 0;
 	}
 	
 	public int addPath (ANodes anodes, int i, int j) {
-		this.dist = this.dist + anodes.get(i).dist(anodes.get(j));
-                
-        this.time += anodes.get(i).getTimeOfTimeConnectionByDestination(anodes.get(j));
+		this.cost.distance += anodes.get(i).getDistance2Node(anodes.get(j));
+		this.cost.time += anodes.get(i).getTime2Node(anodes.get(j));
+		this.cost.value += anodes.get(i).getDistance2Node(anodes.get(j));
                 
 		this.path.add(anodes.getEdge(i, j));
 		num_nodes++;
@@ -51,17 +49,10 @@ public class Ant {
 	/**
 	 * @return Returns the dist.
 	 */
-	public double getDist() {
-		return dist;
+	public double getCost() {
+		return cost.value;
 	}
-        
-        /**
-         * @return Returns the time.
-         */
-	public double getTime()
-        {
-            return time;
-        }
+    
 
 	/**
 	 * @return Returns the path.

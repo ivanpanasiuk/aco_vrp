@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package acsvrp;
 
 import java.awt.Color;
@@ -25,6 +23,7 @@ import acsvrp.ui.AFile;
  */
 public class Process {
 
+	private static final long serialVersionUID = 2269972701250845501L;
 	static final Logger logger = Logger.getLogger(Process.class);
 	
 	//private ANodes anodes;
@@ -63,7 +62,7 @@ public class Process {
 				if (AntColony.DIPSLAY_LEVEL > 0) {
 					ShowPheromon.setLabelAnt("Ant: " + (antCount+1) + " of " + antNum);
 					if (AntColony.DIPSLAY_LEVEL > 1) {
-						MainFrame.statusBar.setText(" Calculating ant "+antCount+" of "+antNum + ". Cycle " +(cycle+1)+" of "+aG.anodes.size() * AntColony.MAX_CYCLES_PARAM);
+						MainFrame.statusBar.setText(" Calculating ant "+antCount+" of "+antNum + ". Cycle " +(cycle+1)+" of "+cyclesCount);
 						Dbg.delay(10);
 					} 
 				}
@@ -79,9 +78,9 @@ public class Process {
 					int nextNodeIndx;
 					int capacity = aG.anodes.capacity;
 				
-					// single ant route untill capacity reached
+					// single ant route until capacity reached
 					while ((capacity > 0) && (aG.anodes.numOfVisited() < aG.anodes.size())) {
-						// Bira sledeci grad
+						// choose next city
 						logger.trace("nextBestNode("+currentNodeIndx+", "+capacity+")");
 						nextNodeIndx = nextBestNode(currentNodeIndx, capacity);
 						if (AntColony.DIPSLAY_LEVEL > 2) {
@@ -106,13 +105,14 @@ public class Process {
 							//Dbg.prn(" "+anodes.get(nextNodeIndx).isVisited()+" Go on.");
 						}
 						
-						logger.trace(" Vis: "+aG.anodes.numOfVisited()+" Cap: "+capacity+" Cost:"+ants[antCount].getDist());
+						logger.trace(" Vis: "+aG.anodes.numOfVisited()+" Cap: "+capacity+" Cost:"+ants[antCount].getCost());
 						if (AntColony.DIPSLAY_LEVEL > 2) {
 							ShowPheromon.setLabelNode("Node: "+currentNodeIndx+" ("+nextNodeIndx+")");
 //							Dbg.prnl("Node: "+capacity);
 							ShowPheromon.setLabelCapacity("Capacity left: "+capacity);
 //							Dbg.prnl("Capacity left: "+capacity);
-							ShowPheromon.setLabelPathCost("Path cost: "+Def.df2(ants[antCount].getDist()));
+                                                        
+							ShowPheromon.setLabelPathCost("Path cost: "+Def.df2(ants[antCount].getCost()));
 //							Dbg.prnl("Path distance: "+Def.df2(ants[antCount].getDist()));
 							ShowPheromon.setLabelCities("Cities Visited: "+(aG.anodes.numOfVisited()-1)+" of "+(aG.anodes.size()-1));
 							logger.trace("Cities Visited: "+(aG.anodes.numOfVisited()-1)+" of "+(aG.anodes.size()-1));
@@ -125,9 +125,11 @@ public class Process {
 					capacity = capacity - tmpint;
 					if (AntColony.DIPSLAY_LEVEL > 2) {
 						showEdge(currentNodeIndx, 0);
+                                                
+                                                
 						ShowPheromon.setLabelNode("Node: "+currentNodeIndx+" (0)");
 						ShowPheromon.setLabelCapacity("Capacity left: "+capacity);
-						ShowPheromon.setLabelPathCost("Path cost: "+Def.df2(ants[antCount].getDist()));
+						ShowPheromon.setLabelPathCost("Path cost: "+Def.df2(ants[antCount].getCost()));
 						ShowPheromon.setLabelCities("Cities Visited: "+(aG.anodes.numOfVisited()-1)+" of "+(aG.anodes.size()-1));
 						//Dbg.delay(30);
 					}
@@ -145,11 +147,12 @@ public class Process {
                                  * ******************************* DODAO SAM JA **************************************
                                  ***********************************************************************************/
                                 
-				if ( (ants[antBestIndx].getDist() > ants[antCount].getDist()) || (antCount==0)) {
+				if ( (ants[antBestIndx].getCost() > ants[antCount].getCost()) || (antCount==0)) {
 					antBestIndx = antCount;
 					if (AntColony.DIPSLAY_LEVEL > 0) {
 						logger.trace("Showing best ant cost");
-						ShowPheromon.setLabelCostAnt("Best cost (Ant): "+Def.df2(ants[antBestIndx].getDist())+" ("+antBestIndx+")");
+						ShowPheromon.setLabelCostAnt("Best cost (Ant): "+Def.df2(ants[antBestIndx].getCost())+" ("+antBestIndx+")");
+
 						Dbg.delay(10);
 					}
 				}
@@ -164,8 +167,6 @@ public class Process {
 //				}
                                     
                                     
-				logger.trace("Best time: "+ants[antBestIndx].getTime());
-				
 //				agraph.getGraphLayoutCache().setVisible(ants[antCount].path, false);				
 				
 				if (AntColony.DIPSLAY_LEVEL > 1) {
@@ -183,7 +184,7 @@ public class Process {
 			if (cycle == 0) { 
 				bestAnt = ants[antBestIndx];
 				if (AntColony.DIPSLAY_LEVEL > 0) {
-					ShowPheromon.setLabelBestCost("Best cost: "+Def.df2(bestAnt.getDist())+" ("+cycle+")");
+					ShowPheromon.setLabelBestCost("Best cost: "+Def.df2(bestAnt.getCost())+" ("+cycle+")");
 				}
 			}
                         /***********************************************************************
@@ -215,12 +216,12 @@ public class Process {
                          ************************************************/
 
 			// Da li je nadjeno globalno najbolje resenje
-			if (bestAnt.getDist() > ants[antBestIndx].getDist()) {
+			if (bestAnt.getCost() > ants[antBestIndx].getCost()) {
 				sameCyleces = 0;
 				bestAnt = ants[antBestIndx];
 				bestCycle = cycle;
 				if (AntColony.DIPSLAY_LEVEL > 0) {
-					ShowPheromon.setLabelBestCost("Best cost: "+Def.df2(bestAnt.getDist())+" ("+cycle+")");
+					ShowPheromon.setLabelBestCost("Best cost: "+Def.df2(bestAnt.getCost())+" ("+cycle+")");
 				} 
 			}
                         
@@ -237,7 +238,7 @@ public class Process {
 			// Pojacaj najbolju putanju
 			for (AEdge e : ants[antBestIndx].path) {
 //				Dbg.prn((t++)+" "+antBestIndx+":"+ants[antBestIndx].getDist()+" "+bestAnt.getDist()+" r: "+(bestAnt.getDist()/(ants[antBestIndx].getDist()*1.0))+" "+e.getPheromon());
-				double newPh = globalUpadte(e.getPheromon(), ants[antBestIndx].getDist());
+				double newPh = globalUpdate(e.getPheromon(), ants[antBestIndx].getCost());
 				e.setPheromon (newPh);
 				aG.redrawEdge(e);
 //				Dbg.delay(1000);
@@ -269,7 +270,7 @@ public class Process {
 		
 		AFile.savePath(bestAnt, aG.anodes.size(), bestCycle, startTime, getNow(), getDuration(startTime));
 		if (AntColony.DIPSLAY_LEVEL == 0) {
-			Dbg.prn("; " + Def.df2(bestAnt.getDist()) + "; "+Def.df0(bestCycle)+"; "+Def.df0(aG.anodes.size()*AntColony.MAX_CYCLES_PARAM)+"; "+getDuration(startTime));
+			Dbg.prn("; " + Def.df2(bestAnt.getCost()) + "; "+Def.df0(bestCycle)+"; "+Def.df0(aG.anodes.size()*AntColony.MAX_CYCLES_PARAM)+"; "+getDuration(startTime));
 		} else {
 			MainFrame.statusBar.setText(" Calculation finished.");
 			MainFrame.jButtonStart.setText("Start");
@@ -287,20 +288,8 @@ public class Process {
 			ANode aN = aG.anodes.get(i);
 			if (!aN.isVisited() && (aN.getDemand()<=capacity)) {
 				// izracunaj tau ni proizvod iz putanje crnt-og i i-tog Node-a
-//				Random generator = new Random();
 				double rnd = generator.nextDouble();
-//				if (rnd<AntColony.ALFA) {
-//					rnd = rnd + AntColony.ALFA;
-//					Dbg.prn("+");
-//				}
-//				double tau_ni = anodes.getEdge(crnt,i).getPheromon() * Math.pow(1000.0/anodes.get(crnt).dist(anodes.get(i)), AntColony.BETA);
-//				double new_score =  Math.pow(generator.nextDouble(),1.0/2.0) * tau_ni(crnt,i);
-                                
-                                 /***********************************************************************
-                                ***************************** OVO MENJAO *******************************
-                                ************************************************************************/
-				double new_score =  tauNi(aG.anodes.getEdge(crnt,i).getPheromon(),aG.anodes.get(crnt).dist(aN),rnd);
-//              double new_score =  tauNi(aG.anodes.getEdge(crnt,i).getPheromon(),aG.anodes.get(crnt).getTimeOfTimeConnectionByDestination(aN),rnd);
+				double new_score =  tauNi(aG.anodes.getEdge(crnt,i).getPheromon(),aG.anodes.get(crnt).getDistance2Node(aN),rnd);
                                 
 //				Dbg.prn(" ["+crnt+"]->["+i+"] rnd:"+rnd+" val:"+new_score);
 				if (new_score > best_score) {
@@ -411,7 +400,7 @@ public class Process {
 		return newPh;
 	}
 	
-	public static double globalUpadte(double oldPh, double delta) {
+	public static double globalUpdate(double oldPh, double delta) {
 //		return oldPh + AntColony.RO / delta;
 		double newPh = oldPh + 1.0 / delta;
 		return (newPh);

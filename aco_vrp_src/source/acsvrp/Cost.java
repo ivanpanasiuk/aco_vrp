@@ -6,6 +6,13 @@ public class Cost {
 	public double distance;
     public double time;
     
+    static class Type {
+    	static final int TYPE_DESTINATION = 0;
+    	static final int TYPE_TIME = 1;
+    }
+    
+    public static int type = Type.TYPE_DESTINATION;
+    
     public Cost() {
     	this.value = 0;
     	this.distance = 0;

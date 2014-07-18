@@ -183,13 +183,38 @@ public class MainFrame extends JFrame {
 				jButtonStart.setText("Start");
 				jButtonStart.setToolTipText("Start process");
 				jButtonStart.setIcon(new ImageIcon(getClass().getClassLoader().getResource("acsvrp/resources/objects_017.gif")));
-				jButtonStart.setPreferredSize(new java.awt.Dimension(28, 28));
+				jButtonStart.setPreferredSize(new java.awt.Dimension(80, 28));
 				jButtonStart.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
 						StartActionPerformed(evt);
 					}
 				});
 			}
+			{
+				jToolBar1.addSeparator();
+			}	
+			{
+				jToolBar1.add(new JLabel("Cost type:  "));
+				String[] costTypes = { "Destination", "Time"};
+
+				JComboBox costTypeList = new JComboBox(costTypes);
+//				BorderLayout jCostListLayout = new BorderLayout();
+//				costTypeList.setLayout(jCostListLayout);
+				costTypeList.setSelectedIndex(0);
+				costTypeList.setPreferredSize(new java.awt.Dimension(80, 28));
+				costTypeList.addActionListener(new ActionListener() {
+					
+					public void actionPerformed(ActionEvent arg0) {
+						// TODO Auto-generated method stub
+						
+					}
+				});
+				jToolBar1.add(costTypeList);
+			}
+			{
+				jToolBar1.addSeparator();
+				jToolBar1.add(new JLabel(". "));
+			}	
 		}		
 
 		this.setLocation(new java.awt.Point(40, 40));
@@ -413,7 +438,7 @@ public class MainFrame extends JFrame {
 							 * ************************** OVO MENJAO *******************************
 							 ************************************************/
 
-							logger.info("; (" + Def.df2(best_found) + ") ");
+//							logger.info("; (" + Def.df2(best_found) + ") ");
 							if (best_found > pro.bestAnt.cost.value) {
 								best_found = pro.bestAnt.cost.value;
 								logger.info("["+Def.df2(best_found)+"] New best found !!! ");

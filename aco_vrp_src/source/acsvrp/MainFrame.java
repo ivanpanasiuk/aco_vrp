@@ -17,6 +17,7 @@ import org.jgraph.graph.GraphModel;
 
 import acsvrp.ui.*;
 import acsvrp.tools.*;
+import java.awt.Dimension;
 
 
 /**
@@ -155,6 +156,14 @@ public class MainFrame extends JFrame {
 				jToolBar1.add(jButtonSave);
 				jButtonSave.setIcon(new ImageIcon(getClass().getClassLoader().getResource("acsvrp/resources/Save.gif")));
 				jButtonSave.setHorizontalAlignment(SwingConstants.LEFT);
+                jButtonSave.addActionListener(new ActionListener() {
+
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        //TODO save
+                    }
+                });
+                
 			}
 			{
 				jToolBar1.addSeparator();
@@ -201,7 +210,8 @@ public class MainFrame extends JFrame {
 //				BorderLayout jCostListLayout = new BorderLayout();
 //				costTypeList.setLayout(jCostListLayout);
 				costTypeList.setSelectedIndex(0);
-				costTypeList.setPreferredSize(new java.awt.Dimension(80, 28));
+                costTypeList.setMaximumSize(new Dimension(120, 30));
+				//costTypeList.setPreferredSize(new java.awt.Dimension(80, 28));
 				costTypeList.addActionListener(new ActionListener() {
 					
 					public void actionPerformed(ActionEvent arg0) {
@@ -212,8 +222,8 @@ public class MainFrame extends JFrame {
 				jToolBar1.add(costTypeList);
 			}
 			{
-				jToolBar1.addSeparator();
-				jToolBar1.add(new JLabel(". "));
+//				jToolBar1.addSeparator();
+//				jToolBar1.add(new JLabel(". "));
 			}	
 		}		
 
@@ -401,7 +411,8 @@ public class MainFrame extends JFrame {
 				int a = JOptionPane.showConfirmDialog(null, message, "Opening file", JOptionPane.YES_NO_OPTION);
 				logger.info("YesNo: "+a);
 				if (a==0) {
-					createAnodes(AntColony.FILE_NAME);
+					//createAnodes(AntColony.FILE_NAME);
+                    createAnodes("/home/milos/Development/ivan/ants/aco-vrp/aco_vrp_src/def/pro5.vrp");
 				}
 			}
 		}

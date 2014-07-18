@@ -13,6 +13,7 @@ public class AntColony {
 	
 	// Ant Colony parameters
 	static public double START_PHEROMON = 0.001;
+    static public double ALPHA = 0.25;
 	static public double BETA = 4.0;
 	static public double RO = 0.1;
 	// Algorithm parameters

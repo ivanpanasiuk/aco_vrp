@@ -28,7 +28,6 @@ import javax.swing.ImageIcon;
  */
 public class Process {
 
-    private static final long serialVersionUID = 2269972701250845501L;
     static final Logger logger = Logger.getLogger(Process.class);
 
     //private ANodes anodes;
@@ -169,21 +168,12 @@ public class Process {
                         ShowPheromon.setLabelNodesVisited("Cities Visited: " + (aG.anodes.numOfVisited() - 1) + " of " + (aG.anodes.size() - 1));
                         //Dbg.delay(30);
                     }
-//					for (int t=0; t<anodes.size(); t++) {
-//						if (!anodes.get(t).isVisited()) {
-//						}
-//					}
+
                     logger.trace("Next ant");
                 } // All cities are visited. An Ant finished route.
 //				logger.debug("All cities are visited. Current dist:"+ants[antCount].getDist());
 //				Dbg.delay(500);
 
-                /**
-                 * ***********************************************************************************
-                 * ******************************* DODAO SAM JA
-                 * **************************************
-                                 **********************************************************************************
-                 */
                 if ((ants[antBestIndx].getCost() > ants[antCount].getCost()) || (antCount == 0))
                 {
                     antBestIndx = antCount;
@@ -196,15 +186,6 @@ public class Process {
                     }
                 }
 
-//              if ( (ants[antBestIndx].getTime() > ants[antCount].getTime()) || (antCount==0)) {
-//					antBestIndx = antCount;
-//					if (AntColony.DIPSLAY_LEVEL > 0) {
-//						logger.trace("Showing best ant time");
-//						ShowPheromon.setLabelCostAnt("Best (Ant) time: "+ants[antBestIndx].getTime()+" ("+antBestIndx+")");
-//						Dbg.delay(10);
-//					}
-//				}
-//				agraph.getGraphLayoutCache().setVisible(ants[antCount].path, false);				
                 if (AntColony.DIPSLAY_LEVEL > 1)
                 {
                     MainFrame.statusBar.setText(" Ant " + (antCount + 1) + " of " + antNum + " finished its route. Cycle " + (cycle + 1) + " of " + aG.anodes.size() * AntColony.MAX_CYCLES_PARAM);
@@ -217,30 +198,19 @@ public class Process {
 
             } // All ants are finished routes
 
-            // U pocetku je 0-ta ruta globalno najbolja puta ruta
+            // In the begining route 0 is the best one
             if (cycle == 0)
             {
                 bestAnt = ants[antBestIndx];
                 if (AntColony.DIPSLAY_LEVEL > 0)
                 {
                     ShowPheromon.setLabelBestDist("Best cost: " + Def.df2(bestAnt.getCost()) + " (" + cycle + ")"
-                        + " Distance: " + Def.df2(bestAnt.cost.distance) + " Time: " + Def.df2(bestAnt.cost.time));
+                        + " Distance: " + Def.df2(bestAnt.cost.getDistance()) + " Time: " + Def.df2(bestAnt.cost.getTime()));
                 }
             }
-            /**
-             * *********************************************************************
-             * ************************** OVO MENJAO
-             * *******************************
-                         ***********************************************
-             */
-//                       if (cycle == 0) { 
-//				bestAnt = ants[antBestIndx];
-//				if (AntColony.DIPSLAY_LEVEL > 0) {
-//					ShowPheromon.setLabelBestCost("Best time: "+bestAnt.getTime()+" ("+cycle+")");
-//				}
-//			}
+            
 
-            // Isparavanje svih putanja
+            // Evaporation of all paths
             if (AntColony.DIPSLAY_LEVEL > 1)
             {
                 MainFrame.statusBar.setText(" Evaporation ...");
@@ -257,13 +227,7 @@ public class Process {
                 }
             }
 
-            /**
-             * *********************************************************************
-             * ************************** OVO MENJAO
-             * *******************************
-                         ***********************************************
-             */
-            // Da li je nadjeno globalno najbolje resenje
+            // Is this best possible solution
             if (bestAnt.getCost() > ants[antBestIndx].getCost())
             {
                 sameCyleces = 0;
@@ -275,16 +239,7 @@ public class Process {
                 }
             }
 
-            // Da li je nadjeno globalno najbolje resenje
-//			if (bestAnt.getTime() > ants[antBestIndx].getTime()) {
-//				sameCyleces = 0;
-//				bestAnt = ants[antBestIndx];
-//				bestCycle = cycle;
-//				if (AntColony.DIPSLAY_LEVEL > 0) {
-//					ShowPheromon.setLabelBestCost("Best time: "+bestAnt.getTime()+" ("+cycle+")");
-//				} 
-//			}
-            // Pojacaj najbolju putanju
+            // Add pheromon for the best path
             for (AEdge e : ants[antBestIndx].path)
             {
 //				Dbg.prn((t++)+" "+antBestIndx+":"+ants[antBestIndx].getDist()+" "+bestAnt.getDist()+" r: "+(bestAnt.getDist()/(ants[antBestIndx].getDist()*1.0))+" "+e.getPheromon());
@@ -312,8 +267,8 @@ public class Process {
             sameCyleces++;
 
             //TODO save data about distance and time
-            String resultOfCycle = "Cycle #" + cycle + ": BEST_ANT_COST=" + bestAnt.cost.value + " BEST_ANT_TIME=" + bestAnt.cost.time
-                + " BEST_ANT_DISTANCE=" + bestAnt.cost.distance;
+            String resultOfCycle = "Cycle #" + cycle + ": BEST_ANT_COST=" + bestAnt.cost.getValue() + " BEST_ANT_TIME=" + bestAnt.cost.getTime()
+                + " BEST_ANT_DISTANCE=" + bestAnt.cost.getDistance();
             try
             {
                 System.out.println(resultOfCycle);
@@ -475,10 +430,6 @@ public class Process {
 
     private void showEdge(int currIndx, int nextIndx)
     {
-//		GraphConstants.setLineColor(anodes.getEdge(currIndx, nextIndx).getAttributes(), Color.BLUE);
-//		GraphConstants.setLineWidth(anodes.getEdge(currIndx, nextIndx).getAttributes(),(float)(anodes.getEdge(currIndx, nextIndx).getPh()/AntColony.START_PHEROMON));
-//		Dbg.prnl("w: "+(float)(anodes.getEdge(currIndx, nextIndx).getPh()/AntColony.START_PHEROMON));
-//		agraph.getGraphLayoutCache().setVisible(anodes.getEdge(currIndx, nextIndx), true);
         logger.trace("showEdge " + currIndx + "->" + nextIndx + " ");
         try
         {
@@ -489,7 +440,7 @@ public class Process {
             }
         } catch (NullPointerException e)
         {
-            logger.error("showEdge error" + e);
+            Dbg.prnl("showEdge error:" + e);
         }
     }
 

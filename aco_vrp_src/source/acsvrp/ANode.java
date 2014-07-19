@@ -11,6 +11,7 @@ import org.jgraph.graph.DefaultGraphCell;
 import org.jgraph.graph.GraphConstants;
 
 import acsvrp.tools.Dbg;
+import acsvrp.tools.Def;
 
 /**
  * @author ivan.panasiuk
@@ -42,22 +43,48 @@ public class ANode extends DefaultGraphCell {
 	}
 
 	/**
-	 * Calculate Distance to another node
+	 * Return distance to another node
 	 * @param node
-	 * @return int calculated distance to another node
+	 * @return int - distance to another node
 	 */
 	public double getDistance2Node(ANode anode) {
 		double res = -1;
+		String allEdgesEnds = "{";
 		for (AEdge e : edges) {
+			allEdgesEnds += " ["+e.endIndx+"]";
 			if (e.endIndx.equals(anode.name)) {
-				res = e.cost.distance;
+				allEdgesEnds += "*";
+				res = e.cost.getDistance();
 			}
 		}
-		if (res!=Math.sqrt(Math.pow((x-anode.x),2)+Math.pow((y-anode.y),2))) {
-			Dbg.prnl("We got a problem.");
+		if (res<0) {	// edge probably start at destination node
+			allEdgesEnds = "(-1){";
+			for (AEdge e : anode.edges) {
+				allEdgesEnds += "["+e.endIndx+"]";
+				if (e.endIndx.equals(this.name)) {
+					allEdgesEnds += "*";
+					res = e.cost.getDistance();
+				}
+			}
 		}
-		return Math.sqrt(Math.pow((x-anode.x),2)+Math.pow((y-anode.y),2));
+		double d = Math.sqrt(Math.pow((x-anode.x),2)+Math.pow((y-anode.y),2));
+		if (res!=d) {
+			Dbg.prnl("We got a problem with distance from ["+this.name+" to "+anode.name+"] d="+Def.df4(d)+" res="+Def.df4(res)+" not in "+allEdgesEnds+"}");
+		}
+		return d;
 	}
+	
+	/**
+	 * Calculate Distance to another node
+	 * @param node
+	 * @return int - calculated distance to another node
+	 */
+	public double calculateDistance2Node(ANode anode) {
+		double d = Math.sqrt(Math.pow((x-anode.x),2)+Math.pow((y-anode.y),2));
+		return d;
+	}
+	
+	
 	
 	/**
 	 * Calculate Time to another node
@@ -68,7 +95,7 @@ public class ANode extends DefaultGraphCell {
 		double res = -1;
 		for (AEdge e : edges) {
 			if (e.endIndx.equals(anode.name)) {
-				res = e.cost.time;
+				res = e.cost.getTime();
 			}
 		}
 		

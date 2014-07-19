@@ -289,7 +289,6 @@ public class Parameters extends javax.swing.JDialog {
         gridBagConstraints.gridy = 7;
         gridBagConstraints.insets = new Insets(5, 5, 5, 5);
         btnLoad.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent evt) {
                 load(evt);
             }
@@ -304,7 +303,6 @@ public class Parameters extends javax.swing.JDialog {
         gridBagConstraints.gridy = 7;
         gridBagConstraints.insets = new Insets(5, 5, 5, 5);
         btnSave.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent evt) {
                 save(evt);
             }
@@ -320,7 +318,6 @@ public class Parameters extends javax.swing.JDialog {
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.insets = new Insets(5, 5, 5, 5);
         btnOK.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent evt) {
                 System.out.println("bOK.actionPerformed, event="
                     + evt);
@@ -347,7 +344,6 @@ public class Parameters extends javax.swing.JDialog {
         gridBagConstraints.gridy = 7;
         gridBagConstraints.insets = new Insets(5, 5, 5, 5);
         btnCancel.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent evt) {
                 System.out.println("bCancel.actionPerformed, event="+ evt);
                 dispose();

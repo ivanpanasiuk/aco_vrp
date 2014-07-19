@@ -19,11 +19,11 @@ public class Dbg {
 
 	public static void prn(Object obj) {
 		logger.debug(obj);
-		//System.out.print(obj);		
+//		System.out.print(obj);		
 	}
 
 	public static void prnl() {
-		//System.out.println();
+//		System.out.println();
 	}
 	
 	public static void delay (int ms) {

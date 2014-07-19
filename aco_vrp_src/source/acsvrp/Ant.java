@@ -24,9 +24,9 @@ public class Ant {
 	}
 	
 	public int addPath (ANodes anodes, int i, int j) {
-		this.cost.distance += anodes.get(i).getDistance2Node(anodes.get(j));
-		this.cost.time += anodes.get(i).getTime2Node(anodes.get(j));
-		this.cost.value += anodes.get(i).getDistance2Node(anodes.get(j));
+		this.cost.incDistance(anodes.get(i).getDistance2Node(anodes.get(j)));
+		this.cost.incTime(anodes.get(i).getTime2Node(anodes.get(j)));
+		this.cost.incValue(anodes.get(i).getDistance2Node(anodes.get(j)));
                 
 		this.path.add(anodes.getEdge(i, j));
 		num_nodes++;
@@ -50,7 +50,7 @@ public class Ant {
 	 * @return Returns the dist.
 	 */
 	public double getCost() {
-		return cost.value;
+		return cost.getValue();
 	}
     
 

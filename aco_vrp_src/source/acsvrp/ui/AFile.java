@@ -101,13 +101,13 @@ public class AFile {
 //            		Dbg.delay(1000);
                 }
                 Dbg.prn("AFile.java: Loading cooordinates ...  ");
-                // centralni magacin
+                // Central depot
                 str = in.readLine();
                 st = new StringTokenizer(str, " ");
                 String name = st.nextToken();
                 anodes.add(new ANode(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()), name));
                 // TODO new aedge (n1,n2,,len, , time)
-                // klijenti (gradovi)
+                // clients (cities)
                 while (!(str = in.readLine()).contains("DEMAND_SECTION"))
                 {
                     st = new StringTokenizer(str, " ");
@@ -120,7 +120,7 @@ public class AFile {
                     anodes.add(newNode);
                 }
 //	            Dbg.prnl();
-                // Ucitaj zahteve
+                // Demand section
                 int i = 0;
                 while (!(str = in.readLine()).contains("DEPOT_SECTION"))
                 {
@@ -136,7 +136,7 @@ public class AFile {
                     i++;
                 }
 
-                // Load time section
+                // Load time section for all edges
                 while ((str = in.readLine()) != null)
                 {
                     if (!str.contains("TIME_SECTION"))
@@ -146,7 +146,7 @@ public class AFile {
                         String destNode = st.nextToken();
                         String time = st.nextToken();
 
-                        anodes.getEdge(sourceNode, destNode).cost.time = Double.parseDouble(time);
+                        anodes.getEdge(sourceNode, destNode).cost.setTime(Double.parseDouble(time));
                     }
 
                 }

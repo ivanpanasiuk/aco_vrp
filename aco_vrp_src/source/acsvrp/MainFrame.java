@@ -450,11 +450,11 @@ public class MainFrame extends JFrame {
 							 ************************************************/
 
 //							logger.info("; (" + Def.df2(best_found) + ") ");
-							if (best_found > pro.bestAnt.cost.value) {
-								best_found = pro.bestAnt.cost.value;
+							if (best_found > pro.bestAnt.getCost()) {
+								best_found = pro.bestAnt.getCost();
 								logger.info("["+Def.df2(best_found)+"] New best found !!! ");
-							} else if (best_found / pro.bestAnt.cost.value > 1 / 1.05) {
-								for (int i=0; i < 100 * best_found / pro.bestAnt.cost.value - 95; i++) {
+							} else if (best_found / pro.bestAnt.getCost() > 1 / 1.05) {
+								for (int i=0; i < 100 * best_found / pro.bestAnt.getCost() - 95; i++) {
 									//Dbg.prn("*  ");
 								}
 							}

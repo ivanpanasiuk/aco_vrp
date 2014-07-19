@@ -48,10 +48,8 @@ public class ANodes {
 				portT.setParent(n);
 				aedge.setTarget (n.getChildAt(0));
                                 
-				aedge.cost.distance = anode.getDistance2Node(n);
-				aedge.cost.time = anode.getTime2Node(n);
-				
-				aedge.cost.value = aedge.cost.distance;
+				aedge.cost.setDistance(anode.calculateDistance2Node(n));
+				aedge.cost.setValue();
 				
 				anode.edges.add(aedge); 
 			}
@@ -64,21 +62,32 @@ public class ANodes {
 	}
 	
 	public AEdge getEdge(int i, int j) {
+		AEdge e = null;
 		if (i != j) {
 		if (i < j) {
-			//Dbg.prnl("get #"+j+" #"+i);
-			return anodes.get(j).edges.get(i);
+			logger.trace("get #"+j+" #"+i);
+			try {
+				e = anodes.get(j).edges.get(i);
+			} catch (Exception e2) {
+				logger.trace("Anodes:getEdge"+e2);
+			}
 		}
 		else {
 			logger.trace("get #"+i+" #"+j);
-			return anodes.get(i).edges.get(j);
+			try {
+				e = anodes.get(i).edges.get(j);
+			} catch (Exception e2) {
+				logger.trace("Anodes:getEdge"+e2);
+			}
+			
 		}
 		}
 		else {
 			logger.info("get #"+i+" #"+j+" are same. Plese check. [ANodes.java]");
 			Dbg.delay(2000);
-			return anodes.get(i).edges.get(j);
+			e =  anodes.get(i).edges.get(j);
 		}			
+		return e;
 	}
 	
 	//TODO NOW
@@ -100,7 +109,7 @@ public class ANodes {
 			Dbg.prnl("Something go wrong ...."+control);
 		}
 		if (r!=null) {
-			Dbg.prnl("Edge found."+startPar+" -> "+endPar+" d:"+r.cost.distance);
+			Dbg.prnl("Edge found."+startPar+" -> "+endPar+" d:"+r.cost.getDistance());
 		}
 		return r;
 	}

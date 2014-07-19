@@ -1,7 +1,5 @@
 package acsvrp;
 
-import acsvrp.tools.Def;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -15,12 +13,13 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
-import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import org.apache.log4j.Logger;
+
+import acsvrp.tools.Def;
 
 /**
  * This code was edited or generated using CloudGarden's Jigloo

@@ -1,6 +1,7 @@
 package acsvrp;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 import org.jgraph.JGraph;
@@ -12,9 +13,6 @@ import acsvrp.tools.Dbg;
 
 public class AGraph extends JGraph {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	static final Logger logger = Logger.getLogger(AGraph.class);
 	ANodes anodes;
@@ -66,7 +64,7 @@ public class AGraph extends JGraph {
 		getGraphLayoutCache().insert(anodes.get(0).createVertex(Color.RED, anodes.kCorr, anodes.xCorr, anodes.yCorr));
 		// Dodaj ostale gradove
 		for (int i = 1; i < anodes.size(); i++) {	
-			logger.debug("AGraph.java: dodajem grad " + i + ":" + anodes.get(i) + " ");
+			logger.trace("AGraph.java: dodajem grad " + i + ":" + anodes.get(i) + " ");
 			getGraphLayoutCache().insert(anodes.get(i).createVertex(Color.YELLOW, anodes.kCorr, anodes.xCorr, anodes.yCorr));
 			Dbg.delay(30);
 			addAllEdges(i);
@@ -89,7 +87,7 @@ public class AGraph extends JGraph {
 	}
 	
 	public void addAllEdges (int i) {
-		logger.debug("Dodajem putanje od grada "+i+" do ostalih gradova.");
+		logger.trace("Dodajem putanje od grada "+i+" do ostalih gradova.");
 		for (AEdge e: anodes.get(i).edges) {
 			GraphConstants.setLabelAlongEdge(e.getAttributes(), true);
 			GraphConstants.setSelectable(e.getAttributes(), false);
@@ -97,7 +95,7 @@ public class AGraph extends JGraph {
 			getGraphLayoutCache().setVisible(e, false);
 		}
 		//TODO getGraphLayoutCache().setVisible(anodes.get(i).edges.toArray(), false);
-		logger.debug("Sve putanje dodate");
+		logger.trace("Sve putanje dodate");
 		Dbg.delay(10);
 	}		
 
@@ -125,7 +123,7 @@ public class AGraph extends JGraph {
 	
 	public void redrawEdge(int i, int j) {
 		AEdge e = anodes.getEdge(i, j);
-		logger.debug("getEdge: "+e.getToolTipString());
+		logger.trace("redrawEdge(): "+e.getToolTipString());
 		if (e != null) {
 			redrawEdge(e);
 		}
@@ -166,4 +164,12 @@ public class AGraph extends JGraph {
 		  return null;
 		}
 	*/	
+	
+	public void removeEverything() {
+		this.removeAll();
+		this.validate();
+		anodes.removeAll();
+		getGraphLayoutCache().notifyAll();
+//		getGraphLayoutCache().
+	}
 }

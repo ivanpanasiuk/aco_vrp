@@ -17,6 +17,7 @@ import org.jgraph.graph.GraphModel;
 
 import acsvrp.ui.*;
 import acsvrp.tools.*;
+
 import java.awt.Dimension;
 
 
@@ -52,6 +53,9 @@ public class MainFrame extends JFrame {
 	static public JLabel statusBar;
 
 	AGraph agraph;
+	GraphModel model;
+	GraphLayoutCache view;
+	
 	ShowPheromon showPheromon;
 	Parameters parameters;
 	private boolean startACO = false;
@@ -86,20 +90,21 @@ public class MainFrame extends JFrame {
 	private JMenu jMenuLoadUrl;
 	private JButton jButtonNew;
 	private JToolBar jToolBar1;
+	private JComboBox<String> costTypeList;
 
 	public MainFrame() {
 
 		//System.setProperty("sun.java2d.d3d", "false");
 		PropertyConfigurator.configure("log4j.properties");
+		
+		model = new DefaultGraphModel();
+		view = new GraphLayoutCache(model,new DefaultCellViewFactory(),true);
 
 		this.setSize(720, 575);
 		this.setTitle("Vechicle routing system using Ant Colony System optimization");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		{
-			GraphModel model = new DefaultGraphModel();
-			GraphLayoutCache view = new GraphLayoutCache(model,new DefaultCellViewFactory(),true);
 			agraph = new AGraph(model, view);
-			//agraph = new AGraph();
 			jScrollPane = new JScrollPane(agraph);
 			getContentPane().add(jScrollPane, BorderLayout.CENTER);
 			jScrollPane.setPreferredSize(new java.awt.Dimension(712, 447));
@@ -129,9 +134,9 @@ public class MainFrame extends JFrame {
 				jButtonNew.addActionListener(new ActionListener() {
 
 					public void actionPerformed(ActionEvent arg0) {
-						// TODO Auto-generated method stub
-						agraph.removeAll();
-						agraph.validate();
+						// new graph
+						//TODO NOW
+						agraph.removeEverything();
 					}
 				});
 			}
@@ -204,19 +209,23 @@ public class MainFrame extends JFrame {
 			}	
 			{
 				jToolBar1.add(new JLabel("Cost type:  "));
-				String[] costTypes = { "Destination", "Time"};
+				final String[] costTypes = { "Destination", "Time"};
 
-				JComboBox costTypeList = new JComboBox(costTypes);
-//				BorderLayout jCostListLayout = new BorderLayout();
-//				costTypeList.setLayout(jCostListLayout);
+				costTypeList = new JComboBox<String>(costTypes);
 				costTypeList.setSelectedIndex(0);
-                costTypeList.setMaximumSize(new Dimension(120, 30));
+                costTypeList.setMaximumSize(new Dimension(120, 25));
 				//costTypeList.setPreferredSize(new java.awt.Dimension(80, 28));
 				costTypeList.addActionListener(new ActionListener() {
 					
 					public void actionPerformed(ActionEvent arg0) {
-						// TODO Auto-generated method stub
-						
+						JComboBox<String> cb = (JComboBox<String>) arg0.getSource();
+				        String costType = (String)cb.getSelectedItem();
+				        logger.debug("Cost type changed to "+costType);
+				        if (costType.equals(costTypes[0])) {
+				        	AntColony.costType = Cost.Type.TYPE_DESTINATION;
+				        } else {
+				        	AntColony.costType = Cost.Type.TYPE_TIME;
+				        }
 					}
 				});
 				jToolBar1.add(costTypeList);
@@ -411,8 +420,8 @@ public class MainFrame extends JFrame {
 				int a = JOptionPane.showConfirmDialog(null, message, "Opening file", JOptionPane.YES_NO_OPTION);
 				logger.info("YesNo: "+a);
 				if (a==0) {
-					//createAnodes(AntColony.FILE_NAME);
-                    createAnodes("/home/milos/Development/ivan/ants/aco-vrp/aco_vrp_src/def/pro5.vrp");
+					// Default file could be defined in acsvrp.properties in key FILE_NAME
+					createAnodes(AntColony.FILE_NAME);
 				}
 			}
 		}
@@ -481,6 +490,7 @@ public class MainFrame extends JFrame {
 
 	private void createAnodes(String vrpFile) {
 		// Ucitaj sve gradove iz fajla FILE_NAME
+		statusBar.setText("Importing file. Please wait.");
 		agraph.anodes = AFile.loadNodes(vrpFile);
 		statusBar.setText(agraph.anodes.size() + " cities loaded. Drawing all rutes...");
 		// Draw a AGraph graph

@@ -10,13 +10,13 @@ import acsvrp.tools.Dbg;
 public class ANodes {
 
 	static final Logger logger = Logger.getLogger(ANodes.class);
-	
+
 	ArrayList<ANode> anodes = new ArrayList<ANode>();
 	public int capacity;
 	public double kCorr = 1;
 	public int xCorr = 0;
 	public int yCorr = 0;
-	
+
 	public ANode get(int i) {
 		ANode a = null;
 		try {
@@ -28,14 +28,14 @@ public class ANodes {
 		} 
 		return a;
 	}
-	
+
 	public int size() {
 		return anodes.size();
 	}
-	
+
 	public void add(ANode anode) {
 		anodes.add(anode);
-//		Dbg.prn("adding n#"+anodes.indexOf(anode)+" ");
+		//		Dbg.prn("adding n#"+anodes.indexOf(anode)+" ");
 		for (ANode n: anodes) {
 			if (anode != n) {
 				AEdge aedge = new AEdge(anode.toString(), n.toString());
@@ -47,10 +47,9 @@ public class ANodes {
 				n.add(portT);
 				portT.setParent(n);
 				aedge.setTarget (n.getChildAt(0));
-                                
+
 				aedge.cost.setDistance(anode.calculateDistance2Node(n));
-				aedge.cost.setValue();
-				
+
 				anode.edges.add(aedge); 
 			}
 		}
@@ -58,29 +57,29 @@ public class ANodes {
 		xCorr = minX();
 		yCorr = minY();
 		logger.trace("kCorr:"+kCorr+" xCorr:"+xCorr+" yCorr:"+yCorr);
-//		Dbg.delay(100);
+		//		Dbg.delay(100);
 	}
-	
+
 	public AEdge getEdge(int i, int j) {
 		AEdge e = null;
 		if (i != j) {
-		if (i < j) {
-			logger.trace("get #"+j+" #"+i);
-			try {
-				e = anodes.get(j).edges.get(i);
-			} catch (Exception e2) {
-				logger.trace("Anodes:getEdge"+e2);
+			if (i < j) {
+				logger.trace("get #"+j+" #"+i);
+				try {
+					e = anodes.get(j).edges.get(i);
+				} catch (Exception e2) {
+					logger.trace("Anodes:getEdge"+e2);
+				}
 			}
-		}
-		else {
-			logger.trace("get #"+i+" #"+j);
-			try {
-				e = anodes.get(i).edges.get(j);
-			} catch (Exception e2) {
-				logger.trace("Anodes:getEdge"+e2);
+			else {
+				logger.trace("get #"+i+" #"+j);
+				try {
+					e = anodes.get(i).edges.get(j);
+				} catch (Exception e2) {
+					logger.trace("Anodes:getEdge"+e2);
+				}
+
 			}
-			
-		}
 		}
 		else {
 			logger.info("get #"+i+" #"+j+" are same. Plese check. [ANodes.java]");
@@ -89,7 +88,7 @@ public class ANodes {
 		}			
 		return e;
 	}
-	
+
 	//TODO NOW
 	public AEdge getEdge(String startPar, String endPar) {
 		AEdge r = null;
@@ -109,18 +108,18 @@ public class ANodes {
 			Dbg.prnl("Something go wrong ...."+control);
 		}
 		if (r!=null) {
-			Dbg.prnl("Edge found."+startPar+" -> "+endPar+" d:"+r.cost.getDistance());
+			logger.trace("Edge found."+startPar+" -> "+endPar+" d:"+r.cost.getDistance());
 		}
 		return r;
 	}
-		
+
 	// resetuje stanje svih nodova - svi postaju neposeceni
 	public void resetVisited() {
 		for (ANode n: anodes) {
 			n.setVisited(false);
 		}
 	}
-	
+
 	// resetuje kolicinu feromona svih nodova
 	public void resetPheromon() {
 		for (ANode node: anodes) {
@@ -130,7 +129,7 @@ public class ANodes {
 		}
 	}
 
-	
+
 	public int numOfVisited() {
 		int num = 0;
 		for (ANode n: anodes) {
@@ -138,17 +137,17 @@ public class ANodes {
 		}
 		return num;
 	}
-	
-//	public int dest2AllUnvisited(ANode anode) {
-//		int dest = 0;
-//		for (ANode n: anodes) {
-//			if (! n.isVisited()) {
-//				dest = dest + anode.dist(n);
-//			}
-//		}
-//		return dest;
-//	}
-	
+
+	//	public int dest2AllUnvisited(ANode anode) {
+	//		int dest = 0;
+	//		for (ANode n: anodes) {
+	//			if (! n.isVisited()) {
+	//				dest = dest + anode.dist(n);
+	//			}
+	//		}
+	//		return dest;
+	//	}
+
 	private int maxX() {
 		int maxX = 0;
 		for (ANode n: anodes) {
@@ -158,7 +157,7 @@ public class ANodes {
 		}
 		return maxX;
 	}
-	
+
 	private int maxY() {
 		int maxY = 0;
 		for (ANode n: anodes) {
@@ -168,30 +167,30 @@ public class ANodes {
 		}
 		return maxY;
 	}
-	
+
 	public int minY() {
 		int minY = anodes.get(0).getY();
-//		Dbg.prn(minY+": ");
+		//		Dbg.prn(minY+": ");
 		for (ANode n: anodes) {
 			if (n.getY() < minY) {
 				minY = n.getY();
 			}
-//			Dbg.prn(n.getY()+" ");
+			//			Dbg.prn(n.getY()+" ");
 		}
-//		Dbg.prnl("minY: "+minY);
+		//		Dbg.prnl("minY: "+minY);
 		return minY;
 	}
-	
+
 	public int minX() {
 		int minX = anodes.get(0).getX();
-//		Dbg.prn(minX+": ");
+		//		Dbg.prn(minX+": ");
 		for (ANode n: anodes) {
 			if (n.getX() < minX) {
 				minX = n.getX();
 			}
-//			Dbg.prn(n.getX()+" ");
+			//			Dbg.prn(n.getX()+" ");
 		}
-//		Dbg.prnl("minX: "+minX);
+		//		Dbg.prnl("minX: "+minX);
 		return minX;
 	}
 
@@ -203,35 +202,40 @@ public class ANodes {
 	 */
 	public double correction() {
 		double corr = 1;
-//		Dbg.prnl("x:"+maxX()+" y:"+maxY()+" "+ (AntColony.FIT_X / maxX()) + " <> " + (AntColony.FIT_Y / maxY()));
+		//		Dbg.prnl("x:"+maxX()+" y:"+maxY()+" "+ (AntColony.FIT_X / maxX()) + " <> " + (AntColony.FIT_Y / maxY()));
 		// TODO proveriti
 		if ((1.0f * AntColony.FIT_Y / (maxY()-yCorr)) < (1.0f * AntColony.FIT_X / (maxX()-xCorr))) {
 			corr = 1.0f * AntColony.FIT_Y / (maxY()-yCorr);
-//			Dbg.prnl("maxY: "+maxY()+", (AntColony.FIT_Y / maxY()):"+corr);
+			//			Dbg.prnl("maxY: "+maxY()+", (AntColony.FIT_Y / maxY()):"+corr);
 		}
 		else {
 			corr = 1.0f * AntColony.FIT_X / (maxX()-xCorr);
-//			Dbg.prnl("maxX: "+maxX()+", (AntColony.FIT_X / maxX()):"+corr);
+			//			Dbg.prnl("maxX: "+maxX()+", (AntColony.FIT_X / maxX()):"+corr);
 		}
-//		Dbg.prnl(corr);
-//		Dbg.delay(5000);
+		//		Dbg.prnl(corr);
+		//		Dbg.delay(5000);
 		return corr;
 	}
 
 	public boolean isEmpty() {
 		return anodes.isEmpty();
 	}
-        
-        public ANode getNodeByName(String name)
-        {
-            for(ANode node : anodes)
-            {
-                if(node.getName().equals(name))
-                {
-                    return node;
-                }
-            }
-            
-            return null;
-        }
+
+	public ANode getNodeByName(String name)
+	{
+		for(ANode node : anodes)
+		{
+			if(node.getName().equals(name))
+			{
+				return node;
+			}
+		}
+
+		return null;
+	}
+
+	public void removeAll() {
+			anodes = new ArrayList<ANode>();
+	}	
+
 }

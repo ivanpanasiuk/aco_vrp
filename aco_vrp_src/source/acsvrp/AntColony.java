@@ -16,6 +16,7 @@ public class AntColony {
     static public double ALPHA = 0.25;
 	static public double BETA = 4.0;
 	static public double RO = 0.1;
+	static public int costType = Cost.Type.TYPE_DESTINATION;
 	// Algorithm parameters
 	static public int MAX_CYCLES_PARAM = 1;
 	static public boolean LOCAL_UPDATE = true;
@@ -37,6 +38,13 @@ public class AntColony {
 	
 	// File IO parameters
 	static public String FILE_NAME = "";
+	
+	// Lablel
+	static public String lblPathCost = "Path cost: ";
+	static public String lblBestCost = "Best cost:";
+	static public String lblBestAntCost = "Best Ant cost:";
+
+
 
 	static MainFrame mf;
 	

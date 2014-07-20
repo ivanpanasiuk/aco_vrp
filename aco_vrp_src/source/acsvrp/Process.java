@@ -39,25 +39,26 @@ public class Process {
     {
         String startTime = getNow();
         aG = agraph;
-//		int antNum = (anodes.size()+1) / 2 ;
-        int antNum = aG.anodes.size() - 1;
+
+        int antNum = aG.anodes.size() - 1;	//		int antNum = (anodes.size()+1) / 2 ;
         int bestCycle = 0;
         int sameCyleces = 0;
         aG.anodes.resetPheromon();
         int cyclesCount = (aG.anodes.size() - 1) * AntColony.MAX_CYCLES_PARAM;
 
-        //saving result after every cycle of distance and time
+        //saving cost, distance and time after every cycle
         Random rand = new Random();
 
         int randomNumber = rand.nextInt(Integer.MAX_VALUE);
-        String fileName = "time_distance_" + randomNumber + ".txt";
-//            File file = new File("./res/" + fileName);
-        File file = new File(fileName);
+        String fileName = "data_" + randomNumber + ".txt";
+        File file = new File("./res/" + fileName);
+//        File file = new File(fileName);
         BufferedWriter out = null;
         try
         {
             file.createNewFile();
             out = new BufferedWriter(new FileWriter(file));
+            out.write("Cost \t Distance \t Time\n");
         } catch (IOException ex)
         {
             java.util.logging.Logger.getLogger(Process.class.getName()).log(Level.SEVERE, null, ex);
@@ -99,10 +100,9 @@ public class Process {
                 ants[antCount] = new Ant();
                 aG.anodes.get(0).setVisited(true);
 
-                // go over all cities
+                // Go over all cities
                 while (aG.anodes.numOfVisited() < aG.anodes.size())
                 {
-
                     int currentNodeIndx = 0;
                     int nextNodeIndx;
                     int capacity = aG.anodes.capacity;
@@ -171,8 +171,6 @@ public class Process {
 
                     logger.trace("Next ant");
                 } // All cities are visited. An Ant finished route.
-//				logger.debug("All cities are visited. Current dist:"+ants[antCount].getDist());
-//				Dbg.delay(500);
 
                 if ((ants[antBestIndx].getCost() > ants[antCount].getCost()) || (antCount == 0))
                 {
@@ -181,7 +179,6 @@ public class Process {
                     {
                         logger.trace("Showing best ant cost");
                         ShowPheromon.setLBestCostAnt("Best cost (Ant): " + Def.df2(ants[antBestIndx].getCost()) + " (" + antBestIndx + ")");
-
                         Dbg.delay(10);
                     }
                 }
@@ -190,13 +187,25 @@ public class Process {
                 {
                     MainFrame.statusBar.setText(" Ant " + (antCount + 1) + " of " + antNum + " finished its route. Cycle " + (cycle + 1) + " of " + aG.anodes.size() * AntColony.MAX_CYCLES_PARAM);
                     //Dbg.delay(50);
-                    logger.debug("Redraw all egdes.");
+                    logger.trace("Redraw all egdes.");
                     aG.redrawAllEdges();
                     Dbg.delay(50);
                 }
-                logger.debug("All ants finished routes.");
+
+                // export COST TIME DISTANCE
+                String resultOfCycle = ants[antCount].getCost() + " \t" + ants[antCount].cost.getDistance() + " \t" + ants[antCount].cost.getTime();
+                try {
+                	logger.debug(resultOfCycle);
+                	out.write(resultOfCycle+"\n");
+//                	out.newLine();
+                } catch (IOException ex) {
+                	java.util.logging.Logger.getLogger(Process.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (NullPointerException ex) {
+                	ex.printStackTrace();
+                }  // export
 
             } // All ants are finished routes
+            logger.debug("All ants finished routes.");
 
             // In the begining route 0 is the best one
             if (cycle == 0)
@@ -222,7 +231,6 @@ public class Process {
                     for (int j = i + 1; j < aG.anodes.size(); j++)
                     {
                         aG.anodes.getEdge(i, j).setPheromon(localUpdate(aG.anodes.getEdge(i, j).getPheromon()));
-                        ;
                     }
                 }
             }
@@ -235,7 +243,8 @@ public class Process {
                 bestCycle = cycle;
                 if (AntColony.DIPSLAY_LEVEL > 0)
                 {
-                    ShowPheromon.setLabelBestDist("Best cost: " + Def.df2(bestAnt.getCost()) + " (" + cycle + ")");
+                	ShowPheromon.setLabelBestDist("Best cost: " + Def.df2(bestAnt.getCost()) + " (" + cycle + ")"
+                            + " Distance: " + Def.df2(bestAnt.cost.getDistance()) + " Time: " + Def.df2(bestAnt.cost.getTime()));
                 }
             }
 
@@ -251,49 +260,33 @@ public class Process {
 
             if (AntColony.DIPSLAY_LEVEL > 0)
             {
-//TODO				agraph.hideAllEdges();
-                if (AntColony.DIPSLAY_LEVEL > 1)
-                {
-                    ShowPheromon.refreshTable();
-                }
-                Dbg.delay(100);
+            	if (AntColony.DIPSLAY_LEVEL > 1)
+            	{
+            		ShowPheromon.refreshTable();
+            	}
+            	Dbg.delay(100);
             }
 
             if (sameCyleces > aG.anodes.size() * AntColony.MAX_CYCLES_PARAM + 50)
             {
-                int c = aG.anodes.size() * AntColony.MAX_CYCLES_PARAM;
-                cycle = c;
+            	int c = aG.anodes.size() * AntColony.MAX_CYCLES_PARAM;
+            	cycle = c;
             }
             sameCyleces++;
 
-            //TODO save data about distance and time
-            String resultOfCycle = "Cycle #" + cycle + ": BEST_ANT_COST=" + bestAnt.cost.getValue() + " BEST_ANT_TIME=" + bestAnt.cost.getTime()
-                + " BEST_ANT_DISTANCE=" + bestAnt.cost.getDistance();
-            try
-            {
-                System.out.println(resultOfCycle);
-                out.write(resultOfCycle);
-                out.newLine();
-                out.write("Started: " + startTime + ", Ended: " + getNow() + " Duration: " + getDuration(startTime) + " sec");
-                out.newLine();
-                out.newLine();
-                out.newLine();
-            } catch (IOException ex)
-            {
-                java.util.logging.Logger.getLogger(Process.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (NullPointerException ex)
-            {
-                ex.printStackTrace();
-            }
-
         }
+        
+        // close export file
         try
         {
-            out.close();
+        	out.close();
+        	logger.debug("Cost, distance and time exported to file: "+fileName);
         } catch (IOException ex)
         {
-            java.util.logging.Logger.getLogger(Process.class.getName()).log(Level.SEVERE, null, ex);
+        	java.util.logging.Logger.getLogger(Process.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        
         // Optimization finished. Redraw the best solution in GREEN
         if (AntColony.DIPSLAY_LEVEL > 0)
         {
@@ -449,10 +442,10 @@ public class Process {
 //		Dbg.prnl("tauNi   "+tau+" "+distance);
         if (rnd >= AntColony.RO)
         {
-            return rnd * tau * Math.pow(1.0 / distance, AntColony.BETA);
+            return rnd * Math.pow(tau, AntColony.ALPHA) * Math.pow(1.0 / distance, AntColony.BETA);
         } else
         {
-            return tau * Math.pow(1.0 / distance, AntColony.BETA);
+            return Math.pow(tau, AntColony.ALPHA) * Math.pow(1.0 / distance, AntColony.BETA);
         }
     }
 

@@ -132,14 +132,14 @@ public class ShowPheromon extends javax.swing.JFrame {
 					{
 						lCurrentPathDist = new JLabel();
 						jDesktopPane1.add(lCurrentPathDist);
-						lCurrentPathDist.setText("Path distance: ");
+						lCurrentPathDist.setText(AntColony.lblPathCost);
 						lCurrentPathDist.setBounds(245, 7, 140, 21);
                         lCurrentPathDist.setForeground(Color.WHITE);
 					}
 					{
 						lBestDistAnt = new JLabel();
 						jDesktopPane1.add(lBestDistAnt);
-						lBestDistAnt.setText("Best Ant distance:");
+						lBestDistAnt.setText(AntColony.lblBestAntCost);
 						lBestDistAnt.setBounds(245, 28, 210, 21);
                         lBestDistAnt.setForeground(Color.WHITE);
 					}
@@ -153,8 +153,8 @@ public class ShowPheromon extends javax.swing.JFrame {
 					{
 						lBestDist = new JLabel();
 						jDesktopPane1.add(lBestDist);
-						lBestDist.setText("Best distance:");
-						lBestDist.setBounds(245, 49, 210, 21);
+						lBestDist.setText(AntColony.lblBestCost);
+						lBestDist.setBounds(245, 49, 410, 21);
                         lBestDist.setForeground(Color.WHITE);
 					}
 					{

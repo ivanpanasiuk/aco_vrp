@@ -49,8 +49,7 @@ public class Process {
         //saving cost, distance and time after every cycle
         Random rand = new Random();
 
-        int randomNumber = rand.nextInt(Integer.MAX_VALUE);
-        String fileName = "data_" + randomNumber + ".txt";
+        String fileName = "data_for_graph_" + cyclesCount + ".txt";
         File file = new File("./res/" + fileName);
 //        File file = new File(fileName);
         BufferedWriter out = null;

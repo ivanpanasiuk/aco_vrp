@@ -195,6 +195,7 @@ public class MainFrame extends JFrame {
 				jButtonStart.setLayout(jButtonStartLayout);
 				jToolBar1.add(jButtonStart);
 				jButtonStart.setText("Start");
+				jButtonStart.setEnabled(false);
 				jButtonStart.setToolTipText("Start process");
 				jButtonStart.setIcon(new ImageIcon(getClass().getClassLoader().getResource("acsvrp/resources/objects_017.gif")));
 				jButtonStart.setPreferredSize(new java.awt.Dimension(80, 28));
@@ -490,7 +491,7 @@ public class MainFrame extends JFrame {
 
 	private void createAnodes(String vrpFile) {
 		// Ucitaj sve gradove iz fajla FILE_NAME
-		statusBar.setText("Importing file. Please wait.");
+		statusBar.setText("Importing file. Please wait...");
 		agraph.anodes = AFile.loadNodes(vrpFile);
 		statusBar.setText(agraph.anodes.size() + " cities loaded. Drawing all rutes...");
 		// Draw a AGraph graph
@@ -500,6 +501,7 @@ public class MainFrame extends JFrame {
 				parameters = new Parameters(MainFrame.this);
 			}
 			statusBar.setText((agraph.anodes.size()-1) + " cities loaded."); // centrali i (size-1) gradova	
+			jButtonStart.setEnabled(true);
 		}
 	}
 

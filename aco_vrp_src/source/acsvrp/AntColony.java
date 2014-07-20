@@ -67,6 +67,7 @@ public class AntColony {
 		    properties.load(new FileInputStream("acsvrp.properties"));
 		    START_PHEROMON = Float.valueOf(properties.getProperty("START_PHEROMON"));
 		    BETA = Float.valueOf(properties.getProperty("BETA"));
+		    ALPHA = Float.valueOf(properties.getProperty("ALPHA"));
 		    RO = Float.valueOf( properties.getProperty("RO"));
 		    MAX_CYCLES_PARAM = Integer.valueOf( properties.getProperty("MAX_CYCLES_PARAM"));
 		    LOCAL_UPDATE = Boolean.valueOf( properties.getProperty("LOCAL_UPDATE"));

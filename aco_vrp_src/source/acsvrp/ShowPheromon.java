@@ -69,7 +69,7 @@ public class ShowPheromon extends javax.swing.JFrame {
 			this.setLocationByPlatform(true);
 			this.setPreferredSize(new Dimension(730, 500));
 			this.setLocation(new java.awt.Point(500, 400));
-            setBackground(Color.BLUE);
+            setBackground(Constants.BG_COLOR);
 			
 			this.addKeyListener(new KeyAdapter() {
 				public void keyPressed(KeyEvent evt) {
@@ -83,13 +83,13 @@ public class ShowPheromon extends javax.swing.JFrame {
 			{
 				jSplitPane1 = new JSplitPane();
 				getContentPane().add(jSplitPane1, BorderLayout.CENTER);
-                jSplitPane1.setBackground(Color.BLUE);
+                jSplitPane1.setBackground(Constants.BG_COLOR);
 				jSplitPane1.setPreferredSize(new java.awt.Dimension(724, 320)); //was (724, 280)
 				jSplitPane1.setOrientation(JSplitPane.VERTICAL_SPLIT);
 				{
 					jScrollPane2 = new JScrollPane();
 					jSplitPane1.add(jScrollPane2, JSplitPane.BOTTOM);
-                    jScrollPane2.setBackground(Color.BLUE);
+                    jScrollPane2.setBackground(Constants.BG_COLOR);
 					jScrollPane2.setPreferredSize(new java.awt.Dimension(722, 170)); //was (722, 170)
 					{
 						TableModel tPheromonModel = new DefaultTableModel(
@@ -99,13 +99,13 @@ public class ShowPheromon extends javax.swing.JFrame {
 						tPheromon = new JTable();
 						jScrollPane2.setViewportView(tPheromon);
 						tPheromon.setModel(tPheromonModel);
-                        tPheromon.setBackground(Color.BLUE);
-                        tPheromon.setForeground(Color.WHITE);
+                        tPheromon.setBackground(Constants.BG_COLOR);
+                        tPheromon.setForeground(Constants.FG_COLOR);
 					}
 				}
 				{
 					jDesktopPane1 = new JDesktopPane();
-                    jDesktopPane1.setBackground(Color.BLUE);
+                    jDesktopPane1.setBackground(Constants.BG_COLOR);
 					jSplitPane1.add(jDesktopPane1, JSplitPane.TOP);
 					jDesktopPane1.setPreferredSize(new java.awt.Dimension(602, 90)); //was (602, 70)
 					jDesktopPane1.addMouseListener(new MouseAdapter() {
@@ -120,62 +120,62 @@ public class ShowPheromon extends javax.swing.JFrame {
 						lcurrentNode.setText("Node:");
 						lcurrentNode.setBounds(7, 7, 91, 21);
 						lcurrentNode.setToolTipText("Current");
-                        lcurrentNode.setForeground(Color.WHITE);
+                        lcurrentNode.setForeground(Constants.FG_COLOR);
 					}
 					{
 						lPathCapacity = new JLabel();
 						jDesktopPane1.add(lPathCapacity);
 						lPathCapacity.setText("Path count: ");
 						lPathCapacity.setBounds(112, 7, 126, 21);
-                        lPathCapacity.setForeground(Color.WHITE);
+                        lPathCapacity.setForeground(Constants.FG_COLOR);
 					}
 					{
 						lCurrentPathDist = new JLabel();
 						jDesktopPane1.add(lCurrentPathDist);
 						lCurrentPathDist.setText(AntColony.lblPathCost);
 						lCurrentPathDist.setBounds(245, 7, 140, 21);
-                        lCurrentPathDist.setForeground(Color.WHITE);
+                        lCurrentPathDist.setForeground(Constants.FG_COLOR);
 					}
 					{
 						lBestDistAnt = new JLabel();
 						jDesktopPane1.add(lBestDistAnt);
 						lBestDistAnt.setText(AntColony.lblBestAntCost);
 						lBestDistAnt.setBounds(245, 28, 210, 21);
-                        lBestDistAnt.setForeground(Color.WHITE);
+                        lBestDistAnt.setForeground(Constants.FG_COLOR);
 					}
 					{
 						lCurrentAnt = new JLabel();
 						jDesktopPane1.add(lCurrentAnt);
 						lCurrentAnt.setText("Ant:");
 						lCurrentAnt.setBounds(7, 28, 147, 21);
-                        lCurrentAnt.setForeground(Color.WHITE);
+                        lCurrentAnt.setForeground(Constants.FG_COLOR);
 					}
 					{
 						lBestDist = new JLabel();
 						jDesktopPane1.add(lBestDist);
 						lBestDist.setText(AntColony.lblBestCost);
 						lBestDist.setBounds(245, 49, 410, 21);
-                        lBestDist.setForeground(Color.WHITE);
+                        lBestDist.setForeground(Constants.FG_COLOR);
 					}
 					{
 						lCycle = new JLabel();
 						jDesktopPane1.add(lCycle);
 						lCycle.setText("Cycle:");
 						lCycle.setBounds(7, 49, 189, 21);
-                        lCycle.setForeground(Color.WHITE);
+                        lCycle.setForeground(Constants.FG_COLOR);
 					}
 					{
 						lNodesVisited = new JLabel();
 						jDesktopPane1.add(lNodesVisited);
 						lNodesVisited.setText("Cities Visited:");
 						lNodesVisited.setBounds(476, 7, 140, 21);
-                        lNodesVisited.setForeground(Color.WHITE);
+                        lNodesVisited.setForeground(Constants.FG_COLOR);
 					}
 
 					lblPheromonValue = new JLabel("Pheromon values x 1000 :");
 					jDesktopPane1.add(lblPheromonValue);
 					lblPheromonValue.setBounds(7, 75, 400, 15);
-                    lblPheromonValue.setForeground(Color.WHITE);
+                    lblPheromonValue.setForeground(Constants.FG_COLOR);
 					//);
 				}
 			}

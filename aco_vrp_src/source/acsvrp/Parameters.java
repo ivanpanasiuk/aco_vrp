@@ -125,13 +125,13 @@ public class Parameters extends javax.swing.JDialog {
         setTitle("AntColony parameters");
 
         panel.setLayout(new GridBagLayout());
-        panel.setBackground(Color.BLUE);
+        panel.setBackground(Constants.BG_COLOR);
 
         lblPheromon.setText("Pheromon start:");
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.anchor = GridBagConstraints.EAST;
         gridBagConstraints.insets = new Insets(25, 25, 5, 5);
-        lblPheromon.setForeground(Color.WHITE);
+        lblPheromon.setForeground(Constants.FG_COLOR);
         panel.add(lblPheromon, gridBagConstraints);
 
         lblRo.setText("Ro:");
@@ -140,7 +140,7 @@ public class Parameters extends javax.swing.JDialog {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = GridBagConstraints.EAST;
         gridBagConstraints.insets = new Insets(25, 5, 5, 5);
-        lblRo.setForeground(Color.WHITE);
+        lblRo.setForeground(Constants.FG_COLOR);
         panel.add(lblRo, gridBagConstraints);
 
         lblBeta.setText("Beta:");
@@ -149,7 +149,7 @@ public class Parameters extends javax.swing.JDialog {
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = GridBagConstraints.EAST;
         gridBagConstraints.insets = new Insets(5, 5, 5, 5);
-        lblBeta.setForeground(Color.WHITE);
+        lblBeta.setForeground(Constants.FG_COLOR);
         panel.add(lblBeta, gridBagConstraints);
 
         lblAlpha.setText("Alpha:");
@@ -158,7 +158,7 @@ public class Parameters extends javax.swing.JDialog {
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = GridBagConstraints.EAST;
         gridBagConstraints.insets = new Insets(5, 5, 5, 5);
-        lblAlpha.setForeground(Color.WHITE);
+        lblAlpha.setForeground(Constants.FG_COLOR);
         panel.add(lblAlpha, gridBagConstraints);
 
         lblSpeed.setText("Speed");
@@ -167,7 +167,7 @@ public class Parameters extends javax.swing.JDialog {
         gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = GridBagConstraints.EAST;
         gridBagConstraints.insets = new Insets(5, 25, 5, 5);
-        lblSpeed.setForeground(Color.WHITE);
+        lblSpeed.setForeground(Constants.FG_COLOR);
         panel.add(lblSpeed, gridBagConstraints);
 
         lblDisplayLevel.setText("Display level:");
@@ -177,7 +177,7 @@ public class Parameters extends javax.swing.JDialog {
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = GridBagConstraints.EAST;
         gridBagConstraints.insets = new Insets(5, 5, 5, 5);
-        lblDisplayLevel.setForeground(Color.WHITE);
+        lblDisplayLevel.setForeground(Constants.FG_COLOR);
         panel.add(lblDisplayLevel, gridBagConstraints);
 
         lblLoop.setText("Loops:");
@@ -186,7 +186,7 @@ public class Parameters extends javax.swing.JDialog {
         gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = GridBagConstraints.EAST;
         gridBagConstraints.insets = new Insets(5, 25, 5, 5);
-        lblLoop.setForeground(Color.WHITE);
+        lblLoop.setForeground(Constants.FG_COLOR);
         panel.add(lblLoop, gridBagConstraints);
 
         tfPheromon.setColumns(8);
@@ -293,8 +293,8 @@ public class Parameters extends javax.swing.JDialog {
                 load(evt);
             }
         });
-        btnLoad.setBackground(Color.BLUE);
-        btnLoad.setForeground(Color.WHITE);
+        btnLoad.setBackground(Constants.BG_COLOR);
+        btnLoad.setForeground(Constants.FG_COLOR);
         panel.add(btnLoad, gridBagConstraints);
 
         btnSave.setText("SAVE");
@@ -307,8 +307,8 @@ public class Parameters extends javax.swing.JDialog {
                 save(evt);
             }
         });
-        btnSave.setBackground(Color.BLUE);
-        btnSave.setForeground(Color.WHITE);
+        btnSave.setBackground(Constants.BG_COLOR);
+        btnSave.setForeground(Constants.FG_COLOR);
         panel.add(btnSave, gridBagConstraints);
 
         btnOK.setText("OK");
@@ -334,8 +334,8 @@ public class Parameters extends javax.swing.JDialog {
                 AntColony.STOP = stoped;
             }
         });
-        btnOK.setBackground(Color.BLUE);
-        btnOK.setForeground(Color.WHITE);
+        btnOK.setBackground(Constants.BG_COLOR);
+        btnOK.setForeground(Constants.FG_COLOR);
         panel.add(btnOK, gridBagConstraints);
 
         btnCancel.setText("CANCEL");
@@ -350,8 +350,8 @@ public class Parameters extends javax.swing.JDialog {
                 AntColony.STOP = stoped;
             }
         });
-        btnCancel.setBackground(Color.BLUE);
-        btnCancel.setForeground(Color.WHITE);
+        btnCancel.setBackground(Constants.BG_COLOR);
+        btnCancel.setForeground(Constants.FG_COLOR);
         panel.add(btnCancel, gridBagConstraints);
 
         cbUpdate.setText("Local Update");
@@ -360,8 +360,8 @@ public class Parameters extends javax.swing.JDialog {
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = GridBagConstraints.EAST;
         gridBagConstraints.insets = new Insets(5, 25, 5, 5);
-        cbUpdate.setBackground(Color.BLUE);
-        cbUpdate.setForeground(Color.WHITE);
+        cbUpdate.setBackground(Constants.BG_COLOR);
+        cbUpdate.setForeground(Constants.FG_COLOR);
         panel.add(cbUpdate, gridBagConstraints);
 
         lblMaxCycleParams.setText("Max Cycles param:");
@@ -371,7 +371,7 @@ public class Parameters extends javax.swing.JDialog {
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = GridBagConstraints.EAST;
         gridBagConstraints.insets = new Insets(5, 5, 5, 5);
-        lblMaxCycleParams.setForeground(Color.WHITE);
+        lblMaxCycleParams.setForeground(Constants.FG_COLOR);
         panel.add(lblMaxCycleParams, gridBagConstraints);
 
         tfMaxCycles.setColumns(3);

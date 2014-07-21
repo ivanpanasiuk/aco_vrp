@@ -210,7 +210,7 @@ public class AFile {
 		try
 		{
 			String fileName = "r" + numCities + "_" + AMath.round(bestAnt.getCost(), 2) + "_c" + bestCycle + ".txt";
-			File file = new File("./res/" + fileName);
+			File file = new File("./res/TimeVRPResults/" + fileName);
 //			File file = new File(fileName);
 			file.createNewFile();
 			BufferedWriter out = new BufferedWriter(new FileWriter(file));

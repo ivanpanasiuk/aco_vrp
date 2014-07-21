@@ -54,7 +54,8 @@ public class ANode extends DefaultGraphCell {
 			allEdgesEnds += " ["+e.endIndx+"]";
 			if (e.endIndx.equals(anode.name)) {
 				allEdgesEnds += "*";
-				res = e.cost.getDistance();
+//				res = e.cost.getDistance();
+				res = e.cost.getValue();
 			}
 		}
 		if (res<0) {	// edge probably start at destination node
@@ -63,7 +64,8 @@ public class ANode extends DefaultGraphCell {
 				allEdgesEnds += "["+e.endIndx+"]";
 				if (e.endIndx.equals(this.name)) {
 					allEdgesEnds += "*";
-					res = e.cost.getDistance();
+//					res = e.cost.getDistance();
+					res = e.cost.getValue();
 				}
 			}
 		}

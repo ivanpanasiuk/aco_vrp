@@ -34,7 +34,7 @@ public class AntColony {
 	static public int NODE_DIM = 14;
 	static public int FIT_X = 620;	// fit 640 x 480
 	static public int FIT_Y = 430;	
-	static public int MAX_PHEROMON_PIXEL = 15;  //max line width
+	static public int MAX_PHEROMON_PIXEL = 7;  //max line width
 	
 	// File IO parameters
 	static public String FILE_NAME = "";

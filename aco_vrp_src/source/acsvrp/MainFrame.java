@@ -210,7 +210,7 @@ public class MainFrame extends JFrame {
 			}	
 			{
 				jToolBar1.add(new JLabel("Cost type:  "));
-				final String[] costTypes = { "Destination", "Time"};
+				final String[] costTypes = { "Distance", "Time"};
 
 				costTypeList = new JComboBox<String>(costTypes);
 				costTypeList.setSelectedIndex(0);

@@ -50,14 +50,15 @@ public class Process {
         Random rand = new Random();
 
         String fileName = "data_for_graph_" + cyclesCount + ".txt";
-        File file = new File("./res/" + fileName);
+        File file = new File("./res/TimeVRPResults/" + fileName);
 //        File file = new File(fileName);
         BufferedWriter out = null;
         try
         {
             file.createNewFile();
             out = new BufferedWriter(new FileWriter(file));
-            out.write("Cost \t Distance \t Time\n");
+            out.write("Cost \t Distance \t Time");
+            out.newLine();
         } catch (IOException ex)
         {
             java.util.logging.Logger.getLogger(Process.class.getName()).log(Level.SEVERE, null, ex);
@@ -195,8 +196,8 @@ public class Process {
                 String resultOfCycle = ants[antCount].getCost() + " \t" + ants[antCount].cost.getDistance() + " \t" + ants[antCount].cost.getTime();
                 try {
                 	logger.debug(resultOfCycle);
-                	out.write(resultOfCycle+"\n");
-//                	out.newLine();
+                	out.write(resultOfCycle);
+                	out.newLine();
                 } catch (IOException ex) {
                 	java.util.logging.Logger.getLogger(Process.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (NullPointerException ex) {

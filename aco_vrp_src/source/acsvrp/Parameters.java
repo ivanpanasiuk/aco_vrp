@@ -125,7 +125,7 @@ public class Parameters extends javax.swing.JDialog {
         setTitle("AntColony parameters");
 
         panel.setLayout(new GridBagLayout());
-        panel.setBackground(Color.DARK_GRAY);
+        panel.setBackground(Color.BLUE);
 
         lblPheromon.setText("Pheromon start:");
         gridBagConstraints = new GridBagConstraints();
@@ -293,7 +293,7 @@ public class Parameters extends javax.swing.JDialog {
                 load(evt);
             }
         });
-        btnLoad.setBackground(Color.DARK_GRAY);
+        btnLoad.setBackground(Color.BLUE);
         btnLoad.setForeground(Color.WHITE);
         panel.add(btnLoad, gridBagConstraints);
 
@@ -307,7 +307,7 @@ public class Parameters extends javax.swing.JDialog {
                 save(evt);
             }
         });
-        btnSave.setBackground(Color.DARK_GRAY);
+        btnSave.setBackground(Color.BLUE);
         btnSave.setForeground(Color.WHITE);
         panel.add(btnSave, gridBagConstraints);
 
@@ -334,7 +334,7 @@ public class Parameters extends javax.swing.JDialog {
                 AntColony.STOP = stoped;
             }
         });
-        btnOK.setBackground(Color.DARK_GRAY);
+        btnOK.setBackground(Color.BLUE);
         btnOK.setForeground(Color.WHITE);
         panel.add(btnOK, gridBagConstraints);
 
@@ -350,7 +350,7 @@ public class Parameters extends javax.swing.JDialog {
                 AntColony.STOP = stoped;
             }
         });
-        btnCancel.setBackground(Color.DARK_GRAY);
+        btnCancel.setBackground(Color.BLUE);
         btnCancel.setForeground(Color.WHITE);
         panel.add(btnCancel, gridBagConstraints);
 
@@ -360,7 +360,7 @@ public class Parameters extends javax.swing.JDialog {
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = GridBagConstraints.EAST;
         gridBagConstraints.insets = new Insets(5, 25, 5, 5);
-        cbUpdate.setBackground(Color.DARK_GRAY);
+        cbUpdate.setBackground(Color.BLUE);
         cbUpdate.setForeground(Color.WHITE);
         panel.add(cbUpdate, gridBagConstraints);
 

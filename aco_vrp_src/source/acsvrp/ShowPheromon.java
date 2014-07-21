@@ -69,7 +69,7 @@ public class ShowPheromon extends javax.swing.JFrame {
 			this.setLocationByPlatform(true);
 			this.setPreferredSize(new Dimension(730, 500));
 			this.setLocation(new java.awt.Point(500, 400));
-            setBackground(Color.DARK_GRAY);
+            setBackground(Color.BLUE);
 			
 			this.addKeyListener(new KeyAdapter() {
 				public void keyPressed(KeyEvent evt) {
@@ -83,13 +83,13 @@ public class ShowPheromon extends javax.swing.JFrame {
 			{
 				jSplitPane1 = new JSplitPane();
 				getContentPane().add(jSplitPane1, BorderLayout.CENTER);
-                jSplitPane1.setBackground(Color.DARK_GRAY);
+                jSplitPane1.setBackground(Color.BLUE);
 				jSplitPane1.setPreferredSize(new java.awt.Dimension(724, 320)); //was (724, 280)
 				jSplitPane1.setOrientation(JSplitPane.VERTICAL_SPLIT);
 				{
 					jScrollPane2 = new JScrollPane();
 					jSplitPane1.add(jScrollPane2, JSplitPane.BOTTOM);
-                    jScrollPane2.setBackground(Color.DARK_GRAY);
+                    jScrollPane2.setBackground(Color.BLUE);
 					jScrollPane2.setPreferredSize(new java.awt.Dimension(722, 170)); //was (722, 170)
 					{
 						TableModel tPheromonModel = new DefaultTableModel(
@@ -99,13 +99,13 @@ public class ShowPheromon extends javax.swing.JFrame {
 						tPheromon = new JTable();
 						jScrollPane2.setViewportView(tPheromon);
 						tPheromon.setModel(tPheromonModel);
-                        tPheromon.setBackground(Color.DARK_GRAY);
+                        tPheromon.setBackground(Color.BLUE);
                         tPheromon.setForeground(Color.WHITE);
 					}
 				}
 				{
 					jDesktopPane1 = new JDesktopPane();
-                    jDesktopPane1.setBackground(Color.DARK_GRAY);
+                    jDesktopPane1.setBackground(Color.BLUE);
 					jSplitPane1.add(jDesktopPane1, JSplitPane.TOP);
 					jDesktopPane1.setPreferredSize(new java.awt.Dimension(602, 90)); //was (602, 70)
 					jDesktopPane1.addMouseListener(new MouseAdapter() {

@@ -17,6 +17,7 @@ import org.jgraph.graph.GraphModel;
 
 import acsvrp.ui.*;
 import acsvrp.tools.*;
+import java.awt.Color;
 
 import java.awt.Dimension;
 
@@ -40,7 +41,7 @@ public class MainFrame extends JFrame {
 		try {
 //			javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getCrossPlatformLookAndFeelClassName());
 			MetalLookAndFeel.setCurrentTheme(new DefaultMetalTheme());
-			javax.swing.UIManager.setLookAndFeel(new MetalLookAndFeel());
+//			javax.swing.UIManager.setLookAndFeel(new MetalLookAndFeel());
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -115,16 +116,19 @@ public class MainFrame extends JFrame {
 			}
 		}
 		statusBar = new JLabel("Ready");
+        statusBar.setForeground(Color.WHITE);
 		add(statusBar, BorderLayout.SOUTH);
 		statusBar.setText(" Ctrl-P for info about pheromon");
 
 		{
 			jToolBar1 = new JToolBar();
+            getContentPane().setBackground(Color.BLUE);
 			getContentPane().add(jToolBar1, BorderLayout.NORTH);
 			jToolBar1.setFloatable(false);
 			jToolBar1.setOpaque(false);
 			{
 				jButtonNew = new JButton();
+                jButtonNew.setBackground(Color.BLUE);
 				BorderLayout jButtonNewLayout = new BorderLayout();
 				jButtonNew.setLayout(jButtonNewLayout);
 				jToolBar1.add(jButtonNew);
@@ -142,6 +146,7 @@ public class MainFrame extends JFrame {
 			}
 			{
 				jButtonOpen = new JButton();
+                jButtonOpen.setBackground(Color.BLUE);
 				BorderLayout jButtonOpenLayout = new BorderLayout();
 				jButtonOpen.setLayout(jButtonOpenLayout);
 				jToolBar1.add(jButtonOpen);
@@ -156,6 +161,7 @@ public class MainFrame extends JFrame {
 			}
 			{
 				jButtonSave = new JButton();
+                jButtonSave.setBackground(Color.BLUE);
 				BorderLayout jButtonSaveLayout = new BorderLayout();
 				jButtonSave.setLayout(jButtonSaveLayout);
 				jToolBar1.add(jButtonSave);
@@ -175,6 +181,7 @@ public class MainFrame extends JFrame {
 			}			
 			{
 				jButtonAdd = new JButton();
+                jButtonAdd.setBackground(Color.BLUE);
 				BorderLayout jButtonAddLayout = new BorderLayout();
 				jButtonAdd.setLayout(jButtonAddLayout);
 				jToolBar1.add(jButtonAdd);
@@ -191,6 +198,8 @@ public class MainFrame extends JFrame {
 			}						
 			{
 				jButtonStart = new JButton();
+                jButtonStart.setBackground(Color.BLUE);
+                jButtonStart.setForeground(Color.WHITE);
 				BorderLayout jButtonStartLayout = new BorderLayout();
 				jButtonStart.setLayout(jButtonStartLayout);
 				jToolBar1.add(jButtonStart);
@@ -209,10 +218,14 @@ public class MainFrame extends JFrame {
 				jToolBar1.addSeparator();
 			}	
 			{
-				jToolBar1.add(new JLabel("Cost type:  "));
+                JLabel costType = new JLabel("Cost type: ");
+                costType.setForeground(Color.WHITE);
+				jToolBar1.add(costType);
 				final String[] costTypes = { "Distance", "Time"};
 
 				costTypeList = new JComboBox<String>(costTypes);
+                costTypeList.setBackground(Color.BLUE);
+                costTypeList.setForeground(Color.WHITE);
 				costTypeList.setSelectedIndex(0);
                 costTypeList.setMaximumSize(new Dimension(120, 25));
 				//costTypeList.setPreferredSize(new java.awt.Dimension(80, 28));
@@ -242,17 +255,24 @@ public class MainFrame extends JFrame {
 			jMenuBar1 = new JMenuBar();
 			setJMenuBar(jMenuBar1);
 			{
+                jMenuBar1.setBackground(Color.BLUE);
 				jMenu1 = new JMenu();
+                jMenu1.setBackground(Color.BLUE);
+                jMenu1.setForeground(Color.WHITE);
 				jMenuBar1.add(jMenu1);
 				jMenu1.setText("File");
 				jMenu1.setMnemonic('F');
 				{
 					jMenuItemNew = new JMenuItem();
+                    jMenuItemNew.setBackground(Color.BLUE);
+                    jMenuItemNew.setForeground(Color.WHITE);
 					jMenu1.add(jMenuItemNew);
 					jMenuItemNew.setText("New");
 				}
 				{
 					jMenuItemOpen = new JMenuItem();
+                    jMenuItemOpen.setBackground(Color.BLUE);
+                    jMenuItemOpen.setForeground(Color.WHITE);
 					jMenu1.add(jMenuItemOpen);
 					jMenuItemOpen.setText("Open file");
 					jMenuItemOpen.setAccelerator(KeyStroke.getKeyStroke("ctrl O"));
@@ -264,20 +284,28 @@ public class MainFrame extends JFrame {
 				}
 				{
 					jMenuItemSave = new JMenuItem();
+                    jMenuItemSave.setBackground(Color.BLUE);
+                    jMenuItemSave.setForeground(Color.WHITE);
 					jMenu1.add(jMenuItemSave);
 					jMenuItemSave.setText("Save");
 				}
 				{
 					jMenuItemSaveAs = new JMenuItem();
+                    jMenuItemSaveAs.setBackground(Color.BLUE);
+                    jMenuItemSaveAs.setForeground(Color.WHITE);
 					jMenu1.add(jMenuItemSaveAs);
 					jMenuItemSaveAs.setText("Save as");
 				}
 				{
 					jMenuLoadUrl = new JMenu();
+                    jMenuLoadUrl.setBackground(Color.blue);
+                    jMenuLoadUrl.setForeground(Color.WHITE);
 					jMenu1.add(jMenuLoadUrl);
 					jMenuLoadUrl.setText("Load URL");
 					{
 						jMenuItemPn16k8 = new JMenuItem();
+                        jMenuItemPn16k8.setBackground(Color.BLUE);
+                        jMenuItemPn16k8.setForeground(Color.WHITE);
 						jMenuLoadUrl.add(jMenuItemPn16k8);
 						jMenuItemPn16k8.setText("P-n16-k8.vrp");
 						jMenuItemPn16k8.addActionListener(new ActionListener() {
@@ -289,6 +317,8 @@ public class MainFrame extends JFrame {
 					}
 					{
 						jMenuItemAn37k6 = new JMenuItem();
+                        jMenuItemAn37k6.setBackground(Color.BLUE);
+                        jMenuItemAn37k6.setForeground(Color.WHITE);
 						jMenuLoadUrl.add(jMenuItemAn37k6);
 						jMenuItemAn37k6.setText("A-n37-k6.vrp");
 						jMenuItemAn37k6.addActionListener(new ActionListener() {
@@ -300,6 +330,8 @@ public class MainFrame extends JFrame {
 					}
 					{
 						jMenuItemAn53k7 = new JMenuItem();
+                        jMenuItemAn53k7.setBackground(Color.BLUE);
+                        jMenuItemAn53k7.setForeground(Color.WHITE);
 						jMenuLoadUrl.add(jMenuItemAn53k7);
 						jMenuItemAn53k7.setText("A-n53-k7.vrp");
 						jMenuItemAn53k7.addActionListener(new ActionListener() {
@@ -311,6 +343,8 @@ public class MainFrame extends JFrame {
 					}
 					{
 						jMenuItemLoadUrl = new JMenuItem();
+                        jMenuItemLoadUrl.setBackground(Color.BLUE);
+                        jMenuItemLoadUrl.setForeground(Color.WHITE);
 						jMenuLoadUrl.add(jMenuItemLoadUrl);
 						jMenuItemLoadUrl.setText("Load from URL...");
 						jMenuItemLoadUrl.addActionListener(new ActionListener() {
@@ -324,10 +358,13 @@ public class MainFrame extends JFrame {
 				}
 				{
 					jSeparatorFile = new JSeparator();
+                    jSeparatorFile.setBackground(Color.CYAN);
 					jMenu1.add(jSeparatorFile);
 				}
 				{
 					jMenuItemExit = new JMenuItem();
+                    jMenuItemExit.setBackground(Color.BLUE);
+                    jMenuItemExit.setForeground(Color.WHITE);
 					jMenu1.add(jMenuItemExit);
 					jMenuItemExit.setText("Exit");
 					jMenuItemExit.setAccelerator(KeyStroke.getKeyStroke("ctrl X"));
@@ -341,11 +378,15 @@ public class MainFrame extends JFrame {
 			}
 			{
 				jMenuView = new JMenu();
+                jMenuView.setBackground(Color.BLUE);
+                jMenuView.setForeground(Color.WHITE);
 				jMenuBar1.add(jMenuView);
 				jMenuView.setText("View");
 				jMenuView.setMnemonic('V');
 				{
 					jCheckBoxMenuItemShowPheromon = new JCheckBoxMenuItem();
+                    jCheckBoxMenuItemShowPheromon.setBackground(Color.BLUE);
+                    jCheckBoxMenuItemShowPheromon.setForeground(Color.WHITE);
 					jMenuView.add(jCheckBoxMenuItemShowPheromon);
 					jCheckBoxMenuItemShowPheromon.setText("Show Pheromone");
 					jCheckBoxMenuItemShowPheromon.setAccelerator(KeyStroke.getKeyStroke("ctrl P"));
@@ -365,11 +406,15 @@ public class MainFrame extends JFrame {
 			}
 			{
 				jMenuTools = new JMenu();
+                jMenuTools.setBackground(Color.BLUE);
+                jMenuTools.setForeground(Color.WHITE);
 				jMenuBar1.add(jMenuTools);
 				jMenuTools.setText("Tools");
-				jMenuView.setMnemonic('T');
+				jMenuTools.setMnemonic('T');
 				{
 					jMenuItemInitPara = new JMenuItem();
+                    jMenuItemInitPara.setBackground(Color.BLUE);
+                    jMenuItemInitPara.setForeground(Color.WHITE);
 					jMenuTools.add(jMenuItemInitPara);
 					jMenuItemInitPara.setText("Init Parameters");
 					jMenuItemInitPara.setAccelerator(KeyStroke.getKeyStroke("ctrl I"));
@@ -381,6 +426,8 @@ public class MainFrame extends JFrame {
 				}
 				{
 					jMenuItemStart = new JMenuItem();
+                    jMenuItemStart.setBackground(Color.BLUE);
+                    jMenuItemStart.setForeground(Color.WHITE);
 					jMenuTools.add(jMenuItemStart);
 					jMenuItemStart.setText("Start");
 					jMenuItemStart.setAccelerator(KeyStroke.getKeyStroke("ctrl S"));
@@ -393,16 +440,22 @@ public class MainFrame extends JFrame {
 			}
 			{
 				jMenuHelp = new JMenu();
+                jMenuHelp.setBackground(Color.BLUE);
+                jMenuHelp.setForeground(Color.WHITE);
 				jMenuBar1.add(jMenuHelp);
 				jMenuHelp.setText("Help");
-				jMenuView.setMnemonic('H');
+				jMenuHelp.setMnemonic('H');
 				{
 					jMenuItemHelp = new JMenuItem();
+                    jMenuItemHelp.setBackground(Color.BLUE);
+                    jMenuItemHelp.setForeground(Color.WHITE);
 					jMenuHelp.add(jMenuItemHelp);
 					jMenuItemHelp.setText("Help");
 				}
 				{
 					jMenuItemAbout = new JMenuItem();
+                    jMenuItemAbout.setBackground(Color.BLUE);
+                    jMenuItemAbout.setForeground(Color.WHITE);
 					jMenuHelp.add(jMenuItemAbout);
 					jMenuItemAbout.setText("About");
 				}

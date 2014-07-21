@@ -57,7 +57,7 @@ public class Process {
         {
             file.createNewFile();
             out = new BufferedWriter(new FileWriter(file));
-            out.write("Cost \t Distance \t Time");
+            out.write("Cost \t\t\t Distance \t\t Time");
             out.newLine();
         } catch (IOException ex)
         {

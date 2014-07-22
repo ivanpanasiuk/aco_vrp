@@ -1,5 +1,6 @@
 package acsvrp;
 
+import acsvrp.tools.CalendarTime;
 import java.awt.Color;
 
 import java.text.ParseException;
@@ -46,18 +47,16 @@ public class Process {
         aG.anodes.resetPheromon();
         int cyclesCount = (aG.anodes.size() - 1) * AntColony.MAX_CYCLES_PARAM;
 
-        //saving cost, distance and time after every cycle
-        Random rand = new Random();
-
-        String fileName = "data_for_graph_" + cyclesCount + ".txt";
-        File file = new File("./res/TimeVRPResults/" + fileName);
-//        File file = new File(fileName);
+        //saving cost, distance, time and speed after every cycle
+        String fileName = "data_for_graph_" + cyclesCount + "_" + CalendarTime.getFormatedTime() + ".txt";
+//        File file = new File("./res/TimeVRPResults/" + fileName);
+        File file = new File(fileName);
         BufferedWriter out = null;
         try
         {
             file.createNewFile();
             out = new BufferedWriter(new FileWriter(file));
-            out.write("Cost \t\t\t Distance \t\t Time");
+            out.write("Cost \t\tDistance \tTime \t\tSpeed");
             out.newLine();
         } catch (IOException ex)
         {
@@ -193,7 +192,8 @@ public class Process {
                 }
 
                 // export COST TIME DISTANCE
-                String resultOfCycle = ants[antCount].getCost() + " \t" + ants[antCount].cost.getDistance() + " \t" + ants[antCount].cost.getTime();
+                double speed = ants[antCount].cost.getDistance()/ants[antCount].cost.getTime();
+                String resultOfCycle = Def.df4(ants[antCount].getCost()) + " \t" + Def.df4(ants[antCount].cost.getDistance()) + " \t" + Def.df4(ants[antCount].cost.getTime()) + " \t" + Def.df4(speed);
                 try {
                 	logger.debug(resultOfCycle);
                 	out.write(resultOfCycle);

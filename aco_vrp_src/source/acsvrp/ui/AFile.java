@@ -23,6 +23,7 @@ import acsvrp.Ant;
 //import acsvrp.Ant;
 import acsvrp.AntColony;
 import acsvrp.tools.AMath;
+import acsvrp.tools.CalendarTime;
 import acsvrp.tools.Dbg;
 
 public class AFile {
@@ -208,11 +209,11 @@ public class AFile {
 	static public boolean savePath(Ant bestAnt, int numCities, int bestCycle, String startTime, String endTime, long durationMin, String startingNode)
 	{
 		try
-		{
-			String fileName = "r" + numCities + "_" + AMath.round(bestAnt.getCost(), 2) + "_c" + bestCycle + ".txt";
-			File file = new File("./res/TimeVRPResults/" + fileName);
-//			File file = new File(fileName);
-			file.createNewFile();
+		{            
+			String fileName = "r" + numCities + "_" + AMath.round(bestAnt.getCost(), 2) + "_c" + bestCycle + "_" + CalendarTime.getFormatedTime() + ".txt";
+//			File file = new File("./res/TimeVRPResults/" + fileName);
+			File file = new File(fileName);
+            file.createNewFile();
 			BufferedWriter out = new BufferedWriter(new FileWriter(file));
 			// klijenti (gradovi)
 			//        	String firstOne = "n0";

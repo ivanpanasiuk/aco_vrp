@@ -48,7 +48,7 @@ public class Process {
         int cyclesCount = (aG.anodes.size() - 1) * AntColony.MAX_CYCLES_PARAM;
 
         //saving cost, distance, time and speed after every cycle
-        String fileName = "data_for_graph_" + cyclesCount + "_" + CalendarTime.getFormatedTime() + ".txt";
+        String fileName = AntColony.EXPORT_FOLDER + "data_for_graph_" + cyclesCount + "_" + CalendarTime.getFormatedTime() + ".txt";
 //        File file = new File("./res/TimeVRPResults/" + fileName);
         File file = new File(fileName);
         BufferedWriter out = null;

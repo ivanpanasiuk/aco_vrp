@@ -38,11 +38,13 @@ public class AntColony {
 	
 	// File IO parameters
 	static public String FILE_NAME = "";
+	static public String EXPORT_FOLDER = "";
 	
 	// Lablel
 	static public String lblPathCost = "Path cost: ";
 	static public String lblBestCost = "Best cost:";
 	static public String lblBestAntCost = "Best Ant cost:";
+	
 
 
 
@@ -80,6 +82,7 @@ public class AntColony {
 		    FIT_X = Integer.valueOf( properties.getProperty("FIT_X"));
 		    FIT_Y = Integer.valueOf( properties.getProperty("FIT_Y"));
 		    FILE_NAME = properties.getProperty("FILE_NAME",FILE_NAME);
+		    EXPORT_FOLDER = properties.getProperty("EXPORT_FOLDER",EXPORT_FOLDER);
 		    return true;
 		} catch (IOException e) {
 			logger.error("Could not read file 'acsvrp.properties'");

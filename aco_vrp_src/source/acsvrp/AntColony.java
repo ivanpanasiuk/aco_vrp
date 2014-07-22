@@ -1,5 +1,6 @@
 package acsvrp;
 
+import java.awt.Color;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -45,7 +46,8 @@ public class AntColony {
 	static public String lblBestCost = "Best cost:";
 	static public String lblBestAntCost = "Best Ant cost:";
 	
-
+	//Colors
+	static public Color BG_COLOR = Color.LIGHT_GRAY;
 
 
 	static MainFrame mf;

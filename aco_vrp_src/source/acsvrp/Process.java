@@ -325,7 +325,7 @@ public class Process {
             {
                 // izracunaj tau ni proizvod iz putanje crnt-og i i-tog Node-a
                 double rnd = generator.nextDouble();
-                double new_score = tauNi(aG.anodes.getEdge(crnt, i).getPheromon(), aG.anodes.get(crnt).getDistance2Node(aN), rnd);
+                double new_score = tauNi(aG.anodes.getEdge(crnt, i).getPheromon(), aG.anodes.get(crnt).getCost2Node(aN), rnd);
 
 //				Dbg.prn(" ["+crnt+"]->["+i+"] rnd:"+rnd+" val:"+new_score);
                 if (new_score > best_score)
@@ -437,15 +437,15 @@ public class Process {
         }
     }
 
-    public static double tauNi(double tau, double distance, double rnd)
+    public static double tauNi(double tau, double cost, double rnd)
     {
 //		Dbg.prnl("tauNi   "+tau+" "+distance);
         if (rnd >= AntColony.RO)
         {
-            return rnd * Math.pow(tau, AntColony.ALPHA) * Math.pow(1.0 / distance, AntColony.BETA);
+            return rnd * Math.pow(tau, AntColony.ALPHA) * Math.pow(1.0 / cost, AntColony.BETA);
         } else
         {
-            return Math.pow(tau, AntColony.ALPHA) * Math.pow(1.0 / distance, AntColony.BETA);
+            return Math.pow(tau, AntColony.ALPHA) * Math.pow(1.0 / cost, AntColony.BETA);
         }
     }
 

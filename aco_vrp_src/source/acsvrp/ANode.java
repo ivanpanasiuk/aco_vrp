@@ -47,7 +47,7 @@ public class ANode extends DefaultGraphCell {
 	 * @param node
 	 * @return int - distance to another node
 	 */
-	public double getDistance2Node(ANode anode) {
+	public double getCost2Node(ANode anode) {
 		double res = -1;
 		String allEdgesEnds = "{";
 		for (AEdge e : edges) {

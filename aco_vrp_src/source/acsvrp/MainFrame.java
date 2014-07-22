@@ -56,7 +56,7 @@ public class MainFrame extends JFrame {
 		try {
 //			javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getCrossPlatformLookAndFeelClassName());
 			MetalLookAndFeel.setCurrentTheme(new DefaultMetalTheme());
-//			javax.swing.UIManager.setLookAndFeel(new MetalLookAndFeel());
+			javax.swing.UIManager.setLookAndFeel(new MetalLookAndFeel());
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -315,7 +315,7 @@ public class MainFrame extends JFrame {
 					jMenuLoadUrl = new JMenu();
                     jMenuLoadUrl.setBackground(Constants.BG_COLOR);
                     jMenuLoadUrl.setForeground(Constants.FG_COLOR);
-					jMenu1.add(jMenuLoadUrl);
+//					jMenu1.add(jMenuLoadUrl);
 					jMenuLoadUrl.setText("Load URL");
 					{
 						jMenuItemPn16k8 = new JMenuItem();
@@ -457,7 +457,7 @@ public class MainFrame extends JFrame {
 				jMenuHelp = new JMenu();
                 jMenuHelp.setBackground(Constants.BG_COLOR);
                 jMenuHelp.setForeground(Constants.FG_COLOR);
-				jMenuBar1.add(jMenuHelp);
+//				jMenuBar1.add(jMenuHelp);
 				jMenuHelp.setText("Help");
 				jMenuHelp.setMnemonic('H');
 				{

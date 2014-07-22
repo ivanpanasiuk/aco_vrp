@@ -1,0 +1,71 @@
+NAME : Test primer - ipanasiuk
+CAPACITY : 3
+NODE_COORD_SECTION 
+n0 235 136
+n1 334 127
+n2 242 21
+n3 452 301
+n4 251 378
+n5 81 230
+n6 100 120
+n7 35 300
+n8 501 200
+n9 200 350
+DEMAND_SECTION 
+n0 0
+n1 1 
+n2 1 
+n3 1 
+n4 1 
+n5 1 
+n6 1 
+n7 1 
+n8 1 
+n9 1 
+DEPOT_SECTION 
+TIME_SECTION
+n0 n1 5
+n0 n2 4
+n0 n3 3
+n0 n4 9
+n0 n5 8
+n0 n6 11
+n0 n7 13
+n0 n8 45
+n0 n9 30
+n1 n2 14
+n1 n3 19
+n1 n4 36
+n1 n5 31
+n1 n6 66
+n1 n7 70
+n1 n8 65
+n1 n9 80
+n2 n3 14
+n2 n4 8
+n2 n5 11
+n2 n6 26
+n2 n7 27
+n2 n8 29
+n2 n9 18
+n3 n4 17
+n3 n5 36
+n3 n6 21
+n3 n7 29
+n3 n8 38
+n3 n9 40 
+n4 n5 29
+n4 n6 24
+n4 n7 25
+n4 n8 11
+n4 n9 26
+n5 n6 16
+n5 n7 17
+n5 n8 29
+n5 n9 38
+n6 n7 45
+n6 n8 61
+n6 n9 11
+n7 n8 14
+n7 n9 19
+n8 n9 14

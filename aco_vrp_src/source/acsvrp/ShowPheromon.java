@@ -237,14 +237,30 @@ public class ShowPheromon extends javax.swing.JFrame {
 			head[i+1]=nodes.get(i).toString();
 			data[i][0]=nodes.get(i).toString();
 		}
-		TableModel tPheromonModel = new DefaultTableModel(data, head);
+//		TableModel tPheromonModel = new DefaultTableModel(data, head);
+        
+        // removing first column and it's data from the table
+        String[] newHead = new String[nodes.size()];
+        for(int i = 0; i < nodes.size(); ++i)
+        {
+            if(i == 0)
+            {
+                newHead[i] = head[i];
+            }
+            else
+            {
+                newHead[i] = head[i + 1];
+            }
+        }
+        
+        TableModel tPheromonModel = new DefaultTableModel(data, newHead);
 		tPheromon.setModel(tPheromonModel);
 	}
 
 	public static void refreshTableValueAt(int i, int j) {
 		double ph = nodes.getEdge(i,j).getPheromon() * 1000;
 		//logger.info(""+ i + "," + j + " " + ph);
-		tPheromon.setValueAt(Def.df4(ph),i,j+1);
+        tPheromon.setValueAt(Def.df4(ph),i,j);
 //		tPheromon.setValueAt(Math.round(ph*1000d)/1000d,i,j+1);
 		//Dbg.delay(100);			
 	}

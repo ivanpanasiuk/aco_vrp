@@ -167,8 +167,7 @@ public class AFile {
 				in.close();
 				logger.debug("File loading finished");
 				//TODO AntColony.START_PHEROMON *= anodes.size();
-				logger.trace("AFile.java: Found " + anodes.size() + " Nodes, " + anodes.size()
-						* (anodes.size() + 1) / 2 + " Edges.");
+				logger.debug("AFile.java loadNodes(): " + anodes.size() + " nodes, " + anodes.getNumOfEdges() + " edges.");
 				//	            Dbg.delay(2000);
 				return anodes;
 			} catch (IOException e)

@@ -16,7 +16,7 @@ public class Ant {
         
 	// Ukupni broj gradova koji je mrav posetio
 	int num_nodes;
-	ArrayList<AEdge> path = new ArrayList<AEdge>();
+	ArrayList<AEdge> antPathEdges = new ArrayList<AEdge>();
 
 	Ant() {
 		cost.reset();
@@ -28,7 +28,7 @@ public class Ant {
 		this.cost.incTime(anodes.get(i).getTime2Node(anodes.get(j)));
 		this.cost.incValue(anodes.get(i).getCost2Node(anodes.get(j)));
                 
-		this.path.add(anodes.getEdge(i, j));
+		this.antPathEdges.add(anodes.getEdge(i, j));
 		num_nodes++;
 		if (AntColony.LOCAL_UPDATE) {
 			anodes.getEdge(i,j).setPheromon(Process.localUpdate(anodes.getEdge(i,j).getPheromon()));
@@ -58,13 +58,13 @@ public class Ant {
 	 * @return Returns the path.
 	 */
 	public ArrayList<AEdge> getPath() {
-		return path;
+		return antPathEdges;
 	}
 
 	/**
 	 * @param path The path to set.
 	 */
-	void setPath(ArrayList<AEdge> path) {
-		this.path = path;
+	void setPath(ArrayList<AEdge> antPathEdges) {
+		this.antPathEdges = antPathEdges;
 	}
 }

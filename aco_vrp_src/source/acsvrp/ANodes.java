@@ -39,18 +39,24 @@ public class ANodes {
 		for (ANode n: anodes) {
 			if (anode != n) {
 				AEdge aedge = new AEdge(anode.toString(), n.toString());
+				
+				// Start node
 				DefaultPort portS = new DefaultPort();
 				anode.add(portS);
 				portS.setParent(anode);
 				aedge.setSource (anode.getChildAt(0));
-				DefaultPort portT = new DefaultPort();
-				n.add(portT);
-				portT.setParent(n);
+				
+				// Destination node
+				DefaultPort portD = new DefaultPort();
+				n.add(portD);
+				portD.setParent(n);
 				aedge.setTarget (n.getChildAt(0));
 
 				aedge.cost.setDistance(anode.calculateDistance2Node(n));
 
 				anode.edges.add(aedge); 
+				//TODO NOW
+//				anode.add(aedge);
 			}
 		}
 		kCorr = correction();
@@ -64,17 +70,23 @@ public class ANodes {
 		AEdge e = null;
 		if (i != j) {
 			if (i < j) {
-				logger.trace("get #"+j+" #"+i);
+				logger.trace("getEdge(j,i) "+j+" -> "+i);
 				try {
 					e = anodes.get(j).edges.get(i);
+					if (e == null) {
+						logger.error("Edge not found! "+i+" -> "+j+" are same. Plese check. [ANodes.java]");
+					}
 				} catch (Exception e2) {
 					logger.trace("Anodes:getEdge"+e2);
 				}
 			}
 			else {
-				logger.trace("get #"+i+" #"+j);
+				logger.trace("getEdge(i,j) "+i+" ->"+j);
 				try {
 					e = anodes.get(i).edges.get(j);
+					if (e == null) {
+						logger.error("Edge not found! "+i+" -> "+j+" are same. Plese check. [ANodes.java]");
+					}
 				} catch (Exception e2) {
 					logger.trace("Anodes:getEdge"+e2);
 				}
@@ -82,15 +94,21 @@ public class ANodes {
 			}
 		}
 		else {
-			logger.info("get #"+i+" #"+j+" are same. Plese check. [ANodes.java]");
+			logger.error("get #"+i+" #"+j+" are same. Plese check. [ANodes.java]");
 			Dbg.delay(2000);
-			e =  anodes.get(i).edges.get(j);
 		}			
+		if (e == null) {
+			logger.error("Edge not found! "+i+" -> "+j+" are same. Plese check. [ANodes.java]");
+		} else {
+			logger.trace("getEdge(j,i) "+j+" -> "+i+" FOUND. "+e.getToolTipString());
+		}
+		
 		return e;
 	}
 
 	//TODO NOW
 	public AEdge getEdge(String startPar, String endPar) {
+		logger.trace("getEdge "+startPar+" -> "+endPar);
 		AEdge r = null;
 		int control = 0;
 		for (ANode n: anodes) {
@@ -127,6 +145,16 @@ public class ANodes {
 				e.setPheromon(AntColony.START_PHEROMON);
 			}
 		}
+	}
+	
+	public int getNumOfEdges() {
+		int i = 0;
+		for (ANode node: anodes) {
+			for (AEdge e: node.edges) {
+				i++;
+			}
+		}
+		return i;
 	}
 
 

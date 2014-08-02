@@ -323,7 +323,7 @@ public class Parameters extends javax.swing.JDialog {
                     + evt);
                 System.out.println("bCancel.actionPerformed, event="+ evt);
                 AntColony.MAX_CYCLES_PARAM = Integer.parseInt(tfMaxCycles.getText());
-                AntColony.START_PHEROMON = Float.parseFloat(tfPheromon.getText());
+                AntColony.START_PHEROMON = Double.parseDouble(tfPheromon.getText());
                 AntColony.ALPHA = Float.parseFloat(tfAlpha.getText());
                 AntColony.BETA = Float.parseFloat(tfBeta.getText());
                 AntColony.RO = Float.parseFloat(tfRo.getText());

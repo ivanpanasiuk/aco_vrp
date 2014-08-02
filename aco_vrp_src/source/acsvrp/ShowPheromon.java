@@ -1,7 +1,6 @@
 package acsvrp;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -39,6 +38,10 @@ public class ShowPheromon extends javax.swing.JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	static final Logger logger = Logger.getLogger(ShowPheromon.class);
+	
+	private static final int COLUMN_1_X = 1;
+	private static final int COLUMN_2_X = 210;
+	private static final int COLUMN_3_X = 210;
 
 	private static JLabel lblPheromonValue;
 
@@ -67,13 +70,13 @@ public class ShowPheromon extends javax.swing.JFrame {
 			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			this.setTitle("Calculating details");
 			this.setLocationByPlatform(true);
-			this.setPreferredSize(new Dimension(730, 500));
+			this.setPreferredSize(new Dimension(800, 500));
 			this.setLocation(new java.awt.Point(500, 400));
             setBackground(Constants.BG_COLOR);
 			
 			this.addKeyListener(new KeyAdapter() {
 				public void keyPressed(KeyEvent evt) {
-					System.out.println("this.keyPressed, event=" + evt);
+//					System.out.println("this.keyPressed, event=" + evt);
 					if (evt.getKeyCode() == 80) {
 						ShowPheromon.this.setVisible(false);
 					}
@@ -133,14 +136,14 @@ public class ShowPheromon extends javax.swing.JFrame {
 						lCurrentPathDist = new JLabel();
 						jDesktopPane1.add(lCurrentPathDist);
 						lCurrentPathDist.setText(AntColony.lblPathCost);
-						lCurrentPathDist.setBounds(245, 7, 140, 21);
+						lCurrentPathDist.setBounds(COLUMN_3_X, 7, 140, 21);
                         lCurrentPathDist.setForeground(Constants.FG_COLOR);
 					}
 					{
 						lBestDistAnt = new JLabel();
 						jDesktopPane1.add(lBestDistAnt);
 						lBestDistAnt.setText(AntColony.lblBestAntCost);
-						lBestDistAnt.setBounds(245, 28, 210, 21);
+						lBestDistAnt.setBounds(COLUMN_3_X, 28, 210, 21);
                         lBestDistAnt.setForeground(Constants.FG_COLOR);
 					}
 					{
@@ -154,7 +157,7 @@ public class ShowPheromon extends javax.swing.JFrame {
 						lBestDist = new JLabel();
 						jDesktopPane1.add(lBestDist);
 						lBestDist.setText(AntColony.lblBestCost);
-						lBestDist.setBounds(245, 49, 410, 21);
+						lBestDist.setBounds(COLUMN_3_X, 49, 410, 21);
                         lBestDist.setForeground(Constants.FG_COLOR);
 					}
 					{
@@ -172,7 +175,7 @@ public class ShowPheromon extends javax.swing.JFrame {
                         lNodesVisited.setForeground(Constants.FG_COLOR);
 					}
 
-					lblPheromonValue = new JLabel("Pheromon values x 1000 :");
+					lblPheromonValue = new JLabel("Pheromon values ( x 1000 ) :");
 					jDesktopPane1.add(lblPheromonValue);
 					lblPheromonValue.setBounds(7, 75, 400, 15);
                     lblPheromonValue.setForeground(Constants.FG_COLOR);
@@ -220,8 +223,10 @@ public class ShowPheromon extends javax.swing.JFrame {
 		lCurrentAnt.setText(currentAnt);
 	}
 
-	public static void setLabelBestDist(String bestDist) {
-		lBestDist.setText(bestDist);
+	public static void setLabelBestDist(Double cost, int iteration, Double distance, Double time) {
+		String txt = "Best cost: " + Def.df2(cost) + " (found at iteration " + iteration + ")"
+					+ " Distance: " + Def.df2(distance) + " Time: " + Def.df2(time);
+		lBestDist.setText(txt);
 	}
 
 	public static void setLabelNodesVisited(String nodesVisited) {
@@ -235,6 +240,7 @@ public class ShowPheromon extends javax.swing.JFrame {
 		head[0]="";
 		for (int i=0; i<nodes.size(); i++) {
 			head[i+1]=nodes.get(i).toString();
+			//TODO NOW
 			data[i][0]=nodes.get(i).toString();
 		}
 //		TableModel tPheromonModel = new DefaultTableModel(data, head);
@@ -255,6 +261,7 @@ public class ShowPheromon extends javax.swing.JFrame {
         
         TableModel tPheromonModel = new DefaultTableModel(data, newHead);
 		tPheromon.setModel(tPheromonModel);
+		tPheromon.getColumnModel().getColumn(0).setMaxWidth(27);
 	}
 
 	public static void refreshTableValueAt(int i, int j) {

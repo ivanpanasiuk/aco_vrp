@@ -124,11 +124,8 @@ public class Process {
                         {
                             if (AntColony.DIPSLAY_LEVEL > 2)
                             {
-                                logger.trace("showEdge");
                                 showEdge(currentNodeIndx, nextNodeIndx);
-                                logger.trace("showed");
                                 Dbg.delay(10);
-//								agraph.getGraphLayoutCache().setVisible(anodes.getEdge(currentNodeIndx, nextNodeIndx), true);
                             }
                             logger.trace("update capacity... ");
                             capacity = capacity - ants[antCount].addPath(aG.anodes, currentNodeIndx, nextNodeIndx);
@@ -177,7 +174,7 @@ public class Process {
                     if (AntColony.DIPSLAY_LEVEL > 0)
                     {
                         logger.trace("Showing best ant cost");
-                        ShowPheromon.setLBestCostAnt("Best cost (Ant): " + Def.df2(ants[antBestIndx].getCost()) + " (" + antBestIndx + ")");
+                        ShowPheromon.setLBestCostAnt("Best ant cost (Ant): " + Def.df2(ants[antBestIndx].getCost()) + " (" + antBestIndx + ")");
                         Dbg.delay(10);
                     }
                 }
@@ -186,9 +183,10 @@ public class Process {
                 {
                     MainFrame.statusBar.setText(" Ant " + (antCount + 1) + " of " + antNum + " finished its route. Cycle " + (cycle + 1) + " of " + aG.anodes.size() * AntColony.MAX_CYCLES_PARAM);
                     //Dbg.delay(50);
-                    logger.trace("Redraw all egdes.");
+                    
                     aG.redrawAllEdges();
-                    Dbg.delay(50);
+//                    Dbg.delay(50);
+                    
                 }
 
                 // export COST TIME DISTANCE
@@ -213,8 +211,7 @@ public class Process {
                 bestAnt = ants[antBestIndx];
                 if (AntColony.DIPSLAY_LEVEL > 0)
                 {
-                    ShowPheromon.setLabelBestDist("Best cost: " + Def.df2(bestAnt.getCost()) + " (" + cycle + ")"
-                        + " Distance: " + Def.df2(bestAnt.cost.getDistance()) + " Time: " + Def.df2(bestAnt.cost.getTime()));
+                    ShowPheromon.setLabelBestDist(bestAnt.getCost(), cycle, bestAnt.cost.getDistance(), bestAnt.cost.getTime());
                 }
             }
             
@@ -224,6 +221,7 @@ public class Process {
             {
                 MainFrame.statusBar.setText(" Evaporation ...");
             }
+            // All edges evaporet by local update formula
             if (!AntColony.LOCAL_UPDATE)
             {
                 for (int i = 0; i < aG.anodes.size() - 1; i++)
@@ -243,28 +241,36 @@ public class Process {
                 bestCycle = cycle;
                 if (AntColony.DIPSLAY_LEVEL > 0)
                 {
-                	ShowPheromon.setLabelBestDist("Best cost: " + Def.df2(bestAnt.getCost()) + " (" + cycle + ")"
-                            + " Distance: " + Def.df2(bestAnt.cost.getDistance()) + " Time: " + Def.df2(bestAnt.cost.getTime()));
+                	ShowPheromon.setLabelBestDist(bestAnt.getCost(), cycle, bestAnt.cost.getDistance(), bestAnt.cost.getTime());
                 }
             }
 
-            // Add pheromon for the best path
-            for (AEdge e : ants[antBestIndx].path)
+            // Add pheromone for the best path
+            for (AEdge e : ants[antBestIndx].antPathEdges)
             {
 //				Dbg.prn((t++)+" "+antBestIndx+":"+ants[antBestIndx].getDist()+" "+bestAnt.getDist()+" r: "+(bestAnt.getDist()/(ants[antBestIndx].getDist()*1.0))+" "+e.getPheromon());
                 double newPh = globalUpdate(e.getPheromon(), ants[antBestIndx].getCost());
                 e.setPheromon(newPh);
-                aG.redrawEdge(e);
-//				Dbg.delay(1000);
+                //TODO NOW
+//                aG.redrawEdge(e);
             }
-
+            logger.debug("Pheromone for the best path refreshed.");
+//			Dbg.delay(1000);
+            
             if (AntColony.DIPSLAY_LEVEL > 0)
             {
             	if (AntColony.DIPSLAY_LEVEL > 1)
             	{
             		ShowPheromon.refreshTable();
+//            		logger.debug("Pheromone table refreshed.");
+//            		Dbg.delay(1000);
+            		
+            		aG.redrawAllEdges();
+//            		logger.debug("Graph redrawAllEdges() finished.");
+//            		Dbg.delay(1000);
+            		
             	}
-            	Dbg.delay(100);
+            	
             }
 
             if (sameCyleces > aG.anodes.size() * AntColony.MAX_CYCLES_PARAM + 50)
@@ -290,7 +296,7 @@ public class Process {
         // Optimization finished. Redraw the best solution in GREEN
         if (AntColony.DIPSLAY_LEVEL > 0)
         {
-            for (AEdge e : bestAnt.path)
+            for (AEdge e : bestAnt.antPathEdges)
             {
                 showEdge(e, Color.GREEN);
                 logger.debug(e.getToolTipString());
@@ -430,6 +436,7 @@ public class Process {
             if (e != null)
             {
                 showEdge(e, Color.BLUE);
+                logger.trace("Edge showed");
             }
         } catch (NullPointerException e)
         {
@@ -449,18 +456,23 @@ public class Process {
         }
     }
 
+    // all edges evaporation
     public static double localUpdate(double oldPh)
     {
         double newPh;
-        newPh = (1.0f - AntColony.RO) * oldPh + AntColony.RO * AntColony.START_PHEROMON;
+//        newPh = (1.0f - AntColony.RO) * oldPh + AntColony.RO * AntColony.START_PHEROMON;
+        newPh = (1.0 - AntColony.RO) * oldPh;
         return newPh;
     }
 
-    public static double globalUpdate(double oldPh, double delta)
+    // the best path pheromon update
+    public static double globalUpdate(double oldPh, double cost)
     {
-//		return oldPh + AntColony.RO / delta;
-        double newPh = oldPh + 1.0 / delta;
+//		return oldPh + AntColony.RO / cost;
+        double newPh = oldPh + 1.0 / cost;
         return (newPh);
     }
+    
+    
 
 }

@@ -38,15 +38,16 @@ public class AEdge extends DefaultEdge {
     {
         DecimalFormat df = new DecimalFormat(AntColony.NUM_FORMAT);
         DecimalFormat df2 = new DecimalFormat(AntColony.FORMAT_DOUBLE_2);
-        setUserObject("P " + df.format(1000 * this.pheromon) + "   D " + df2.format(cost.getDistance()) + "  T " + df2.format(cost.getTime()));
         pheromon = ph;
+        setUserObject("P " + df.format(1000 * this.pheromon) + "   D " + df2.format(cost.getDistance()) + "  T " + df2.format(cost.getTime()));
+        
     }
 
     public String getToolTipString()
     {
         return (startIndx+"->"+endIndx+" Ph:"+pheromon+" Length:"+cost.getDistance()
-        		+" [" + Process.tauNi(pheromon, cost.getValue(), AntColony.RO) 
-        		+ "] Cost:"+cost.getValue()+" Time:")+cost.getTime();
+//        		+" [" + Process.tauNi(pheromon, cost.getValue(), AntColony.RO) 
+        		+ " Cost:"+cost.getValue()+" Time:")+cost.getTime();
     }
     
     public String getStart()

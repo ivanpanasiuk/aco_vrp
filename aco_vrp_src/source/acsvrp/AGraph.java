@@ -15,6 +15,7 @@ public class AGraph extends JGraph {
 
 	private static final long serialVersionUID = 1L;
 	static final Logger logger = Logger.getLogger(AGraph.class);
+	
 	ANodes anodes;
 
 	/**
@@ -58,7 +59,7 @@ public class AGraph extends JGraph {
 		/*
 		ToolTipManager.sharedInstance().registerComponent(this);
 		*/
-		this.removeAll();
+//		this.removeAll();
 		
 		// Dodaj centralni magacin - node 0
 		getGraphLayoutCache().insert(anodes.get(0).createVertex(Color.RED, anodes.kCorr, anodes.xCorr, anodes.yCorr));
@@ -69,13 +70,6 @@ public class AGraph extends JGraph {
 			Dbg.delay(30);
 			addAllEdges(i);
 			Dbg.delay(30);
-			/*
-			for (AEdge e: anodes.get(i).edges) {
-				getGraphLayoutCache().insert(e);
-				getGraphLayoutCache().setVisible(e, false);
-			}
-			*/
-			//Dbg.delay(1500);
 		}
 		logger.debug("Svi gradovi i putanje iscrtane. ");
 		//getModel().addGraphModelListener(new ModelListener());
@@ -87,16 +81,18 @@ public class AGraph extends JGraph {
 	}
 	
 	public void addAllEdges (int i) {
-		logger.trace("Dodajem putanje od grada "+i+" do ostalih gradova.");
+		logger.debug("addAllEdges: Dodajem putanje od grada "+i+" do ostalih gradova.");
 		for (AEdge e: anodes.get(i).edges) {
 			GraphConstants.setLabelAlongEdge(e.getAttributes(), true);
 			GraphConstants.setSelectable(e.getAttributes(), false);
+			GraphConstants.setLineColor(e.getAttributes(), new Color(200,200,200));
+			logger.trace("addAllEdges e = "+e.getToolTipString());
 			getGraphLayoutCache().insert(e);
-			getGraphLayoutCache().setVisible(e, false);
+//			getGraphLayoutCache().setVisible(e, false);
 		}
-		//TODO getGraphLayoutCache().setVisible(anodes.get(i).edges.toArray(), false);
+		getGraphLayoutCache().setVisible(anodes.get(i).edges.toArray(), false);
 		logger.trace("Sve putanje dodate");
-		Dbg.delay(10);
+//		Dbg.delay(100);
 	}		
 
 	public void addNewNode (int x, int y) {
@@ -110,46 +106,108 @@ public class AGraph extends JGraph {
 		anodes.add(newNode);
 		getGraphLayoutCache().insert(newNode.createVertex(Color.ORANGE, 1, 0, 0));
 		addAllEdges(anodes.size()-1);
-		Dbg.prnl("new size: "+anodes.size());
+		logger.debug("addNewNode (int x, int y) : new size = "+anodes.size());
 	}
 	
 	public void redrawAllEdges() {		
-		for (int i = 0; i < anodes.size()-1; i++) {
-			for (int j = i+1; j < anodes.size(); j++) {
-				redrawEdge(i,j);
+		/*
+		logger.debug("redrawAllEdges()");
+		if (AntColony.DIPSLAY_LEVEL > 2) {
+			Dbg.delay(50 * AntColony.DIPSLAY_LEVEL);
+		}
+		*/
+		/*
+		for (ANode node: anodes.anodes) {
+			for (AEdge e: node.edges) {
+				redrawEdge(e);
 			}
 		}
+		*/
+		
+		ArrayList<AEdge> notVisibleEdges = new ArrayList<AEdge>();
+		ArrayList<AEdge> visibleEdges = new ArrayList<AEdge>();
+		for (ANode node: anodes.anodes) {
+			for (AEdge e: node.edges) {
+				e.pheromon = e.pheromon + 1 - 1;
+//				logger.debug(e.getToolTipString());
+				if (e.getPheromon() <= AntColony.START_PHEROMON) {
+					notVisibleEdges.add(e);
+				} else {
+					GraphConstants.setLineColor(e.getAttributes(), new Color(200,200,200));
+					visibleEdges.add(e);
+				}
+			}
+		}
+		
+		if (visibleEdges.size() > 0) {
+			getGraphLayoutCache().setVisible(visibleEdges.toArray(), true);
+		}
+		if (notVisibleEdges.size() > 0) {
+			getGraphLayoutCache().setVisible(notVisibleEdges.toArray(), false);
+		}
+//		logger.debug("Redraw all egdes finished.");
+		/*
+		if (AntColony.DIPSLAY_LEVEL > 2) {
+			Dbg.delay(50 * AntColony.DIPSLAY_LEVEL);
+		}
+		*/
 	}	
 	
 	public void redrawEdge(int i, int j) {
 		AEdge e = anodes.getEdge(i, j);
-		logger.trace("redrawEdge(): "+e.getToolTipString());
+		logger.trace("redrawEdge(i,j): "+e.getToolTipString());
 		if (e != null) {
 			redrawEdge(e);
 		}
 	}
 	
 	public void redrawEdge (AEdge e) {
-		if (e.getPheromon() > AntColony.START_PHEROMON) {
-			logger.trace("setVisible: "+e.getToolTipString());
-			try {
-				GraphConstants.setLineColor(e.getAttributes(), new Color(200,200,200));
-				getGraphLayoutCache().setVisible(e, true);
-			} catch (NullPointerException obj) {
-				logger.error("Showing.NullPointerException: i="+e.getToolTipString());
-			}
-//			Dbg.delay(50);
-		} else {
-			logger.trace(e.getToolTipString()+" hide");
-			try {
-				this.getGraphLayoutCache().setVisible(e, false);
-			} catch (NullPointerException obj) {
-				logger.error("Hidding.NullPointerException: "+e.getToolTipString());
-			}
-//			Dbg.delay(50);
+		logger.debug("redrawEdge (AEdge e): "+e.getToolTipString());
+		
+		if (e.getSource()==null) {
+			logger.error("redrawEdge: e.getSource()==null");
+		}
+		if (e.getTarget()==null) {
+			logger.error("redrawEdge: e.getTarget()==null");
 		}
 		
+//		GraphConstants.setLineColor(e.getAttributes(), Color.RED);
+//		getGraphLayoutCache().setVisible(e, true);
+		
+		if (AntColony.DIPSLAY_LEVEL > 2) {
+//			Dbg.delay(60 * AntColony.DIPSLAY_LEVEL);
+		}
+		
+		if (e.getPheromon() > AntColony.START_PHEROMON) {
+			try {
+				logger.trace("e.getPheromon() > AntColony.START_PHEROMON");
+				GraphConstants.setLineColor(e.getAttributes(), new Color(200,200,200));
+				getGraphLayoutCache().setVisible(e, true);
+				repaint();
+			} catch (Exception exp) {
+				logger.error("Showing.NullPointerException: i="+e.getToolTipString()+exp);
+			}
+		} else {
+			logger.debug("Hide "+ e.getToolTipString());
+			try {
+				getGraphLayoutCache().setVisible(e, false);
+//				GraphConstants.setLineColor(e.getAttributes(), new Color(230,230,230));
+				repaint();
+			} catch (Exception exp) {
+				logger.error("Hidding.NullPointerException: "+e.getToolTipString()+exp);
+			}
+		}
+		
+		logger.debug("redrawEdge(AEdge e) finished. "+e.getToolTipString());
+		
+		if (AntColony.DIPSLAY_LEVEL > 2) {
+			Dbg.delay(50 * AntColony.DIPSLAY_LEVEL);
+		}
+		
+		
 	}
+	
+	
 	
 	//TODO vratiti
 	/*
@@ -168,8 +226,8 @@ public class AGraph extends JGraph {
 	public void removeEverything() {
 		this.removeAll();
 		this.validate();
-		anodes.removeAll();
-		getGraphLayoutCache().notifyAll();
+//		anodes.removeAll();
+//		getGraphLayoutCache().notifyAll();
 //		getGraphLayoutCache().
 	}
 }

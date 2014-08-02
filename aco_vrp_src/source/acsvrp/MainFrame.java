@@ -71,6 +71,7 @@ public class MainFrame extends JFrame {
 	AGraph agraph;
 	GraphModel model;
 	GraphLayoutCache view;
+	BorderLayout agraphLayout;
 	
 	ShowPheromon showPheromon;
 	Parameters parameters;
@@ -113,22 +114,21 @@ public class MainFrame extends JFrame {
 		//System.setProperty("sun.java2d.d3d", "false");
 		PropertyConfigurator.configure("log4j.properties");
 		
-		model = new DefaultGraphModel();
-		view = new GraphLayoutCache(model,new DefaultCellViewFactory(),true);
+//		model = new DefaultGraphModel();
+//		view = new GraphLayoutCache(model,new DefaultCellViewFactory(),true);
 
 		this.setSize(720, 575);
+		this.setLocation(new java.awt.Point(100, 100));
+//		this.setLocationRelativeTo(null); // center on screen
 		this.setTitle("Vechicle routing system using Ant Colony System optimization");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		{
-			agraph = new AGraph(model, view);
-			jScrollPane = new JScrollPane(agraph);
-			getContentPane().add(jScrollPane, BorderLayout.CENTER);
-			jScrollPane.setPreferredSize(new java.awt.Dimension(712, 447));
-			jScrollPane.setSize(712, 468);
-			{
-				BorderLayout agraphLayout = new BorderLayout();
-				agraph.setLayout(agraphLayout);
-			}
+//			agraph = new AGraph(model, view);
+			initGraph();
+//			jScrollPane = new JScrollPane(agraph);
+//			getContentPane().add(jScrollPane, BorderLayout.CENTER);
+//			jScrollPane.setPreferredSize(new java.awt.Dimension(712, 447));
+//			jScrollPane.setSize(712, 468);
 		}
 		statusBar = new JLabel("Ready");
         statusBar.setForeground(Constants.FG_COLOR);
@@ -155,7 +155,12 @@ public class MainFrame extends JFrame {
 					public void actionPerformed(ActionEvent arg0) {
 						// new graph
 						//TODO NOW
-						agraph.removeEverything();
+						getContentPane().remove(jScrollPane);
+						logger.debug("New");
+						jScrollPane.remove(agraph);
+						initGraph();
+						statusBar.setText("New graph created.");
+						getContentPane().repaint();
 					}
 				});
 			}
@@ -265,7 +270,6 @@ public class MainFrame extends JFrame {
 			}	
 		}		
 
-		this.setLocation(new java.awt.Point(40, 40));
 		{
 			jMenuBar1 = new JMenuBar();
 			setJMenuBar(jMenuBar1);
@@ -559,7 +563,7 @@ public class MainFrame extends JFrame {
 
 	private void createAnodes(String vrpFile) {
 		// Ucitaj sve gradove iz fajla FILE_NAME
-		statusBar.setText("Importing file. Please wait...");
+		agraph.anodes = new ANodes();
 		agraph.anodes = AFile.loadNodes(vrpFile);
 		statusBar.setText(agraph.anodes.size() + " cities loaded. Drawing all rutes...");
 		// Draw a AGraph graph
@@ -590,7 +594,7 @@ public class MainFrame extends JFrame {
 	}
 
 	private void OpenActionPerformed(ActionEvent evt) {
-		//		System.out.println("Open actionPerformed, event="+ evt);
+		statusBar.setText("Importing file. Please wait...");
 		final JFileChooser fc = new JFileChooser("./def");
 		fc.addChoosableFileFilter(new VrpFilter());
 		int returnVal = fc.showOpenDialog(MainFrame.this);
@@ -632,6 +636,18 @@ public class MainFrame extends JFrame {
 			jButtonStart.setIcon(new ImageIcon(getClass().getClassLoader().getResource("acsvrp/resources/Error.gif")));
 		}
 		logger.info("start: "+startACO);
+	}
+	
+	private void initGraph() {
+		model = new DefaultGraphModel();
+		view = new GraphLayoutCache(model,new DefaultCellViewFactory(),true);
+		agraph = new AGraph(model, view);
+		agraphLayout = new BorderLayout();
+		agraph.setLayout(agraphLayout);
+		jScrollPane = new JScrollPane(agraph);
+		jScrollPane.setPreferredSize(new java.awt.Dimension(712, 447));
+		jScrollPane.setSize(712, 468);
+		getContentPane().add(jScrollPane, BorderLayout.CENTER);
 	}
 
 }

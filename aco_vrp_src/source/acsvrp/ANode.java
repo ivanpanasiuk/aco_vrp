@@ -44,29 +44,29 @@ public class ANode extends DefaultGraphCell {
 	}
 
 	/**
-	 * Return distance to another node
+	 * Return cost to another node
 	 * @param node
-	 * @return int - distance to another node
+	 * @return cost to another node
 	 */
-	public double getCost2Node(ANode anode) {
-		double res = -1;
+	public Cost getCost2Node(ANode anode) {
+		Cost res = null;
 		String allEdgesEnds = "{";
 		for (AEdge e : edges) {
 			allEdgesEnds += " ["+e.endIndx+"]";
 			if (e.endIndx.equals(anode.name)) {
 				allEdgesEnds += "*";
 //				res = e.cost.getDistance();
-				res = e.cost.getValue();
+				res = e.cost;
 			}
 		}
-		if (res<0) {	// edge probably start at destination node
+		if (res==null) {	// edge probably start at destination node
 			allEdgesEnds = "(-1){";
 			for (AEdge e : anode.edges) {
 				allEdgesEnds += "["+e.endIndx+"]";
 				if (e.endIndx.equals(this.name)) {
 					allEdgesEnds += "*";
 //					res = e.cost.getDistance();
-					res = e.cost.getValue();
+					res = e.cost;
 				}
 			}
 		}
@@ -77,8 +77,8 @@ public class ANode extends DefaultGraphCell {
 			Dbg.prnl("We got a problem with cost from ["+this.name+" to "+anode.name+"] d="+Def.df4(d)+" res="+Def.df4(res)+" not in "+allEdgesEnds+"}");
 		}
 		*/
-		if (res <= 0) {
-			Dbg.prnl("Cost <= 0 from ["+this.name+" to "+anode.name+"] d="+Def.df4(d)+" res="+Def.df4(res)+" in "+allEdgesEnds+"}");
+		if (res == null) {
+			Dbg.prnl("Cost not found for ["+this.name+" -> "+anode.name+"] d="+Def.df4(d)+" in "+allEdgesEnds+"}");
 		}
 		return res;
 	}
@@ -91,24 +91,6 @@ public class ANode extends DefaultGraphCell {
 	public double calculateDistance2Node(ANode anode) {
 		double d = Math.sqrt(Math.pow((x-anode.x),2)+Math.pow((y-anode.y),2));
 		return d;
-	}
-	
-	
-	
-	/**
-	 * Calculate Time to another node
-	 * @param node
-	 * @return int calculated time to another node
-	 */
-	public double getTime2Node(ANode anode) {
-		double res = -1;
-		for (AEdge e : edges) {
-			if (e.endIndx.equals(anode.name)) {
-				res = e.cost.getTime();
-			}
-		}
-		
-		return res;
 	}
 
 	public String toString() {

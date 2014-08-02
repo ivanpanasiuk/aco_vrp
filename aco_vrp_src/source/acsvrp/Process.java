@@ -120,8 +120,7 @@ public class Process {
                         if ((nextNodeIndx == 0) || (aG.anodes.get(nextNodeIndx).getDemand() > capacity))
                         {
                             capacity = 0;
-                        } else
-                        {
+                        } else {
                             if (AntColony.DIPSLAY_LEVEL > 2)
                             {
                                 showEdge(currentNodeIndx, nextNodeIndx);
@@ -135,9 +134,8 @@ public class Process {
                             //Dbg.prn(" "+anodes.get(nextNodeIndx).isVisited()+" Go on.");
                         }
 
-                        logger.trace(" Vis: " + aG.anodes.numOfVisited() + " Cap: " + capacity + " Cost:" + ants[antCount].getCost());
-                        if (AntColony.DIPSLAY_LEVEL > 2)
-                        {
+                        logger.debug("Num. of visited: " + aG.anodes.numOfVisited() + " Cap: " + capacity + " Cost:" + ants[antCount].getCost());
+                        if (AntColony.DIPSLAY_LEVEL > 2) {
                             ShowPheromon.setLabelCurrentNode("Node: " + currentNodeIndx + " (" + nextNodeIndx + ")");
 //							Dbg.prnl("Node: "+capacity);
                             ShowPheromon.setLabelCapacityLeft("Capacity left: " + capacity);
@@ -331,7 +329,7 @@ public class Process {
             {
                 // izracunaj tau ni proizvod iz putanje crnt-og i i-tog Node-a
                 double rnd = generator.nextDouble();
-                double new_score = tauNi(aG.anodes.getEdge(crnt, i).getPheromon(), aG.anodes.get(crnt).getCost2Node(aN), rnd);
+                double new_score = tauNi(aG.anodes.getEdge(crnt, i).getPheromon(), aG.anodes.get(crnt).getCost2Node(aN).getValue(), rnd);
 
 //				Dbg.prn(" ["+crnt+"]->["+i+"] rnd:"+rnd+" val:"+new_score);
                 if (new_score > best_score)

@@ -24,9 +24,8 @@ public class Ant {
 	}
 	
 	public int addPath (ANodes anodes, int i, int j) {
-		this.cost.incDistance(anodes.get(i).getCost2Node(anodes.get(j)));
-		this.cost.incTime(anodes.get(i).getTime2Node(anodes.get(j)));
-		this.cost.incValue(anodes.get(i).getCost2Node(anodes.get(j)));
+		this.cost.incDistance(anodes.get(i).getCost2Node(anodes.get(j)).getDistance());
+		this.cost.incTime(anodes.get(i).getCost2Node(anodes.get(j)).getTime());
                 
 		this.antPathEdges.add(anodes.getEdge(i, j));
 		num_nodes++;

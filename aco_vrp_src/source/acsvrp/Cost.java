@@ -54,7 +54,4 @@ public class Cost {
 		this.time += time;
 	}
 
-	public void incValue(double value) {
-	}
-
 }

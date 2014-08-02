@@ -40,7 +40,7 @@ public class ShowPheromon extends javax.swing.JFrame {
 	static final Logger logger = Logger.getLogger(ShowPheromon.class);
 	
 	private static final int COLUMN_1_X = 1;
-	private static final int COLUMN_2_X = 210;
+	private static final int COLUMN_2_X = 100;
 	private static final int COLUMN_3_X = 210;
 
 	private static JLabel lblPheromonValue;
@@ -129,7 +129,7 @@ public class ShowPheromon extends javax.swing.JFrame {
 						lPathCapacity = new JLabel();
 						jDesktopPane1.add(lPathCapacity);
 						lPathCapacity.setText("Path count: ");
-						lPathCapacity.setBounds(112, 7, 126, 21);
+						lPathCapacity.setBounds(COLUMN_2_X, 7, 126, 21);
                         lPathCapacity.setForeground(Constants.FG_COLOR);
 					}
 					{

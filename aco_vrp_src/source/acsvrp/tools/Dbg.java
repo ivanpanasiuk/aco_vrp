@@ -29,8 +29,9 @@ public class Dbg {
 	public static void delay (int ms) {
 		try
 		{ 
+//			System.out.print("..... waiting "+ (ms * AntColony.SPEED)+" ms ("+ms+" * "+AntColony.SPEED+") [Dbg.java]");
 			Thread.sleep(ms * AntColony.SPEED);
-//			System.out.println("... Wait "+ (ms * AntColony.SPEED)+" ("+ms+" * "+AntColony.SPEED+") ms [Dbg.java]");
+//			System.out.println(". Finished.");
 		}
 		catch (InterruptedException ie) {	}
 		while (AntColony.STOP) {

@@ -134,7 +134,7 @@ public class Process {
                             //Dbg.prn(" "+anodes.get(nextNodeIndx).isVisited()+" Go on.");
                         }
 
-                        logger.debug("Num. of visited: " + aG.anodes.numOfVisited() + " Cap: " + capacity + " Cost:" + ants[antCount].getCost());
+                        logger.trace("Num. of visited: " + aG.anodes.numOfVisited() + " Cap: " + capacity + " Cost:" + ants[antCount].getCost());
                         if (AntColony.DIPSLAY_LEVEL > 2) {
                             ShowPheromon.setLabelCurrentNode("Node: " + currentNodeIndx + " (" + nextNodeIndx + ")");
 //							Dbg.prnl("Node: "+capacity);
@@ -466,8 +466,12 @@ public class Process {
     // the best path pheromon update
     public static double globalUpdate(double oldPh, double cost)
     {
-//		return oldPh + AntColony.RO / cost;
-        double newPh = oldPh + 1.0 / cost;
+//        double newPh = oldPh + 1.0 / cost;
+    	double newPh = oldPh / (1.0 - AntColony.RO);  // compensate localUpdate
+    	newPh = newPh + AntColony.RO / cost;
+    	if ((newPh/oldPh) > 1.5) {
+    		logger.debug("globalUpdate() change ratio to high. oldPh = "+Double.toString(oldPh)+" newPh= "+Double.toString(newPh)+ " (newPh/oldPh) = "+Double.toString(newPh/oldPh));
+    	}
         return (newPh);
     }
     

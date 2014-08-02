@@ -67,9 +67,9 @@ public class AGraph extends JGraph {
 		for (int i = 1; i < anodes.size(); i++) {	
 			logger.trace("AGraph.java: dodajem grad " + i + ":" + anodes.get(i) + " ");
 			getGraphLayoutCache().insert(anodes.get(i).createVertex(Color.YELLOW, anodes.kCorr, anodes.xCorr, anodes.yCorr));
-			Dbg.delay(30);
+//			Dbg.delay(30);
 			addAllEdges(i);
-			Dbg.delay(30);
+//			Dbg.delay(30);
 		}
 		logger.debug("Svi gradovi i putanje iscrtane. ");
 		//getModel().addGraphModelListener(new ModelListener());
@@ -201,7 +201,7 @@ public class AGraph extends JGraph {
 		logger.debug("redrawEdge(AEdge e) finished. "+e.getToolTipString());
 		
 		if (AntColony.DIPSLAY_LEVEL > 2) {
-			Dbg.delay(50 * AntColony.DIPSLAY_LEVEL);
+			Dbg.delay(10 * AntColony.DIPSLAY_LEVEL);
 		}
 		
 		

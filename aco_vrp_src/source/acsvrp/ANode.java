@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.geom.*;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import javax.swing.SwingConstants;
 
@@ -20,7 +21,7 @@ import acsvrp.tools.Def;
 public class ANode extends DefaultGraphCell {
 
 	private static final long serialVersionUID = -3895939121806721850L;
-
+	
 	private int x;
 	private int y;
 	private int demand;
@@ -69,11 +70,17 @@ public class ANode extends DefaultGraphCell {
 				}
 			}
 		}
+		
 		double d = Math.sqrt(Math.pow((x-anode.x),2)+Math.pow((y-anode.y),2));
+		/*
 		if (res!=d) {
-			Dbg.prnl("We got a problem with distance from ["+this.name+" to "+anode.name+"] d="+Def.df4(d)+" res="+Def.df4(res)+" not in "+allEdgesEnds+"}");
+			Dbg.prnl("We got a problem with cost from ["+this.name+" to "+anode.name+"] d="+Def.df4(d)+" res="+Def.df4(res)+" not in "+allEdgesEnds+"}");
 		}
-		return d;
+		*/
+		if (res <= 0) {
+			Dbg.prnl("Cost <= 0 from ["+this.name+" to "+anode.name+"] d="+Def.df4(d)+" res="+Def.df4(res)+" in "+allEdgesEnds+"}");
+		}
+		return res;
 	}
 	
 	/**

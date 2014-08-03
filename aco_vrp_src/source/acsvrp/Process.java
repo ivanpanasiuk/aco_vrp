@@ -470,7 +470,8 @@ public class Process {
     	double newPh = oldPh / (1.0 - AntColony.RO);  // compensate localUpdate
     	newPh = newPh + AntColony.RO / cost;
     	if ((newPh/oldPh) > 1.5) {
-    		logger.debug("globalUpdate() change ratio to high. oldPh = "+Double.toString(oldPh)+" newPh= "+Double.toString(newPh)+ " (newPh/oldPh) = "+Double.toString(newPh/oldPh));
+    		logger.debug("globalUpdate() change ratio to high. oldPh = "+Double.toString(oldPh)+" newPh= "+Double.toString(newPh)+
+    				" cost = "+Double.toString(cost)+ " (newPh/oldPh) = "+Double.toString(newPh/oldPh));
     	}
         return (newPh);
     }

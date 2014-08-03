@@ -261,7 +261,7 @@ public class ShowPheromon extends javax.swing.JFrame {
         
         TableModel tPheromonModel = new DefaultTableModel(data, newHead);
 		tPheromon.setModel(tPheromonModel);
-		tPheromon.getColumnModel().getColumn(0).setMaxWidth(27);
+		tPheromon.getColumnModel().getColumn(0).setMaxWidth(29);
 	}
 
 	public static void refreshTableValueAt(int i, int j) {

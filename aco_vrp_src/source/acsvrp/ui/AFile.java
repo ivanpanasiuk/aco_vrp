@@ -153,8 +153,9 @@ public class AFile {
 							try {
 								String sourceNode = st.nextToken();
 								String destNode = st.nextToken();
-								String time = st.nextToken();
-								anodes.getEdge(sourceNode, destNode).cost.setTime(Double.parseDouble(time));
+								String speed = st.nextToken();
+								Double d = anodes.getEdge(sourceNode, destNode).cost.getDistance();
+								anodes.getEdge(sourceNode, destNode).cost.setTime(d/Double.parseDouble(speed));
 							} catch (Exception e) {
 								// TODO: handle exception
 								String message = "Line '" + str + "' could no be parsed!";
